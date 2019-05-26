@@ -10,6 +10,10 @@ insert into auth_user (password, is_superuser, username, first_name, email, is_s
 insert into survey_student (user_id, sclass_id) select (select id from auth_user where username = 'student1'), id from survey_class where code = 'IA';
 insert into survey_student (user_id, sclass_id) select (select id from auth_user where username = 'student2'), id from survey_class where code = 'NA';
 insert into survey_professor (user_id) select (select id from auth_user where username = 'professor1');
+insert into auth_group (name) values ('Professor'), ('Student');
+insert into auth_user_groups(user_id, group_id) select (select id from auth_user where username = 'student1'), id from auth_group where name = 'Student';
+insert into auth_user_groups(user_id, group_id) select (select id from auth_user where username = 'student2'), id from auth_group where name = 'Student';
+insert into auth_user_groups(user_id, group_id) select (select id from auth_user where username = 'professor1'), id from auth_group where name = 'Professor';
 insert into survey_study (acronym, description) values ('IM', 'Inteligências Múltiplas');
 insert into survey_study (acronym, description) values ('EA', 'Estilos de Aprendizagem');
 insert into survey_studyoption (code, description, study_id) select 'ATIVO', 'Ativo', id from survey_study where acronym = 'EA';
