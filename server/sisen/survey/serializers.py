@@ -88,7 +88,10 @@ class StudySerializer(serializers.ModelSerializer):
 
     def get_answered(self, obj):
         student = self.context['student']
-        return models.StudentAnswer.objects.filter(student=student).count() > 0
+        return models.StudentAnswer.objects.filter(
+            student=student,
+            study=obj
+        ).exists()
 
 
 class AvailableStudySerializer(serializers.Serializer):
