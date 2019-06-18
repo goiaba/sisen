@@ -1,0 +1,15 @@
+<template>
+  <ux-dialog>
+    <ux-dialog-header>${heading}</ux-dialog-header>
+
+    <ux-dialog-body>
+      <select value.bind="selectedRole">
+        <option repeat.for="role of availableRoles" value.bind="role">${role}</option>
+      </select>
+    </ux-dialog-body>
+
+    <ux-dialog-footer>
+      <button click.delegate="dialogController.ok(selectedRole)">Ok</button>
+    </ux-dialog-footer>
+  </ux-dialog>
+</template>

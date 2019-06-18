@@ -1,0 +1,19 @@
+<template>
+  <require from="nav-bar.html"></require>
+  <div class="ui container page-host">
+    <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
+    <h1>Estudos Disponíveis</h1>
+    <div class="rTable">
+      <div class="rTableRow">
+        <div class="rTableHead"><strong>Estudo</strong></div>
+        <div class="rTableHead"><span style="font-weight: bold;">Respondido</span></div>
+        <div class="rTableHead">Ações Disponíveis</div>
+        <div class="rTableHead">&nbsp;</div>
+      </div>
+      <div repeat.for="study of availableStudies">
+        ${study}
+      </div>
+      </div>
+    <span class="error">${ahc.requestErrorMessage}</span>
+  </div>
+</template>

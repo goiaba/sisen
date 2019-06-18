@@ -1,0 +1,8 @@
+<template>
+  <require from="nav-bar.html"></require>
+  <div class="ui container page-host">
+    <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
+    <h1>Admin's home page</h1>
+    <router-view></router-view>
+  </div>
+</template>
