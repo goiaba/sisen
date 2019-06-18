@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sisen.survey.apps.SurveyConfig',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -131,3 +134,15 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 }
+
+# Remove config or decrease interval when in production
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=30),
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'sisen.survey.utils.jwt_response_payload_handler',
+}
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8080"
+]

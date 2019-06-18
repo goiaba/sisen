@@ -1,8 +1,8 @@
 from django.db.models import Sum, F
-from sisen.survey.dto import StudyResult, StudyOptionResult
+from sisen.survey.dto import StudyWithMessageAndStudentOptionScore, StudyOptionScore, StudentWithOptionScore
 import sisen.survey.models as models
 
-def process_answer(study, student):
+def _calculate_student_score_by_study(study, student):
     # Creates a dict like { studyoption_id1: max_score1, ..., studyoption_idN: max_scoreN }
     total_value_by_option = { item['studyoption_id']: item['max_score'] for item in
         models.Question.objects.values(
@@ -23,12 +23,24 @@ def process_answer(study, student):
           student=student,
           study=study
     )
-    results = []
+    scores = []
     for item in student_total_value_by_option:
         id = item.get('studyoption_id')
         code = item.get('code')
         description = item.get('description')
         score = item.get('score')
         percentual_score = score/total_value_by_option.get(id)
-        results.append(StudyOptionResult(code, description, percentual_score))
-    return StudyResult(study.id, 'message', results, [])
+        scores.append(StudyOptionScore(code, description, percentual_score))
+    return scores
+
+def process_answer(study, student):
+    return StudyWithMessageAndStudentOptionScore(
+        study,
+        'TODO: GET MESSAGE FROM .properties FILE',
+        _calculate_student_score_by_study(study, student),
+        [])
+
+def student_scores(study, student):
+    return StudentWithOptionScore(
+        student.user,
+        _calculate_student_score_by_study(study, student))

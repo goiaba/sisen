@@ -80,19 +80,19 @@ class Class(models.Model):
 
 
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
     sclass = models.ForeignKey(Class, on_delete=models.PROTECT, related_name='students')
 
     def __str__(self):
-        return "%s: %s %s, %s" % (self.user.email, self.user.firstname, self.user.lastname, self.sclass)
+        return "%s: %s %s, %s" % (self.user.email, self.user.first_name, self.user.last_name, self.sclass)
 
 
 class Professor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
     classes = models.ManyToManyField(Class, related_name='professors')
 
     def __str__(self):
-        return "%s: %s %s, %s" % (self.user.email, self.user.firstname, self.user.lastname, self.classes)
+        return "%s: %s %s, %s" % (self.user.email, self.user.first_name, self.user.last_name, self.classes)
 
 
 class StudentAnswer(models.Model):

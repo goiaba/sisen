@@ -1,13 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.models import User, Group
 from django.shortcuts import redirect
 import sisen.survey.models as models
-import sisen.survey.serializers as serializers
-from sisen.survey.dto import Link, AvailableStudy, SurveyAnswering, StudyResult
+from sisen.survey.dto import Link, AvailableStudy, SurveyAnswering, StudyWithMessageAndStudentOptionScore
 import sisen.survey.businesses as business
 from sisen.survey.exceptions import Conflict, NotFound
 from sisen.survey.permissions import IsStudent
-from sisen.survey.serializers import AvailableStudySerializer, SurveyAnsweringSerializer, StudentAnswerSerializer, StudyResultSerializer
+from sisen.survey.serializers import AvailableStudySerializer, SurveyAnsweringSerializer, StudentAnswerSerializer, StudyWithMessageAndStudentOptionScoreSerializer
 from sisen.survey.views.main import get_object_or_not_found
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view, permission_classes
@@ -24,14 +22,14 @@ def student_home(request, format=None):
     answered_studies = set(map(lambda e: e.study, models.StudentAnswer.objects.filter(student=student)))
     studies = []
     for study in available_studies:
-        study_dto = AvailableStudy(study.acronym, study.description)
+        study_dto = AvailableStudy(study, [])
         study_dto.links.append(Link('self', reverse('student_home', request=request)))
         if study in answered_studies:
             study_dto.links.append(Link('result', reverse('survey_report', args=[study.id], request=request)))
         else:
             study_dto.links.append(Link('answer', reverse('answer', args=[study.id], request=request)))
         studies.append(study_dto)
-    return Response(AvailableStudySerializer(studies, many=True).data)
+    return Response(AvailableStudySerializer(studies, many=True, context={'student': student}).data)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, IsStudent))
@@ -72,10 +70,10 @@ def survey_report(request, study_id, format=None):
     student = request.user.student
     study_answered_or_error(student, study)
 
-    study_result = business.process_answer(study, student)
-    study_result.links.append(Link('self', reverse('survey_report', args=[study.id], request=request)))
-    study_result.links.append(Link('home', reverse('student_home', request=request)))
-    return Response(StudyResultSerializer(study_result).data)
+    study_option_scores = business.process_answer(study, student)
+    study_option_scores.links.append(Link('self', reverse('survey_report', args=[study.id], request=request)))
+    study_option_scores.links.append(Link('home', reverse('student_home', request=request)))
+    return Response(StudyWithMessageAndStudentOptionScoreSerializer(study_option_scores).data)
 
 
 def study_not_answered_or_error(student, study):

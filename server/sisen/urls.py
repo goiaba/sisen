@@ -9,8 +9,9 @@ from rest_framework_jwt.views import verify_jwt_token
 
 urlpatterns = [
     path('', RedirectView.as_view(url=reverse_lazy('home_page_switcher'))),
-    path('auth', obtain_jwt_token),
-    path('auth-refresh', refresh_jwt_token),
+    path('api/v1/auth', obtain_jwt_token),
+    path('api/v1/auth-refresh', refresh_jwt_token),
+    path('api/v1/auth-verify', verify_jwt_token),
     path('api/v1/survey/', include('sisen.survey.urls'), name='survey'),
     path('admin/', admin.site.urls, name='admin'),
 ]
