@@ -45,7 +45,6 @@ class UserSerializer(serializers.ModelSerializer):
         ret = super().to_representation(instance)
         if instance.is_staff:
             ret['groups'].append('Admin')
-        print(ret)
         return ret
 
     def to_internal_value(self, data):

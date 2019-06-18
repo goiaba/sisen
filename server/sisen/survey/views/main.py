@@ -17,7 +17,6 @@ def home_page_switcher(request, format=None):
     elif len(models.Professor.objects.filter(user=user)):
         return redirect('professor_home')
     else:
-        print('aqui')
         raise PermissionDenied({
             'message': ('Você não tem permissão para acessar o sistema.'
                         ' Entre em contato com o administrador.')})
