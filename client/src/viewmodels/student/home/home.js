@@ -15,10 +15,14 @@ export class Home {
 
   attached() {
     this.ahc.get(config.entryPointUrl)
-    .then((response) => response.content)
-    .then((data) => {
-      this.availableStudies = data.map((study) => AvailableStudy.toObject(study));
-      console.dir(this.availableStudies);
-    });
+      .then((response) => response.content)
+      .then((url) => {
+        this.ahc.get(url)
+          .then((response) => response.content)
+          .then((data) => {
+            this.availableStudies = data.map((study) => AvailableStudy.toObject(study));
+            console.dir(this.availableStudies);
+          });
+      });
   }
 }
