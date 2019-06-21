@@ -1,12 +1,12 @@
 <template bindable="router, auth">
   <nav class="ui inverted menu">
-    <header class="header item"><a href="#/home">Sisen</a></header>
+    <header class="header item"><a href="#/home">Home</a></header>
     <div class="right menu">
       <div repeat.for="row of router.navigation">
         <a class="${row.isActive ? 'active' : ''} item"  href.bind="row.href">${row.title}</a>
       </div>
       <a class="active item" href="#" click.delegate="auth.changeRole()" show.bind="auth.hasMultipleRoles()">Trocar Perfil</a>
-      <a class="active item" href="#" click.delegate="auth.logout()">Sair</a>
+      <a class="active item" href="#/home" click.delegate="auth.logout()">Sair</a>
     </div>
   </nav>
 </template>
