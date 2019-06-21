@@ -1,5 +1,3 @@
-// import 'bootstrap';
-// import 'bootstrap/dist/css/bootstrap.css';
 import { inject } from 'aurelia-framework';
 import { DialogService } from 'aurelia-dialog';
 import { RoleChooserDialog } from 'viewmodels/role-chooser-dialog/role-chooser-dialog';
@@ -42,13 +40,5 @@ export class App {
           console.log('error choosing role.');
         }
       });
-  }
-}
-
-export class ToJSONValueConverter {
-  toView(obj) {
-    if (obj) {
-      return JSON.stringify(obj, null, 2)
-    }
   }
 }
