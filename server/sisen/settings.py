@@ -135,14 +135,15 @@ REST_FRAMEWORK = {
     ),
 }
 
-# Remove config or decrease interval when in production
+# Remove config or increase interval when in production
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=30),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=30),
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'sisen.survey.utils.jwt_response_payload_handler',
 }
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:8080"
+    "http://localhost:8080",
+    "http://127.0.0.1:8080"
 ]
