@@ -18,7 +18,8 @@ export default class AsyncHttpClient {
 		});
   }
 
-  get(url) {
+  get(url, parameters = {}) {
+    url = this.parseUrl(url, parameters);
     return new Promise((res, rej) => this.http.get(url)
       .then((response) => res(response))
       .catch((error) => {
@@ -27,7 +28,8 @@ export default class AsyncHttpClient {
       }));
   }
 
-  post(url, obj) {
+  post(url, obj, parameters = {}) {
+    url = this.parseUrl(url, parameters);
     return new Promise((res, rej) => this.http.post(url, obj)
       .then((response) => res(response))
       .catch((error) => {
@@ -43,9 +45,18 @@ export default class AsyncHttpClient {
       const response = JSON.parse(error.response);
       if (response.non_field_errors) {
         this.requestErrorMessage = response.non_field_errors[0];
+      } else if (response.detail) {
+        this.requestErrorMessage = response.detail;
       }
     }
     setTimeout(() => this.requestErrorMessage = '', 5000);
+  }
+
+  parseUrl(url, parameters) {
+    for (var param of Object.keys(parameters)) {
+      url = url.replace(new RegExp(`\\\$\\\{${param}\\\}`, "g"), parameters[param]);
+    }
+    return url;
   }
 }
 
