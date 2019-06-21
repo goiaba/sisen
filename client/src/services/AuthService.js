@@ -1,18 +1,20 @@
 import { Aurelia, inject, PLATFORM } from 'aurelia-framework';
-import {EventAggregator} from 'aurelia-event-aggregator';
-import AsyncHttpClient from './async-http-client';
 import config from 'services/config';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import { RefreshJwtToken } from 'services/messages';
+import { Router } from 'aurelia-router';
+import AsyncHttpClient from './async-http-client';
 
-@inject(Aurelia, AsyncHttpClient, EventAggregator)
+@inject(Aurelia, AsyncHttpClient, EventAggregator, Router)
 export default class AuthService {
 
 	session = null
 
-	constructor(aurelia, asyncHttpClient, eventAggregator) {
+	constructor(aurelia, asyncHttpClient, eventAggregator, router) {
 		this.app = aurelia;
 		this.ahc = asyncHttpClient;
 		this.ea = eventAggregator;
+    this.router = router;
 		this.loadActiveSessionIfValid();
 	}
 
@@ -57,7 +59,7 @@ export default class AuthService {
 	}
 
 	setRole(role) {
-		this.session.role = role.toLowerCase();
+		this.session.role = role;
 		localStorage[config.tokenName] = JSON.stringify(this.session);
 		this.setRoot();
 	}
@@ -134,12 +136,18 @@ export default class AuthService {
 	}
 
 	setRoot() {
-		if (this.session.role === 'student') {
-			this.app.setRoot(PLATFORM.moduleName('studentRoot'));
-		} else if (this.session.role === 'professor') {
-			this.app.setRoot(PLATFORM.moduleName('professorRoot'));
-		} else if (this.session.role === 'admin') {
-			this.app.setRoot(PLATFORM.moduleName('adminRoot'));
+		if (this.session.role === 'Student') {
+			this.app.setRoot(PLATFORM.moduleName('studentRoot')).then(() => {
+        this.router.navigate('home');
+      });
+		} else if (this.session.role === 'Professor') {
+			this.app.setRoot(PLATFORM.moduleName('professorRoot')).then(() => {
+        this.router.navigate('home');
+      });
+		} else if (this.session.role === 'Admin') {
+			this.app.setRoot(PLATFORM.moduleName('adminRoot')).then(() => {
+        this.router.navigate('home');
+      });
 		} else {
 			console.error(`There is no available root for "${this.session.role}" role`);
 		}

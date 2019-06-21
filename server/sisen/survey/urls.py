@@ -3,7 +3,7 @@ from sisen.survey.views import main, student, professor, admin
 
 
 urlpatterns = [
-    path(r'', main.home_page_switcher, name='home_page_switcher'),
+    path(r'switcher/role/<slug:role>', main.home_page_switcher, name='home_page_switcher'),
 
     path(r'student-view', student.student_home, name='student_home'),
     path(r'study/<int:study_id>/answer', student.answer, name='answer'),

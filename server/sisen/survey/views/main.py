@@ -8,14 +8,11 @@ from rest_framework.reverse import reverse
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,IsStudent|IsProfessor|IsAdmin))
-def home_page_switcher(request, format=None):
-    user = request.user
-    if user.is_staff:
+def home_page_switcher(request, role, format=None):
+    if request.user.groups.filter(name=role):
+        return Response(reverse('%s_home' % role.lower(), request=request))
+    elif role == 'Admin' and request.user.is_staff:
         return Response(reverse('admin_home', request=request))
-    elif len(models.Student.objects.filter(user=user)):
-        return Response(reverse('student_home', request=request))
-    elif len(models.Professor.objects.filter(user=user)):
-        return Response(reverse('professor_home', request=request))
     else:
         raise PermissionDenied({
             'message': ('Você não tem permissão para acessar o sistema.'
