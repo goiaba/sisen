@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 import sisen.survey.models as models
@@ -46,6 +47,7 @@ def answer(request, study_id, format=None):
     return Response(SurveyAnsweringSerializer(survey_answering).data)
 
 @api_view(['POST'])
+@transaction.atomic
 @permission_classes((IsAuthenticated, IsStudent))
 def process_answer(request, study_id, format=None):
     study = get_object_or_not_found(models.Study, study_id,
@@ -54,10 +56,7 @@ def process_answer(request, study_id, format=None):
     study_not_answered_or_error(student, study)
 
     answers = list(filter(lambda e: e != None, request.data.get('answers', [])))
-    if not validate_expectations(study, answers):
-        message = 'Todas as questões do estudo devem ser respondidas.'
-        return Response({ 'detail': message, 'answers': answers },
-            status=status.HTTP_409_CONFLICT)
+    validate_answers(study, answers)
     for answer in answers:
         answer.update({ 'study': study.id, 'student': student.id })
     serializer = StudentAnswerSerializer(data=answers, many=True)
@@ -88,8 +87,9 @@ def study_answered_or_error(student, study):
     if not models.StudentAnswer.objects.filter(student=student, study=study).exists():
         raise Conflict('O estudo \'%s\' ainda não foi respondido.' % study.description)
 
-def validate_expectations(study, answers):
+def validate_answers(study, answers):
     # TODO: Should also validate the answers of each question?
     expected = set(map(lambda s: s.id, study.questions.all()))
     received = set(map(lambda s: s.get('question'), answers))
-    return len(expected - received) == 0
+    if len(expected - received) != 0:
+        raise Conflict('Todas as questões do estudo devem ser respondidas.')
