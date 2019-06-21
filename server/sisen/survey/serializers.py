@@ -57,7 +57,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('email', 'first_name', 'last_name', 'groups')
 
 
-
 class LinkSerializer(serializers.Serializer):
     rel = serializers.CharField()
     uri = serializers.CharField()
@@ -84,14 +83,21 @@ class StudySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Study
-        fields = ('acronym', 'description', 'answered')
+        fields = ('id', 'acronym', 'description', 'answered')
 
     def get_answered(self, obj):
-        student = self.context['student']
+        student = self.context.get('student')
         return models.StudentAnswer.objects.filter(
             student=student,
             study=obj
-        ).exists()
+        ).exists() if student else None
+
+    def to_representation(self, instance):
+        """Remove 'answered' if 'student' not in context"""
+        ret = super().to_representation(instance)
+        if not self.context.get('student'):
+            ret.pop('answered')
+        return ret
 
 
 class AvailableStudySerializer(serializers.Serializer):
@@ -100,6 +106,7 @@ class AvailableStudySerializer(serializers.Serializer):
 
 
 class SurveyAnsweringSerializer(serializers.Serializer):
+    description = serializers.CharField(max_length=50)
     questions = QuestionSerializer(many=True)
     links = LinkSerializer(many=True)
 
@@ -113,10 +120,11 @@ class StudentAnswerSerializer(serializers.ModelSerializer):
 class StudyOptionScoreSerializer(serializers.Serializer):
     code = serializers.CharField(max_length=50)
     description = serializers.CharField(max_length=100)
-    value = serializers.FloatField(min_value=0, max_value=100)
+    value = serializers.CharField(max_length=4)
 
 
 class StudyWithMessageAndStudentOptionScoreSerializer(serializers.Serializer):
+    submit_datetime = serializers.CharField(max_length=19)
     study = StudySerializer()
     message = serializers.CharField()
     study_option_scores = StudyOptionScoreSerializer(many=True)

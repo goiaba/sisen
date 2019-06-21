@@ -1,6 +1,7 @@
 export default class Study {
 
-  constructor(acronym, description, answered) {
+  constructor(id, acronym, description, answered) {
+    this.id = id;
     this.acronym = acronym;
     this.description = description;
     this.answered = answered;
@@ -8,6 +9,7 @@ export default class Study {
 
   static toObject(json) {
     return new Study(
+      json.id,
       json.acronym,
       json.description,
       json.answered

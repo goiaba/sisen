@@ -39,7 +39,7 @@ def answer(request, study_id, format=None):
     student = request.user.student
     study_not_answered_or_error(student, study)
 
-    survey_answering = SurveyAnswering(study.questions.all(), [])
+    survey_answering = SurveyAnswering(study.description, study.questions.all(), [])
     survey_answering.links.append(Link('self', reverse('answer', args=[study_id], request=request)))
     survey_answering.links.append(Link('home', reverse('student_home', request=request)))
     survey_answering.links.append(Link('process', reverse('process_answer', args=[study_id], request=request), 'POST'))
@@ -53,13 +53,18 @@ def process_answer(request, study_id, format=None):
     student = request.user.student
     study_not_answered_or_error(student, study)
 
-    answers = request.data.get('answers', [])
+    answers = list(filter(lambda e: e != None, request.data.get('answers', [])))
+    if not validate_expectations(study, answers):
+        message = 'Todas as questões do estudo devem ser respondidas.'
+        return Response({ 'detail': message, 'answers': answers },
+            status=status.HTTP_409_CONFLICT)
     for answer in answers:
         answer.update({ 'study': study.id, 'student': student.id })
     serializer = StudentAnswerSerializer(data=answers, many=True)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     serializer.save()
+    models.StudentAnswerLog(student=student, study=study).save()
     return redirect('survey_report', study_id=study.id)
 
 @api_view(['GET'])
@@ -75,7 +80,6 @@ def survey_report(request, study_id, format=None):
     study_option_scores.links.append(Link('home', reverse('student_home', request=request)))
     return Response(StudyWithMessageAndStudentOptionScoreSerializer(study_option_scores).data)
 
-
 def study_not_answered_or_error(student, study):
     if models.StudentAnswer.objects.filter(student=student, study=study).exists():
         raise Conflict('O estudo \'%s\' já foi respondido.' % study.description)
@@ -83,3 +87,9 @@ def study_not_answered_or_error(student, study):
 def study_answered_or_error(student, study):
     if not models.StudentAnswer.objects.filter(student=student, study=study).exists():
         raise Conflict('O estudo \'%s\' ainda não foi respondido.' % study.description)
+
+def validate_expectations(study, answers):
+    # TODO: Should also validate the answers of each question?
+    expected = set(map(lambda s: s.id, study.questions.all()))
+    received = set(map(lambda s: s.get('question'), answers))
+    return len(expected - received) == 0

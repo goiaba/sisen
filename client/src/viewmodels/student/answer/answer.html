@@ -1,0 +1,23 @@
+<template>
+  <require from="styles/tables.css"></require>
+  <require from="nav-bar.html"></require>
+  <div class="ui container page-host">
+    <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
+    <h1>${description}</h1>
+    <form role="form" submit.delegate="submit()">
+      <div repeat.for="question of questions">
+        <br>
+        <p>${question.position} - ${question.text}</p>
+        <label repeat.for="answer of sortAnswers(question.answers)">
+          <input type="radio"
+                 name="q${question.id}"
+                 model.bind="{'question': question.id, 'answer': answer.id}"
+                 checked.bind="answers[question.id-1]">
+          ${answer.text}<br>
+        </label>
+      </div>
+      <button type = "submit">SUBMIT</button>
+    </form>
+    <span class="error">${ahc.requestErrorMessage}</span>
+  </div>
+</template>

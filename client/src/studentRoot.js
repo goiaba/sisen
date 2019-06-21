@@ -13,9 +13,26 @@ export class StudentRoot {
       {
         route: 'home',
         name: 'home',
+        href: '#/home',
         moduleId: PLATFORM.moduleName('viewmodels/student/home/home'),
-        nav: true,
+        nav: false,
         title: 'Home'
+      },
+      {
+        route: 'answer/:studyId',
+        name: 'answer',
+        href: '#/answer/${studyId}',
+        moduleId: PLATFORM.moduleName('viewmodels/student/answer/answer'),
+        nav: false,
+        title: 'Answer'
+      },
+      {
+        route: 'result/:studyId',
+        name: 'result',
+        href: '#/result/${studyId}',
+        moduleId: PLATFORM.moduleName('viewmodels/student/result/result'),
+        nav: false,
+        title: 'Result'
       }
     ]);
 

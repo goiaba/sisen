@@ -19,7 +19,8 @@
             <input type="checkbox" id="answered" checked.bind="study.study.answered" disabled>
           </div>
           <div class="divTableCell">
-            <a repeat.for="link of study.links" href="${link.uri}">${link.rel} </a>
+            <a show.bind="addLink(study, 'answer')" href="#/answer/${study.study.id}">answer</a>
+            <a show.bind="addLink(study, 'result')" href="#/result/${study.study.id}">result</a>
           </div>
         </div>
       </div>

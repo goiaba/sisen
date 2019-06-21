@@ -25,4 +25,8 @@ export class Home {
           });
       });
   }
+
+  addLink(study, link) {
+    return study.links.filter((l) => l.rel === link).length > 0;
+  }
 }

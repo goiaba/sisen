@@ -106,3 +106,11 @@ class StudentAnswer(models.Model):
 
     class Meta:
        unique_together = ("student", "study", "question")
+
+class StudentAnswerLog(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='student_answer_logs')
+    study = models.ForeignKey(Study, on_delete=models.PROTECT, related_name='student_answer_logs')
+    submit_datetime = models.DateTimeField(auto_now_add=True, null=False)
+
+    class Meta:
+        unique_together = ("student", "study")

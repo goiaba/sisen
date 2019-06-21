@@ -18,7 +18,8 @@ class AvailableStudy(object):
 
 
 class SurveyAnswering(object):
-    def __init__(self, questions, links):
+    def __init__(self, description, questions, links):
+        self.description = description
         self.questions = questions
         self.links = links
 
@@ -31,7 +32,8 @@ class StudyOptionScore(object):
 
 
 class StudyWithMessageAndStudentOptionScore(object):
-    def __init__(self, study, message, study_option_scores, links):
+    def __init__(self, submit_datetime, study, message, study_option_scores, links):
+        self.submit_datetime = submit_datetime
         self.study = study
         self.message = message
         self.study_option_scores = study_option_scores
