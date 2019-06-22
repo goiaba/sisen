@@ -2,7 +2,7 @@ import { inject, Aurelia } from 'aurelia-framework';
 import {PLATFORM} from 'aurelia-pal';
 
 @inject(Aurelia)
-export class ProfessorRoot {
+export class OpenRoot {
 
   constructor(au) {
     this.aurelia = au;
