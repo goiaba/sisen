@@ -42,11 +42,17 @@ export default class AsyncHttpClient {
     if (error.message) {
       this.requestErrorMessage = error.message;
     } else if (error.response) {
-      const response = JSON.parse(error.response);
-      if (response.non_field_errors) {
-        this.requestErrorMessage = response.non_field_errors[0];
-      } else if (response.detail) {
-        this.requestErrorMessage = response.detail;
+      try {
+        const response = JSON.parse(error.response);
+        if (response.non_field_errors) {
+          this.requestErrorMessage = response.non_field_errors[0];
+        } else if (response.detail) {
+          this.requestErrorMessage = response.detail;
+        }
+      } catch(e) {
+        if (error.statusText) {
+          this.requestErrorMessage = error.statusText;
+        }
       }
     }
     setTimeout(() => this.requestErrorMessage = '', 5000);

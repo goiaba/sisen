@@ -2,12 +2,11 @@ body {
   margin: 0;
 }
 
-.splash {
+/* .splash {
     text-align: center;
     margin: 10% 0 0 0;
     box-sizing: border-box;
 }
-
 .splash .message {
     font-size: 72px;
     line-height: 72px;
@@ -15,14 +14,12 @@ body {
     text-transform: uppercase;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
 .splash .fa-spinner {
     text-align: center;
     display: inline-block;
     font-size: 72px;
     margin-top: 50px;
 }
-
 .page-host {
     position: absolute;
     left: 0;
@@ -31,7 +28,7 @@ body {
     bottom: 0;
     overflow-x: hidden;
     overflow-y: auto;
-}
+} */
 
 .login-form {
   width: 15vw;
@@ -43,6 +40,15 @@ body {
 .login-form > * {
   display: block;
   margin: 12px auto;
+}
+
+.login-form > input, select {
+  width:90%;
+  box-sizing:border-box;
+}
+
+.login-form > .registerLink, .loginLink {
+  text-align: center;
 }
 
 .login-form > .error {

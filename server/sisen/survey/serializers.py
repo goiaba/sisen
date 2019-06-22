@@ -49,13 +49,21 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         """Remove 'Admin' from groups if it exists"""
-        data.get('user', {}).get('groups', []).remove('Admin')
+        try:
+            data.get('user', {}).get('groups', []).remove('Admin')
+        except ValueError:
+            pass
         return super().to_internal_value(data)
 
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'groups')
 
+
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Student
+        fields = '__all__'
 
 class LinkSerializer(serializers.Serializer):
     rel = serializers.CharField()
@@ -134,21 +142,19 @@ class StudyWithMessageAndStudentOptionScoreSerializer(serializers.Serializer):
 class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Institution
-        fields = ('name', 'initials')
+        fields = ('id', 'name', 'initials')
 
 
 class ProgramSerializer(serializers.ModelSerializer):
-    institution = InstitutionSerializer(read_only=True)
     class Meta:
         model = models.Program
-        fields = ('name', 'institution')
+        exclude = ('institution',)
 
 
 class ClassSerializer(serializers.ModelSerializer):
-    program = ProgramSerializer(read_only=True)
     class Meta:
         model = models.Class
-        fields = ('program', 'code', 'description', 'semester', 'year')
+        exclude = ('program',)
 
 
 class AvailableClassesSerializer(serializers.Serializer):

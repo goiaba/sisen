@@ -1,19 +1,45 @@
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
+from django.contrib.auth.models import User, Group
 import sisen.survey.models as models
 from sisen.survey.dto import Link, AvailableStudy, SurveyAnswering, StudyWithMessageAndStudentOptionScore
 import sisen.survey.businesses as business
 from sisen.survey.exceptions import Conflict, NotFound
 from sisen.survey.permissions import IsStudent
+from sisen.survey.serializers import UserSerializer, StudentSerializer
 from sisen.survey.serializers import AvailableStudySerializer, SurveyAnsweringSerializer, StudentAnswerSerializer, StudyWithMessageAndStudentOptionScoreSerializer
 from sisen.survey.views.main import get_object_or_not_found
 from rest_framework import viewsets, status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
+
+@api_view(['POST'])
+@transaction.atomic
+@permission_classes([])
+@authentication_classes([])
+def register_student(request, format=None):
+    new_student_data = request.data
+    class_id = new_student_data.get('class')
+    sclass = get_object_or_not_found(models.Class, class_id,
+        'A turma enviada não existe (ID=%i)' % class_id)
+    serializer = UserSerializer(data=new_student_data)
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    user = User.objects.create_user(
+        username=new_student_data.get('email'),
+        email=new_student_data.get('email'),
+        password=new_student_data.get('password'),
+        first_name=new_student_data.get('first_name'),
+        last_name=new_student_data.get('last_name'))
+    student_group = Group.objects.get(name='Student')
+    student_group.user_set.add(user)
+    student = models.Student(user=user, sclass=sclass)
+    student.save()
+    return Response(StudentSerializer(student).data)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, IsStudent))
@@ -81,15 +107,15 @@ def survey_report(request, study_id, format=None):
 
 def study_not_answered_or_error(student, study):
     if models.StudentAnswer.objects.filter(student=student, study=study).exists():
-        raise Conflict('O estudo \'%s\' já foi respondido.' % study.description)
+        raise Conflict('O estudo \'%s\' já foi respondido' % study.description)
 
 def study_answered_or_error(student, study):
     if not models.StudentAnswer.objects.filter(student=student, study=study).exists():
-        raise Conflict('O estudo \'%s\' ainda não foi respondido.' % study.description)
+        raise Conflict('O estudo \'%s\' ainda não foi respondido' % study.description)
 
 def validate_answers(study, answers):
     # TODO: Should also validate the answers of each question?
     expected = set(map(lambda s: s.id, study.questions.all()))
     received = set(map(lambda s: s.get('question'), answers))
     if len(expected - received) != 0:
-        raise Conflict('Todas as questões do estudo devem ser respondidas.')
+        raise Conflict('Todas as questões do estudo devem ser respondidas')
