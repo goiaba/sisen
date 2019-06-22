@@ -7,7 +7,7 @@ describe('Stage App Component', () => {
 
   beforeEach(() => {
     component = StageComponent
-      .withResources(PLATFORM.moduleName('app'))
+      .withResources(PLATFORM.moduleName('viewmodels/app/app'))
       .inView('<app></app>');
   });
 

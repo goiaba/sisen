@@ -1,4 +1,4 @@
-import { inject } from 'aurelia-framework';
+import { inject, PLATFORM } from 'aurelia-framework';
 import AuthService from 'services/AuthService';
 
 @inject(AuthService)
@@ -19,5 +19,9 @@ export class Login {
     } else {
       this.error = 'Please enter a username and password.';
     }
+  }
+
+  signUp() {
+    this.authService.router.navigate('signup');
   }
 }

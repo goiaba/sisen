@@ -1,4 +1,5 @@
 import AuthService from 'services/AuthService';
+import { Router } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-framework';
 
 export function configure(aurelia) {
@@ -9,7 +10,13 @@ export function configure(aurelia) {
 
   aurelia.start().then(() => {
 	  	var auth = aurelia.container.get(AuthService);
-	    const root = PLATFORM.moduleName(auth.isAuthenticated() ? 'app' : 'login');
-	    aurelia.setRoot(root);
+      if (auth.isAuthenticated()) {
+        aurelia.setRoot(PLATFORM.moduleName('viewmodels/app/app'));
+      } else {
+        aurelia.setRoot(PLATFORM.moduleName('shells/openRoot')).then(() => {
+          const router = aurelia.container.get(Router);
+          router.navigate('login');
+        });
+      }
   	});
 }

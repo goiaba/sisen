@@ -28,7 +28,7 @@ export default class AuthService {
 				this.storeSession();
 				this.updateAuthInterceptor();
 				this.configJwtTokenRefresh();
-				this.app.setRoot(PLATFORM.moduleName('app'));
+				this.app.setRoot(PLATFORM.moduleName('viewmodels/app/app'));
 				resolve(session);
 			}).catch((error) => {
 				reject(error);
@@ -38,7 +38,9 @@ export default class AuthService {
 
 	logout() {
 		this.sessionCleanUp();
-		this.app.setRoot(PLATFORM.moduleName('login'));
+		this.app.setRoot(PLATFORM.moduleName('shells/openRoot')).then(() => {
+      this.router.navigate('login');
+    });
 	}
 
 	isAuthenticated() {
@@ -55,7 +57,7 @@ export default class AuthService {
 
 	changeRole() {
 		this.session.role = '';
-		this.app.setRoot(PLATFORM.moduleName('app'));
+		this.app.setRoot(PLATFORM.moduleName('viewmodels/app/app'));
 	}
 
 	setRole(role) {
@@ -137,15 +139,15 @@ export default class AuthService {
 
 	setRoot() {
 		if (this.session.role === 'Student') {
-			this.app.setRoot(PLATFORM.moduleName('studentRoot')).then(() => {
+			this.app.setRoot(PLATFORM.moduleName('shells/studentRoot')).then(() => {
         this.router.navigate('home');
       });
 		} else if (this.session.role === 'Professor') {
-			this.app.setRoot(PLATFORM.moduleName('professorRoot')).then(() => {
+			this.app.setRoot(PLATFORM.moduleName('shells/professorRoot')).then(() => {
         this.router.navigate('home');
       });
 		} else if (this.session.role === 'Admin') {
-			this.app.setRoot(PLATFORM.moduleName('adminRoot')).then(() => {
+			this.app.setRoot(PLATFORM.moduleName('shells/adminRoot')).then(() => {
         this.router.navigate('home');
       });
 		} else {

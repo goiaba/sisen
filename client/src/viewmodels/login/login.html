@@ -1,10 +1,11 @@
 <template>
   <require from="styles/styles.css"></require>
   <form class="login-form" submit.delegate="login()">
-  	<img src="../img/logo.png" />
+  	<img src="../../../img/logo.png" />
     <input type="text" placeholder="username" value.bind="username" />
     <input type="password" placeholder="password" value.bind="password" />
     <button type="submit">Login</button>
+    <a class="registerLink" href="#/signup" click.delegate="signUp()">Registrar-se</a>
     <span class="error">${error}</span>
     <span class="error">${authService.ahc.requestErrorMessage}</span>
   </form>
