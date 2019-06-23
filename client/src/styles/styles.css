@@ -80,3 +80,34 @@ section {
 .navbar-right {
   margin-right: 0!important;
 }
+
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+.isa-info, .isa-success, .isa-warning, .isa-error {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 10px 0px;
+  padding:12px;
+}
+.isa-info {
+  color: #00529B;
+  background-color: #BDE5F8;
+}
+.isa-success {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+}
+.isa-warning {
+  color: #9F6000;
+  background-color: #FEEFB3;
+}
+.isa-error {
+  color: #D8000C;
+  background-color: #FFD2D2;
+}
+.isa-info i, .isa-success i, .isa-warning i, .isa-error i {
+  margin:10px 15px;
+  font-size:2em;
+  vertical-align:middle;
+}

@@ -1,15 +1,17 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-http-client';
 import config from 'services/config';
+import MessageHandler from 'resources/message-handler';
 
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {LoginStatus} from './messages';
 
-@inject(HttpClient, EventAggregator)
+@inject(HttpClient, EventAggregator, MessageHandler)
 export default class AsyncHttpClient {
 
-  constructor(httpClient, ea) {
+  constructor(httpClient, ea, mh) {
     this.ea = ea;
+    this.messageHandler = mh;
     this.requestErrorMessage = null;
     this.http = httpClient;
     this.http.configure(http => {
