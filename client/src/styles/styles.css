@@ -59,6 +59,25 @@ body {
   padding: 0 12px;
 }
 
+.has-error {
+  background: #fff0f0;
+}
+
+.validation-message-div {
+  display: inline;
+  font-size: x-small;
+  left: -6px;
+  top: -8px;
+  position: relative;
+  padding: 2px;
+  background: #fff0f0;
+  color: red;
+  font-family: 'Arial', sans-serif;
+  border-radius: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 @media print
 {
   .page-host {

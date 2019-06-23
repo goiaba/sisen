@@ -6,7 +6,8 @@ export function configure(aurelia) {
 	aurelia.use
     .standardConfiguration()
     .developmentLogging()
-		.plugin(PLATFORM.moduleName('aurelia-dialog'));
+		.plugin(PLATFORM.moduleName('aurelia-dialog'))
+    .plugin(PLATFORM.moduleName('aurelia-validation'));
 
   aurelia.start().then(() => {
 	  	var auth = aurelia.container.get(AuthService);

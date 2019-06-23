@@ -1,30 +1,60 @@
-import { inject } from 'aurelia-framework';
+import { inject, NewInstance } from 'aurelia-framework';
 import AuthService from 'services/AuthService';
 import config from 'services/config';
 import { observable } from 'aurelia-framework';
+import {SimpleValidationRenderer} from 'resources/simple-validation-renderer';
+import {ValidationRules, ValidationController} from 'aurelia-validation';
+import {validationMessages} from 'aurelia-validation';
 
-@inject(AuthService)
+@inject(AuthService, NewInstance.of(ValidationController))
 export class SignUp {
 
   @observable selectedInstitution = '';
   @observable selectedProgram = '';
 
-  constructor(authService) {
+  constructor(authService, validationController) {
     this.authService = authService;
+    this.validationController = validationController;
+    this.validationController.addRenderer(new SimpleValidationRenderer());
+    this.signUpObj = {};
+    this.password_check = '';
+    this.configureValidationRules();
+  }
+
+  configureValidationRules() {
+    validationMessages['required'] = `\${$displayName} é um campo obrigatório`;
+    ValidationRules.customRule(
+      'passwordsMatch',
+      (value, obj) => value === obj.signUpObj.password,
+      'As senhas digitadas não conferem'
+    );
+    ValidationRules
+      .ensure('selectedInstitution').displayName('Instituição').required()
+      .ensure('selectedProgram').displayName('Programa').required()
+      .ensure('password_check').displayName('Verificação de Senha').required()
+        .then()
+        .satisfiesRule('passwordsMatch')
+      .on(this);
+    ValidationRules
+      .ensure('class').displayName('Turma').required()
+      .ensure('first_name').displayName('Nome').required()
+      .ensure('last_name').displayName('Sobrenome').required()
+      .ensure('email').displayName('e-mail').required()
+        .email()
+        // .then()
+        // .satisfiesRule('emailNotAlreadyRegistered')
+      .ensure('password').displayName('Senha').required()
+      .on(this.signUpObj);
   }
 
   activate() {
     this.authService.ahc.get(config.getInstitutionsUrl)
       .then((response) => response.content)
-      .then((institutions) => this.institutions = institutions);
-    this.signUpObj = {
-      'first_name': 'Bruno',
-      'last_name': 'Correa',
-      'email': 'brunogmc@gmail.com',
-      'password': '123',
-      'password_check': '123',
-      'class': 1
-    }
+      .then((institutions) => {
+        this.institutions = institutions;
+        if (this.institutions.length === 1)
+          this.selectedInstitution = this.institutions[0];
+      });
   }
 
   selectedInstitutionChanged(newValue, oldValue) {
@@ -35,7 +65,11 @@ export class SignUp {
     const ids = { 'institutionId': newValue.id };
     this.authService.ahc.get(config.getProgramsByInstitutionUrl, ids)
       .then((response) => response.content)
-      .then((programs) => this.programs = programs);
+      .then((programs) => {
+        this.programs = programs;
+        if (this.programs.length === 1)
+          this.selectedProgram = this.programs[0];
+      });
   }
 
   selectedProgramChanged(newValue, oldValue) {
@@ -49,12 +83,25 @@ export class SignUp {
     };
     this.authService.ahc.get(config.getClassesByInstitutionAndProgramUrl, ids)
       .then((response) => response.content)
-      .then((classes) => this.classes = classes);
+      .then((classes) => {
+        this.classes = classes;
+        if (this.classes.length === 1)
+          this.signUpObj.class = this.classes[0];
+      });
   }
 
   signUp() {
-    this.authService.ahc.post(config.student.signupUrl, this.signUpObj)
-      .then(() => this.login());
+    this.validationController.validate().then(result => {
+      if(result.valid) {
+        this.authService.ahc.post(config.student.signupUrl, this.signUpObj)
+        .then(() => {
+          this.authService.ahc.messageHandler
+            .renderMessage(
+              'Registro efetuado com sucesso. Redirecionando para a página de login.', 'success')
+            .then(() => this.login());
+        });
+      }
+    });
   }
 
   login() {
