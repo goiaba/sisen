@@ -29,16 +29,16 @@ def _calculate_student_score_by_study(study, student):
         code = item.get('code')
         description = item.get('description')
         score = item.get('score')
-        percentual_score = "{:.0%}".format(score/total_value_by_option.get(id))
+        percentual_score = score/total_value_by_option.get(id)
         scores.append(StudyOptionScore(code, description, percentual_score))
     return scores
 
 def process_answer(study, student):
     submit_datetime = student.student_answer_logs.get(study=study).submit_datetime
     return StudyWithMessageAndStudentOptionScore(
-        submit_datetime.strftime('%d/%m/%Y - %H:%M:%S'),
+        submit_datetime,
         study,
-        'TODO: GET MESSAGE FROM .properties FILE',
+        '<font color="red">TODO: This html should be got from a .properties FILE</font>',
         _calculate_student_score_by_study(study, student),
         [])
 

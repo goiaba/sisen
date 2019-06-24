@@ -1,10 +1,10 @@
 <template>
-  <require from="styles/tables.css"></require>
+  <require from="styles/bootstrap.css"></require>
   <require from="resources/nav-bar.html"></require>
   <div class="ui container page-host">
     <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
-    <h1>${description}</h1>
-    <form role="form" submit.delegate="submit()">
+    <h1>Questionário de ${description}</h1>
+    <form id="answerForm" role="form" submit.delegate="submit()">
       <div repeat.for="question of questions">
         <br>
         <p>${question.position} - ${question.text}</p>
@@ -16,7 +16,10 @@
           ${answer.text}<br>
         </label>
       </div>
-      <button type = "submit">SUBMIT</button>
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-dark">Enviar</button>
+        <button type="button" class="btn btn-secondary" click.delegate="toHome()">Voltar</button>
+      </div>
     </form>
   </div>
 </template>

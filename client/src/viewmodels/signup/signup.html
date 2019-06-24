@@ -1,4 +1,5 @@
 <template>
+  <require from="styles/bootstrap.css"></require>
   <require from="styles/styles.css"></require>
   <form class="login-form" submit.delegate="signUp()">
     <img src="../../../img/logo.png" />
@@ -24,7 +25,7 @@
     <input type="text" placeholder="E-mail" value.bind="signUpObj.email & validate" />
     <input type="password" placeholder="Senha" value.bind="signUpObj.password & validate" />
     <input type="password" placeholder="Confirmar senha" value.bind="password_check & validate" />
-    <button type="submit">Registrar-se</button>
+    <button type="submit" class="btn btn-dark">Registrar-se</button>
     <a class="loginLink" href="#/login" click.delegate="toLogin()">Voltar à tela de login</a>
   </form>
 </template>

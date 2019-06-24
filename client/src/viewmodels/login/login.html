@@ -1,10 +1,11 @@
 <template>
+  <require from="styles/bootstrap.css"></require>
   <require from="styles/styles.css"></require>
   <form class="login-form" submit.delegate="login()">
   	<img src="../../../img/logo.png" />
     <input type="text" placeholder="e-mail" value.bind="email" />
     <input type="password" placeholder="password" value.bind="password" />
-    <button type="submit">Login</button>
+    <button type="submit" class="btn btn-dark">Login</button>
     <a class="registerLink" href="#/signup" click.delegate="toSignUp()">Registrar-se</a>
   </form>
 </template>
