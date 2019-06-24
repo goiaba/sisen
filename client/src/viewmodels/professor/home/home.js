@@ -5,6 +5,7 @@ import AsyncHttpClient from 'services/async-http-client';
 import AvailableClassroomStudy from 'model/available-classroom-study';
 import $ from 'jquery';
 import 'datatables.net';
+import 'datatables.net-bs4';
 
 @inject(AuthService, AsyncHttpClient)
 export class Home {
@@ -25,7 +26,10 @@ export class Home {
             this.availableClassroomStudies = data.map((classStudy) => AvailableClassroomStudy.toObject(classStudy));
           })
           .then((data) => {
-            $('.table').dataTable();
+            $('.table').dataTable({
+              pageLength: 20,
+              
+            });
           });
       });
   }
