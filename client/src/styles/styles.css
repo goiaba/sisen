@@ -2,12 +2,11 @@ body {
   margin: 0;
 }
 
-.splash {
+/* .splash {
     text-align: center;
     margin: 10% 0 0 0;
     box-sizing: border-box;
 }
-
 .splash .message {
     font-size: 72px;
     line-height: 72px;
@@ -15,14 +14,12 @@ body {
     text-transform: uppercase;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
 .splash .fa-spinner {
     text-align: center;
     display: inline-block;
     font-size: 72px;
     margin-top: 50px;
 }
-
 .page-host {
     position: absolute;
     left: 0;
@@ -31,7 +28,7 @@ body {
     bottom: 0;
     overflow-x: hidden;
     overflow-y: auto;
-}
+} */
 
 .login-form {
   width: 15vw;
@@ -45,12 +42,40 @@ body {
   margin: 12px auto;
 }
 
+.login-form > input, select {
+  width:90%;
+  box-sizing:border-box;
+}
+
+.login-form > .registerLink, .loginLink {
+  text-align: center;
+}
+
 .login-form > .error {
   color: red;
   font-size: 14px;
   font-weight: bold;
   font-family: monospace;
   padding: 0 12px;
+}
+
+.has-error {
+  background: #fff0f0;
+}
+
+.validation-message-div {
+  display: inline;
+  font-size: x-small;
+  left: -6px;
+  top: -8px;
+  position: relative;
+  padding: 2px;
+  background: #fff0f0;
+  color: red;
+  font-family: 'Arial', sans-serif;
+  border-radius: 5px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 @media print
@@ -73,4 +98,35 @@ section {
 /* fix bad bootstrap styling */
 .navbar-right {
   margin-right: 0!important;
+}
+
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+.isa-info, .isa-success, .isa-warning, .isa-error {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 10px 0px;
+  padding:12px;
+}
+.isa-info {
+  color: #00529B;
+  background-color: #BDE5F8;
+}
+.isa-success {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+}
+.isa-warning {
+  color: #9F6000;
+  background-color: #FEEFB3;
+}
+.isa-error {
+  color: #D8000C;
+  background-color: #FFD2D2;
+}
+.isa-info i, .isa-success i, .isa-warning i, .isa-error i {
+  margin:10px 15px;
+  font-size:2em;
+  vertical-align:middle;
 }

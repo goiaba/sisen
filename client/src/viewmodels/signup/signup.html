@@ -1,0 +1,32 @@
+<template>
+  <require from="styles/styles.css"></require>
+  <form class="login-form" submit.delegate="signUp()">
+    <img src="../../../img/logo.png" />
+    <select value.bind="selectedInstitution & validate">
+      <option model.bind="null">Instituição</option>
+      <option repeat.for="institution of institutions"
+              model.bind="institution">${institution.name}</option>
+    </select>
+    <select value.bind="selectedProgram & validate" show.bind="selectedInstitution">
+      <option model.bind="null">Programa</option>
+      <option repeat.for="program of programs"
+              model.bind="program">${program.name}</option>
+    </select>
+    <select value.bind="signUpObj.class & validate" show.bind="selectedProgram">
+      <option model.bind="null">Turma</option>
+      <option repeat.for="class of classes"
+              model.bind="class.id">
+        ${class.description} - ${class.semester}/${class.year}
+      </option>
+    </select>
+    <input type="text" placeholder="Primeiro nome" value.bind="signUpObj.first_name & validate" />
+    <input type="text" placeholder="Último nome" value.bind="signUpObj.last_name & validate" />
+    <input type="text" placeholder="E-mail" value.bind="signUpObj.email & validate" />
+    <input type="password" placeholder="Senha" value.bind="signUpObj.password & validate" />
+    <input type="password" placeholder="Confirmar senha" value.bind="password_check & validate" />
+    <button type="submit">Registrar-se</button>
+    <a class="loginLink" href="#/login" click.delegate="login()">Voltar à tela de login</a>
+    <span class="error">${error}</span>
+    <span class="error">${authService.ahc.requestErrorMessage}</span>
+  </form>
+</template>

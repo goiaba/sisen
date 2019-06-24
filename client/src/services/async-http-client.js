@@ -1,15 +1,17 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-http-client';
 import config from 'services/config';
+import MessageHandler from 'resources/message-handler';
 
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {LoginStatus} from './messages';
 
-@inject(HttpClient, EventAggregator)
+@inject(HttpClient, EventAggregator, MessageHandler)
 export default class AsyncHttpClient {
 
-  constructor(httpClient, ea) {
+  constructor(httpClient, ea, mh) {
     this.ea = ea;
+    this.messageHandler = mh;
     this.requestErrorMessage = null;
     this.http = httpClient;
     this.http.configure(http => {
@@ -42,11 +44,17 @@ export default class AsyncHttpClient {
     if (error.message) {
       this.requestErrorMessage = error.message;
     } else if (error.response) {
-      const response = JSON.parse(error.response);
-      if (response.non_field_errors) {
-        this.requestErrorMessage = response.non_field_errors[0];
-      } else if (response.detail) {
-        this.requestErrorMessage = response.detail;
+      try {
+        const response = JSON.parse(error.response);
+        if (response.non_field_errors) {
+          this.requestErrorMessage = response.non_field_errors[0];
+        } else if (response.detail) {
+          this.requestErrorMessage = response.detail;
+        }
+      } catch(e) {
+        if (error.statusText) {
+          this.requestErrorMessage = error.statusText;
+        }
       }
     }
     setTimeout(() => this.requestErrorMessage = '', 5000);
