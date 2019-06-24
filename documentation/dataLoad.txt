@@ -1,0 +1,282 @@
+{
+  "institution": [
+    {
+      "name": "Universidade Federal de São Paulo",
+      "initials": "Unifesp",
+      "program": [
+        {
+          "name": "Bacharelado em Ciência da Computação",
+          "class": [
+            { "code": "IA", "description": "Integral A", "semester": 1, "year": 2019 },
+            { "code": "IB", "description": "Integral B", "semester": 1, "year": 2019 },
+            { "code": "IC", "description": "Integral C", "semester": 1, "year": 2019 },
+            { "code": "ID", "description": "Integral D", "semester": 1, "year": 2019 },
+            { "code": "IE", "description": "Integral E", "semester": 1, "year": 2019 },
+            { "code": "NA", "description": "Noturno A", "semester": 1, "year": 2019 },
+            { "code": "NB", "description": "Noturno B", "semester": 1, "year": 2019 },
+            { "code": "NC", "description": "Noturno C", "semester": 1, "year": 2019 }
+          ]
+        }
+      ]
+    }
+  ],
+  "study": [
+    {
+      "acronym": "EA",
+      "description": "Estilos de Aprendizagem",
+      "studyoption": [
+        {
+          "code": "ATIVO",
+          "description": "Ativo",
+          "questions": [3, 5, 7, 9, 13, 20, 26, 27, 35, 37, 41, 43, 46, 48, 51, 61, 67, 74, 75, 77]
+        },
+        {
+          "code": "REFLEXIVO",
+          "description": "Reflexivo",
+          "questions": [10, 16, 18, 19, 28, 31, 32, 34, 36, 39, 42, 44, 49, 55, 58, 63, 65, 69, 70, 79]
+        },
+        {
+          "code": "TEORICO",
+          "description": "Teórico",
+          "questions": [2, 4, 6, 11, 15, 17, 21, 23, 25, 29, 33, 45, 50, 54, 60, 64, 66, 71, 78, 80]
+        },
+        {
+          "code": "PRAGMATICO",
+          "description": "Pragmático",
+          "questions": [1, 8, 12, 14, 22, 24, 30, 38, 40, 47, 52, 53, 56, 57, 59, 62, 68, 72, 73, 76]
+        }
+      ],
+      "questions": [
+        { "position": 1, "text": "Livros são muito importantes para mim." , "answers": [0, 1, 2, 3]},
+        { "position": 2, "text": "Gosto de ouvir as palavras na minha cabeça antes falar ou escrevê-las." , "answers": [0, 1, 2, 3]},
+        { "position": 3, "text": "Aproveito mais ouvindo rádio ou u-books do que vendo televisão ou filmes." , "answers": [0, 1, 2, 3]},
+        { "position": 4, "text": "Gosto de jogos que envolvam palavras, como por exemplo:  palavras cruzadas, anagramas ou scrabble." , "answers": [0, 1, 2, 3]},
+        { "position": 5, "text": "Gosto de me divertir ou a outros com palavras difíceis de se pronunciar, rimas sem sentido ou palavras homônimas e homógrafas." , "answers": [0, 1, 2, 3]},
+        { "position": 6, "text": "Por vezes tenho que parar o que estou dizendo para repetir ou explicar  o significado das palavras que falo ou que escrevo." , "answers": [0, 1, 2, 3]},
+        { "position": 7, "text": "Na escola sempre considerei Português, Estudos Sociais  e História mais fáceis do que Matemática e Ciências." , "answers": [0, 1, 2, 3]},
+        { "position": 8, "text": "Quando estou dirigindo numa estrada, presto mais atenção nas palavras escritas nas placas do que na paisagem." , "answers": [0, 1, 2, 3]},
+        { "position": 9, "text": "Frequentemente minhas conversas incluem referências de assuntos que leio ou ouço." , "answers": [0, 1, 2, 3]},
+        { "position": 10, "text": "Recentemente escrevi algo de que me orgulhei bastante, ou que me rendeu o reconhecimento de outras pessoas." , "answers": [0, 1, 2, 3]},
+        { "position": 11, "text": "Consigo facilmente computar números de cabeça." , "answers": [0, 1, 2, 3]},
+        { "position": 12, "text": "Matemática e/ou ciência estavam entre minhas matérias prediletas na escola." , "answers": [0, 1, 2, 3]},
+        { "position": 13, "text": "Gosto de brincar com jogos ou resolver quebra-cabeças que exijam raciocínio lógico, como o Sudoku." , "answers": [0, 1, 2, 3]},
+        { "position": 14, "text": "Gosto de fazer pequenas experiências do tipo \"e se...\" (Por exemplo: \"E se eu dobrasse a quantidade de água usada neste experimento?\")." , "answers": [0, 1, 2, 3]},
+        { "position": 15, "text": "Minha mente busca padrões, regularidades ou sequências lógicas nas coisas." , "answers": [0, 1, 2, 3]},
+        { "position": 16, "text": "Tenho muito interesse em inovações na área da ciência." , "answers": [0, 1, 2, 3]},
+        { "position": 17, "text": "Penso que quase tudo tem uma explicação racional." , "answers": [0, 1, 2, 3]},
+        { "position": 18, "text": "Às vezes penso em conceitos abstratos, sem palavras e sem imagens." , "answers": [0, 1, 2, 3]},
+        { "position": 19, "text": "Gosto de achar coisas que não têm lógica no que as pessoas dizem e fazem em casa ou no trabalho." , "answers": [0, 1, 2, 3]},
+        { "position": 20, "text": "Sinto-me mais seguro(a) quando algo já foi medido, categorizado, analisado ou de algum modo quantificado." , "answers": [0, 1, 2, 3]},
+        { "position": 21, "text": "Frequentemente vejo imagens visuais claras quando fecho meus olhos." , "answers": [0, 1, 2, 3]},
+        { "position": 22, "text": "Sou sensível às cores." , "answers": [0, 1, 2, 3]},
+        { "position": 23, "text": "Frequentemente uso câmera fotográfica ou de vídeo para registrar o que vejo ao meu redor." , "answers": [0, 1, 2, 3]},
+        { "position": 24, "text": "Gosto de brincar com jogos de quebra-cabeça, labirintos e outros jogos visuais." , "answers": [0, 1, 2, 3]},
+        { "position": 25, "text": "Quando durmo tenho sonhos muito vivos." , "answers": [0, 1, 2, 3]},
+        { "position": 26, "text": "Geralmente consigo me virar num território que me é desconhecido." , "answers": [0, 1, 2, 3]},
+        { "position": 27, "text": "Gosto de desenhar ou rabiscar." , "answers": [0, 1, 2, 3]},
+        { "position": 28, "text": "Na escola, Geometria foi mais fácil para mim do Álgebra." , "answers": [0, 1, 2, 3]},
+        { "position": 29, "text": "Consigo imaginar como seria a aparência de uma coisa vista por cima, como se fosse vista por um um pássaro." , "answers": [0, 1, 2, 3]},
+        { "position": 30, "text": "Prefiro material de leitura que tenha muitas ilustrações." , "answers": [0, 1, 2, 3]},
+        { "position": 31, "text": "As pessoas me procuram para ouvir conselho e orientação no trabalho, faculdade ou em minha vizinhança." , "answers": [0, 1, 2, 3]},
+        { "position": 32, "text": "Prefiro esportes coletivos, como  voleibol ou basquetebol, do que esportes individuais como natação e corrida." , "answers": [0, 1, 2, 3]},
+        { "position": 33, "text": "Quando tenho um problema, me sinto mais inclinado a procurar alguém para me ajudar do que tentar resolvê-lo por mim mesmo." , "answers": [0, 1, 2, 3]},
+        { "position": 34, "text": "Tenho pelo menos três pessoas em que confio ou com as quais me dou bem." , "answers": [0, 1, 2, 3]},
+        { "position": 35, "text": "Prefiro passatempos em grupo, como Banco Imobiliário ou Bridge, do que recreações individuais como vídeos ou filmes." , "answers": [0, 1, 2, 3]},
+        { "position": 36, "text": "Gosto do desafio de ensinar o que sei fazer a uma ou a um grupo de pessoas." , "answers": [0, 1, 2, 3]},
+        { "position": 37, "text": "Eu me considero líder, ou algumas pessoas me chamam de líder." , "answers": [0, 1, 2, 3]},
+        { "position": 38, "text": "Eu me sinto bem no meio de muitas pessoas." , "answers": [0, 1, 2, 3]},
+        { "position": 39, "text": "Gosto de me envolver em atividades sociais que estejam relacionadas ao meu trabalho, igreja ou comunidade." , "answers": [0, 1, 2, 3]},
+        { "position": 40, "text": "Eu prefiro passar minhas noites em festas agitadas do que ficar sozinho dentro de casa." , "answers": [0, 1, 2, 3]},
+        { "position": 41, "text": "Estou envolvido(a)  regularmente em pelo menos um esporte ou atividade física." , "answers": [0, 1, 2, 3]},
+        { "position": 42, "text": "Acho difícil ficar parado por muito tempo." , "answers": [0, 1, 2, 3]},
+        { "position": 43, "text": "Gosto de trabalhar manualmente em atividades concretas tais como costura, tecelagem,escultura em madeira, carpintaria/marcenaria, ou modelagem." , "answers": [0, 1, 2, 3]},
+        { "position": 44, "text": "Geralmente  minhas melhores ideias aparecem quando saio para um longo passeio ou corrida, ou quando me envolvo com algum tipo de atividade física." , "answers": [0, 1, 2, 3]},
+        { "position": 45, "text": "Frequentemente gosto de passar o tempo ocioso que tenho ao ar livre." , "answers": [0, 1, 2, 3]},
+        { "position": 46, "text": "Frequentemente faço gestos com as mãos ou outras formas de linguagem corporal quando estou conversando com alguém." , "answers": [0, 1, 2, 3]},
+        { "position": 47, "text": "Eu tenho necessidade de tocar nas coisas para aprender mais a respeito delas." , "answers": [0, 1, 2, 3]},
+        { "position": 48, "text": "Em parque de diversões, gosto de andar em trem fantasma, montanha russa ou de ter experiências físicas emocionantes." , "answers": [0, 1, 2, 3]},
+        { "position": 49, "text": "Eu me descreveria como uma pessoa que tem boa coordenação física." , "answers": [0, 1, 2, 3]},
+        { "position": 50, "text": "Tenho necessidade de  praticar uma nova habilidade em vez de simplesmente ler sobre ela, ou assistir a um vídeo que a descreva." , "answers": [0, 1, 2, 3]},
+        { "position": 51, "text": "Tenho um voz agradável para canto." , "answers": [0, 1, 2, 3]},
+        { "position": 52, "text": "Consigo identificar um nota musical desafinada." , "answers": [0, 1, 2, 3]},
+        { "position": 53, "text": "Frequentemente ouço música pelo rádio, smartphone, etc." , "answers": [0, 1, 2, 3]},
+        { "position": 54, "text": "Eu toco um instrumento musical." , "answers": [0, 1, 2, 3]},
+        { "position": 55, "text": "Não imagino minha vida sem música." , "answers": [0, 1, 2, 3]},
+        { "position": 56, "text": "Às vezes estou cantarolando ou me surpreendo com alguma  melodia passando pela cabeça." , "answers": [0, 1, 2, 3]},
+        { "position": 57, "text": "Facilmente consigo acompanhar o ritmo de uma música com um simples instrumento de percussão." , "answers": [0, 1, 2, 3]},
+        { "position": 58, "text": "Conheço a melodia de muitas canções  ou peças musicais." , "answers": [0, 1, 2, 3]},
+        { "position": 59, "text": "Após ouvir uma  música poucas vezes,  normalmente sou capaz de cantá-la de modo razoavelmente preciso." , "answers": [0, 1, 2, 3]},
+        { "position": 60, "text": "Frequentemente batuco uns sons ou cantarolo pequenas melodias, enquanto estou trabalhando, estudando ou aprendendo algo novo." , "answers": [0, 1, 2, 3]},
+        { "position": 61, "text": "Regularmente fico um tempo sozinho para meditar, refletir ou pensar sobre questões importantes da vida." , "answers": [0, 1, 2, 3]},
+        { "position": 62, "text": "Gosto de atividades ou questionários que permitam conhecer-me melhor." , "answers": [0, 1, 2, 3]},
+        { "position": 63, "text": "Sou capaz de reagir aos contratempos da vida com tranquilidade." , "answers": [0, 1, 2, 3]},
+        { "position": 64, "text": "Tenho um hobby especial ou um interesse que conservo só para mim." , "answers": [0, 1, 2, 3]},
+        { "position": 65, "text": "Penso regularmente em algumas metas importantes que tenho para a minha vida." , "answers": [0, 1, 2, 3]},
+        { "position": 66, "text": "Tenho uma visão realista de minhas potencialidades e fraquezas (como resultado do que me dizem as pessoas ou  recebo de outras fontes)." , "answers": [0, 1, 2, 3]},
+        { "position": 67, "text": "Eu prefiro passar o tempo sozinho numa cabana do que num  clube de campo cheio de pessoas em volta." , "answers": [0, 1, 2, 3]},
+        { "position": 68, "text": "Eu me considero uma pessoa com força de vontade, ou de maneira independente de pensar." , "answers": [0, 1, 2, 3]},
+        { "position": 69, "text": "Tenho um diário pessoal onde escrevo regularmente." , "answers": [0, 1, 2, 3]},
+        { "position": 70, "text": "Eu já trabalho como autônomo ou tenho pensado seriamente em começar meu próprio negócio." , "answers": [0, 1, 2, 3]},
+        { "position": 71, "text": "Gosto de atividades em contato com a natureza, como acampar ou andar." , "answers": [0, 1, 2, 3]},
+        { "position": 72, "text": "Preocupo-me e contribuo com a preservação do meio ambiente." , "answers": [0, 1, 2, 3]},
+        { "position": 73, "text": "Adoro animais e tenho (ou gostaria de ter) um em casa." , "answers": [0, 1, 2, 3]},
+        { "position": 74, "text": "Tento passar o máximo de tempo possível fora de casa." , "answers": [0, 1, 2, 3]},
+        { "position": 75, "text": "Tenho interesse em descobrir e aprender coisas relacionadas com a natureza." , "answers": [0, 1, 2, 3]},
+        { "position": 76, "text": "Gosto de livros e reportagens sobre a natureza." , "answers": [0, 1, 2, 3]},
+        { "position": 77, "text": "Gosto de visitar zoológicos ou aquários." , "answers": [0, 1, 2, 3]},
+        { "position": 78, "text": "Prefiro passar as férias acampando, do que em um complexo turístico." , "answers": [0, 1, 2, 3]},
+        { "position": 79, "text": "Gosto de participar de projetos de preservação do meio ambiente." , "answers": [0, 1, 2, 3]},
+        { "position": 80, "text": "Gosto muito de flores e jardins." , "answers": [0, 1, 2, 3]}
+      ],
+      "answers": [
+        { "value": 0, "text": "Nunca se aplica a mim" },
+        { "value": 1, "text": "Aplica-se raramente a mim" },
+        { "value": 2, "text": "Aplica-se muitas vezes a mim" },
+        { "value": 3, "text": "Aplica-se sempre a mim" }
+      ]
+    },
+    {
+      "acronym": "IM",
+      "description": "Inteligências Múltiplas",
+      "studyoption": [
+        {
+          "code": "VERBAL_LINGUISTICA",
+          "description": "",
+          "questions": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        },
+        {
+          "code": "LOGICA_MATEMATICA",
+          "description": "",
+          "questions": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+        },
+        {
+          "code": "VISUAL_ESPACIAL",
+          "description": "",
+          "questions": [21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+        },
+        {
+          "code": "INTERPESSOAL",
+          "description": "",
+          "questions": [31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+        },
+        {
+          "code": "CINESTESICA_CORPORAL",
+          "description": "",
+          "questions": [41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+        },
+        {
+          "code": "RITMICA_MUSICAL",
+          "description": "",
+          "questions": [51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
+        },
+        {
+          "code": "INTRAPESSOAL",
+          "description": "",
+          "questions": [61, 62, 63, 64, 65, 66, 67, 68, 69, 70]
+        },
+        {
+          "code": "NATURALISTA",
+          "description": "",
+          "questions": [71, 72, 73, 74, 75, 76, 77, 78, 79, 80]
+        }
+      ],
+      "questions": [
+        { "position": 1, "text": "Tenho fama de dizer o que penso claramente e sem rodeios." , "answers": [0, 1, 2, 3]},
+        { "position": 2, "text": "A maior parte das vezes, sinto-me seguro(a) do que está correto e do que está incorreto." , "answers": [0, 1, 2, 3]},
+        { "position": 3, "text": "Muitas vezes, tomo atitudes sem olhar às consequências." , "answers": [0, 1, 2, 3]},
+        { "position": 4, "text": "Normalmente, procuro resolver os problemas metodicamente, passo a passo." , "answers": [0, 1, 2, 3]},
+        { "position": 5, "text": "Creio que o formalismo restringe e limita a atuação livre das pessoas." , "answers": [0, 1, 2, 3]},
+        { "position": 6, "text": "Interessa-me saber quais são os critérios e valores das pessoas" , "answers": [0, 1, 2, 3]},
+        { "position": 7, "text": "Penso que agir intuitivamente pode ser sempre tão válido como agir reflexivamente." , "answers": [0, 1, 2, 3]},
+        { "position": 8, "text": "Creio que o mais importante é que as coisas funcionem, , independentemente, dos métodos." , "answers": [0, 1, 2, 3]},
+        { "position": 9, "text": "Estou atento a todos os pormenores das disciplinas que frequento  (resumos, textos, etc)." , "answers": [0, 1, 2, 3]},
+        { "position": 10, "text": "Agrada-me ter tempo para preparar os meus trabalhos com consciência." , "answers": [0, 1, 2, 3]},
+        { "position": 11, "text": "Sou adepto(a) da autodisciplina, seguindo uma certa ordem, por exemplo, no  no estudo e no exercício físico." , "answers": [0, 1, 2, 3]},
+        { "position": 12, "text": "Quando ouço uma ideia nova, começo logo a pensar como poderei  colocá-la em prática." , "answers": [0, 1, 2, 3]},
+        { "position": 13, "text": "Prefiro ideias originais e inovadoras, ainda que não sejam práticas." , "answers": [0, 1, 2, 3]},
+        { "position": 14, "text": "Só admito e me adapto às normas, se elas servem para que eu atinja os meus objetivos." , "answers": [0, 1, 2, 3]},
+        { "position": 15, "text": "Adapto-me melhor às pessoas reflexivas, do que àquelas demasiado espontâneas e imprevisíveis." , "answers": [0, 1, 2, 3]},
+        { "position": 16, "text": "Escuto com mais frequência do que falo." , "answers": [0, 1, 2, 3]},
+        { "position": 17, "text": "Prefiro as coisas estruturadas às desordenadas." , "answers": [0, 1, 2, 3]},
+        { "position": 18, "text": "Preocupo-me em interpretar, cuidadosamente, a informação disponível antes de tirar uma conclusão." , "answers": [0, 1, 2, 3]},
+        { "position": 19, "text": "Antes de fazer alguma coisa, analiso com cuidado as suas  vantagens e inconvenientes." , "answers": [0, 1, 2, 3]},
+        { "position": 20, "text": "Estimula-me o fato de fazer algo novo e diferente." , "answers": [0, 1, 2, 3]},
+        { "position": 21, "text": "Procuro, quase sempre, ser coerente com os meus princípios, seguindo critérios e sistemas de valores." , "answers": [0, 1, 2, 3]},
+        { "position": 22, "text": "Quando há uma discussão, não gosto de  rodeios." , "answers": [0, 1, 2, 3]},
+        { "position": 23, "text": "Tenho tendência a relacionar-me de um modo distante, e algo formal com as pessoas com quem trabalho ou estudo." , "answers": [0, 1, 2, 3]},
+        { "position": 24, "text": "Gosto mais das pessoas realistas e concretas, do que das idealistas." , "answers": [0, 1, 2, 3]},
+        { "position": 25, "text": "Tenho dificuldade em ser criativo(a) e em romper com as estruturas existentes." , "answers": [0, 1, 2, 3]},
+        { "position": 26, "text": "Sinto-me bem com pessoas espontâneas." , "answers": [0, 1, 2, 3]},
+        { "position": 27, "text": "Quase sempre expresso abertamente os meus sentimentos." , "answers": [0, 1, 2, 3]},
+        { "position": 28, "text": "Gosto de analisar as coisas por todos os ângulos." , "answers": [0, 1, 2, 3]},
+        { "position": 29, "text": "Incomoda-me ver que as pessoas não levam as coisas a sério." , "answers": [0, 1, 2, 3]},
+        { "position": 30, "text": "Sinto-me atraído(a) a experimentar e praticar as últimas técnicas e novidades." , "answers": [0, 1, 2, 3]},
+        { "position": 31, "text": "Sou cauteloso(a) na hora de tirar conclusões." , "answers": [0, 1, 2, 3]},
+        { "position": 32, "text": "Prefiro contar com o maior número de fontes de informação, ou seja, quantos mais dados tiver, melhor." , "answers": [0, 1, 2, 3]},
+        { "position": 33, "text": "Tenho a tendência de ser perfeccionista." , "answers": [0, 1, 2, 3]},
+        { "position": 34, "text": "Prefiro ouvir as opiniões dos outros antes de expor as minhas." , "answers": [0, 1, 2, 3]},
+        { "position": 35, "text": "Gosto de enfrentar a vida de forma espontânea, sem ter que  planejar tudo previamente." , "answers": [0, 1, 2, 3]},
+        { "position": 36, "text": "Nas discussões, gosto de observar como agem os outros  participantes." , "answers": [0, 1, 2, 3]},
+        { "position": 37, "text": "Sinto-me pouco à vontade, com pessoas demasiado críticas e minuciosas." , "answers": [0, 1, 2, 3]},
+        { "position": 38, "text": "Avalio as ideias dos outros pelo seu valor prático, frequentemente." , "answers": [0, 1, 2, 3]},
+        { "position": 39, "text": "Sinto-me oprimido(a ), se me obrigam a acelerar o trabalho para  cumprir um prazo." , "answers": [0, 1, 2, 3]},
+        { "position": 40, "text": "Apoio as ideias práticas e realistas em reuniões." , "answers": [0, 1, 2, 3]},
+        { "position": 41, "text": "É melhor aproveitar o momento presente, do que viver pensando no passado ou no futuro." , "answers": [0, 1, 2, 3]},
+        { "position": 42, "text": "As pessoas que desejam sempre apressar as coisas me incomodam." , "answers": [0, 1, 2, 3]},
+        { "position": 43, "text": "Nos grupos de discussão emito ideias novas e espontâneas." , "answers": [0, 1, 2, 3]},
+        { "position": 44, "text": "Penso que são mais consistentes as decisões fundamentadas numa  análise minuciosa do que as baseadas na intuição." , "answers": [0, 1, 2, 3]},
+        { "position": 45, "text": "Detecto a inconsistência e os pontos frágeis nas argumentações dos outros com frequência." , "answers": [0, 1, 2, 3]},
+        { "position": 46, "text": "Creio que  desobedeço às regras com mais frequência do que as sigo." , "answers": [0, 1, 2, 3]},
+        { "position": 47, "text": "Percebo, com frequência, formas melhores e mais práticas de fazer as coisas." , "answers": [0, 1, 2, 3]},
+        { "position": 48, "text": "Geralmente, falo mais do que escuto." , "answers": [0, 1, 2, 3]},
+        { "position": 49, "text": "Prefiro distanciar-me dos fatos e observá-los com outras  perspectivas." , "answers": [0, 1, 2, 3]},
+        { "position": 50, "text": "Estou convencido(a) de que a lógica e a razão devem imperar ." , "answers": [0, 1, 2, 3]},
+        { "position": 51, "text": "Gosto de buscar novas experiências." , "answers": [0, 1, 2, 3]},
+        { "position": 52, "text": "Quando ouço uma ideia ou uma nova abordagem, tento  imediatamente encontrar aplicações concretas." , "answers": [0, 1, 2, 3]},
+        { "position": 53, "text": "Penso que devemos chegar, o mais rapidamente possível, à ideia  central dos assuntos." , "answers": [0, 1, 2, 3]},
+        { "position": 54, "text": "Esforço-me sempre para tirar conclusões e ideias claras." , "answers": [0, 1, 2, 3]},
+        { "position": 55, "text": "Prefiro discutir questões concretas, e não perder tempo com ideias  abstratas." , "answers": [0, 1, 2, 3]},
+        { "position": 56, "text": "Fico impaciente quando ouço explicações irrelevantes ou  incoerentes." , "answers": [0, 1, 2, 3]},
+        { "position": 57, "text": "Verifico sempre, com antecedência, se as coisas funcionam realmente." , "answers": [0, 1, 2, 3]},
+        { "position": 58, "text": "Faço vários rascunhos antes da redação definitiva de um trabalho." , "answers": [0, 1, 2, 3]},
+        { "position": 59, "text": "Nas discussões tenho consciência  que ajudo a manter os outros centrados no tema, evitando divagações." , "answers": [0, 1, 2, 3]},
+        { "position": 60, "text": "Observo com frequência, que sou uma das pessoas mais objetivas  e ponderadas nas discussões." , "answers": [0, 1, 2, 3]},
+        { "position": 61, "text": "Quando algo corre mal, tento logo fazer melhor." , "answers": [0, 1, 2, 3]},
+        { "position": 62, "text": "Rejeito ideias originais se me parecerem impraticáveis." , "answers": [0, 1, 2, 3]},
+        { "position": 63, "text": "Antes de tomar uma decisão, pondero sempre diversas alternativas." , "answers": [0, 1, 2, 3]},
+        { "position": 64, "text": "Eu tento prever o futuro com frequência." , "answers": [0, 1, 2, 3]},
+        { "position": 65, "text": "Nos debates e discussões prefiro desempenhar um papel secundário  em vez de ser o(a) líder ou o(a) que mais participa." , "answers": [0, 1, 2, 3]},
+        { "position": 66, "text": "As pessoas que não agem com lógica me incomodam." , "answers": [0, 1, 2, 3]},
+        { "position": 67, "text": "Incomoda-me ter que planejar e prever as coisas." , "answers": [0, 1, 2, 3]},
+        { "position": 68, "text": "Penso que muitas vezes os fins justificam os meios." , "answers": [0, 1, 2, 3]},
+        { "position": 69, "text": "Costumo pensar sobre os assuntos e problemas com profundidade." , "answers": [0, 1, 2, 3]},
+        { "position": 70, "text": "O trabalhar consciente enche-me de satisfação e orgulho" , "answers": [0, 1, 2, 3]},
+        { "position": 71, "text": "Tento descobrir os princípios e as teorias que fundamentam os acontecimentos." , "answers": [0, 1, 2, 3]},
+        { "position": 72, "text": "Sou capaz de ferir os  sentimentos de outros para atingir os meus objetivos." , "answers": [0, 1, 2, 3]},
+        { "position": 73, "text": "Não me importo de fazer tudo o que for necessário para que o meu  trabalho seja eficiente." , "answers": [0, 1, 2, 3]},
+        { "position": 74, "text": "Sou umas das pessoas que mais animam as festas, com frequência." , "answers": [0, 1, 2, 3]},
+        { "position": 75, "text": "Aborreço-me com o trabalho metódico e minucioso, rapidamente." , "answers": [0, 1, 2, 3]},
+        { "position": 76, "text": "As pessoas costumam pensar que sou insensível aos seus  sentimentos." , "answers": [0, 1, 2, 3]},
+        { "position": 77, "text": "Costumo agir pela minha intuição." , "answers": [0, 1, 2, 3]},
+        { "position": 78, "text": "Se faço parte de um grupo de trabalho, procuro que seja seguido um plano ou uma metodologia." , "answers": [0, 1, 2, 3]},
+        { "position": 79, "text": "Com frequência tenho interesse em descobrir o que pensam as pessoas." , "answers": [0, 1, 2, 3]},
+        { "position": 80, "text": "Evito os assuntos subjetivos, ambíguos e pouco claros." , "answers": [0, 1, 2, 3]}
+      ],
+      "answers": [
+        { "value": 0, "text": "Nunca se aplica a mim" },
+        { "value": 1, "text": "Aplica-se raramente a mim" },
+        { "value": 2, "text": "Aplica-se muitas vezes a mim" },
+        { "value": 3, "text": "Aplica-se sempre a mim" }
+      ]
+    }
+  ],
+  "admin": [
+    {
+      "username": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "admin",
+      "first_name": "AdminFN",
+      "last_name": "AdminLN"
+    }
+  ]
+}
