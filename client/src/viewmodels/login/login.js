@@ -9,20 +9,20 @@ export class Login {
   }
 
   activate() {
-    this.username = 'student1';
+    this.email = 'student1@gmail.com';
     this.password = 'admin';
   }
 
   login() {
-    if (this.username && this.password) {
-      this.authService.login(this.username, this.password);
+    if (this.email && this.password) {
+      this.authService.login(this.email, this.password);
     } else {
       this.authService.ahc.messageHandler.renderMessage(
         'E-mail e senha são campos obrigatórios', 'error');
     }
   }
 
-  signUp() {
+  toSignUp() {
     this.authService.router.navigate('signup');
   }
 }

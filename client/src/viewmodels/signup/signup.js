@@ -104,7 +104,7 @@ export class SignUp {
     });
   }
 
-  login() {
+  toLogin() {
     this.authService.router.navigate('login');
   }
 }

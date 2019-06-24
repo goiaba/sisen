@@ -2,9 +2,9 @@
   <require from="styles/styles.css"></require>
   <form class="login-form" submit.delegate="login()">
   	<img src="../../../img/logo.png" />
-    <input type="text" placeholder="username" value.bind="username" />
+    <input type="text" placeholder="e-mail" value.bind="email" />
     <input type="password" placeholder="password" value.bind="password" />
     <button type="submit">Login</button>
-    <a class="registerLink" href="#/signup" click.delegate="signUp()">Registrar-se</a>
+    <a class="registerLink" href="#/signup" click.delegate="toSignUp()">Registrar-se</a>
   </form>
 </template>
