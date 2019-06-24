@@ -37,7 +37,10 @@ export class Answer {
       .then((result) => {
         const resultRoute = this.router.routes.find((r) => r.name === 'result');
         if (resultRoute) resultRoute.settings.result = result;
-        this.router.navigateToRoute('result', { 'studyId': this.studyId });
+        this.authService.ahc.messageHandler
+          .renderMessage('Questionário enviado com sucesso.' +
+                         ' Redirecionando para a página de resultado.', 'success')
+          .then(() => this.router.navigateToRoute('result', { 'studyId': this.studyId }));
       });
   }
 

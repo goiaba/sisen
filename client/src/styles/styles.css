@@ -103,7 +103,7 @@ section {
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .isa-info, .isa-success, .isa-warning, .isa-error {
-  position: absolute;
+  position: fixed;
   top: 0px;
   right: 0px;
   margin: 10px 0px;
