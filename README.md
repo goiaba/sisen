@@ -39,5 +39,6 @@ In possession of a JWT token a client can start navigating the API making a firs
 ```
 cd sisen/client
 npm i
+npm link aurelia-cli
 au run --watch
 ```
