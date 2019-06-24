@@ -17,7 +17,7 @@ export default class MessageHandler {
     const message = document.createElement('div');
     message.className = messageClass;
     message.id = messageId;
-    message.textContent = messageText;
+    message.innerHTML = messageText;
     message.style = `top: ${this.nextMessagePosition()}`;
     const icon = document.createElement('i');
     icon.classList.add('fa');

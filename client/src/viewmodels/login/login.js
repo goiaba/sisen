@@ -17,7 +17,8 @@ export class Login {
     if (this.username && this.password) {
       this.authService.login(this.username, this.password);
     } else {
-      this.error = 'Please enter a username and password.';
+      this.authService.ahc.messageHandler.renderMessage(
+        'E-mail e senha são campos obrigatórios', 'error');
     }
   }
 
