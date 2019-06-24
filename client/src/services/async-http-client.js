@@ -45,9 +45,9 @@ export default class AsyncHttpClient {
       const responseJson = JSON.parse(error.response);
       if (responseJson.detail) {
         message = responseJson.detail;
-      } else if (response.non_field_errors) {
+      } else if (responseJson.non_field_errors) {
         message = '<ul>';
-        for (let field_error of response.non_field_errors) {
+        for (let field_error of responseJson.non_field_errors) {
           message += `<li>${field_error}</li>`;
         }
         message += '</ul>';
