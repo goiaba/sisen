@@ -148,7 +148,7 @@ class ClassSerializer(serializers.ModelSerializer):
     program = ProgramSerializer(read_only=True)
     class Meta:
         model = models.Class
-        fields = ('program', 'code', 'description', 'semester', 'year')
+        fields = ('id', 'program', 'code', 'description', 'semester', 'year')
 
 
 class AvailableClassesSerializer(serializers.Serializer):

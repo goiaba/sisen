@@ -2,7 +2,8 @@ import Program from 'model/program';
 
 export default class Classroom {
 
-  constructor(code, description, semester, year, program) {
+  constructor(id, code, description, semester, year, program) {
+    this.id = id;
     this.code = code;
     this.description = description;
     this.semester = semester;
@@ -12,6 +13,7 @@ export default class Classroom {
 
   static toObject(json) {
     return new Classroom(
+      json.id,
       json.code,
       json.description,
       json.semester,
