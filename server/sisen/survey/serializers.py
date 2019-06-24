@@ -128,7 +128,7 @@ class StudentAnswerSerializer(serializers.ModelSerializer):
 class StudyOptionScoreSerializer(serializers.Serializer):
     code = serializers.CharField(max_length=50)
     description = serializers.CharField(max_length=100)
-    value = serializers.CharField(max_length=4)
+    value = serializers.FloatField()
 
 
 class StudyWithMessageAndStudentOptionScoreSerializer(serializers.Serializer):

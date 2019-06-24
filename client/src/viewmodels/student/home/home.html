@@ -1,41 +1,27 @@
 <template>
-  <require from="styles/tables.css"></require>
+  <require from="styles/bootstrap.css"></require>
   <require from="resources/nav-bar.html"></require>
   <div class="ui container page-host">
     <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
     <h1>Estudos Disponíveis</h1>
-    <div class="divTable blueTable">
-      <div class="divTableHeading">
-        <div class="divTableRow">
-          <div class="divTableHead">Estudo</div>
-          <div class="divTableHead">Respondido</div>
-          <div class="divTableHead">&nbsp;</div>
-        </div>
-      </div>
-      <div class="divTableBody" repeat.for="study of availableStudies">
-        <div class="divTableRow">
-          <div class="divTableCell">${study.study.description}</div>
-          <div class="divTableCell">
-            <input type="checkbox" id="answered" checked.bind="study.study.answered" disabled>
-          </div>
-          <div class="divTableCell">
-            <a show.bind="addLink(study, 'answer')" href="#/answer/${study.study.id}">answer</a>
-            <a show.bind="addLink(study, 'result')" href="#/result/${study.study.id}">result</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- <div class="blueTable outerTableFooter">
-      <div class="tableFootStyle">
-        <div class="links">
-          <a href="#">&laquo;</a>
-          <a class="active" href="#">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
-          <a href="#">4</a>
-          <a href="#">&raquo;</a>
-        </div>
-      </div>
-    </div> -->
+    <table id="studyTable" class="table table-stripped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Estudo</th>
+          <th scope="col">Respondido</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr repeat.for="study of availableStudies">
+          <th>${study.study.description}</th>
+          <td><input type="checkbox" id="answered" checked.bind="study.study.answered" disabled></td>
+          <td>
+            <a show.bind="addLink(study, 'answer')" href="#/answer/${study.study.id}">Responder</a>
+            <a show.bind="addLink(study, 'result')" href="#/result/${study.study.id}">Visualizar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>

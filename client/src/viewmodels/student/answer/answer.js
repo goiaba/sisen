@@ -44,4 +44,8 @@ export class Answer {
       });
   }
 
+  toHome() {
+    this.authService.router.navigate('home');
+  }
+
 }
