@@ -1,24 +1,25 @@
 <template>
-  <require from="styles/tables.css"></require>
+  <require from="resources/value-converters/date-format"></require>
+  <require from="resources/value-converters/percent-format"></require>
   <require from="resources/nav-bar.html"></require>
   <div class="ui container page-host">
     <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
-    <h1>Resultados</h1>
-    <p>Estudo: ${result.study.description}</p>
-    <p>Submissão do questionário: ${result.submit_datetime}</p>
-    <p>${result.message}</p>
-    <div class="divTable blueTable">
-      <div class="divTableHeading">
-        <div class="divTableRow">
-          <div class="divTableHead" repeat.for="option of result.study_option_scores">${option.description}</div>
-        </div>
-      </div>
-      <div class="divTableBody">
-        <div class="divTableRow">
-          <div class="divTableCell" repeat.for="option of result.study_option_scores">${option.value}</div>
-        </div>
-      </div>
+    <h1>Resultados do estudo de ${result.study.description}</h1>
+    <p>Submissão do questionário: ${result.submit_datetime | dateFormat}</p>
+    <div innerhtml.bind="resultMessage"></div>
+    <table id="resultTable" class="table table-stripped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" repeat.for="option of result.study_option_scores">${option.description}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td repeat.for="option of result.study_option_scores">${option.value | percentFormat}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="form-buttons">
+      <button type="button" class="btn btn-dark" click.delegate="toHome()">Voltar</button>
     </div>
-    <span class="error">${ahc.requestErrorMessage}</span>
-  </div>
 </template>

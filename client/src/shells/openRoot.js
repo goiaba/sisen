@@ -18,6 +18,14 @@ export class StudentRoot {
         nav: false,
         title: 'Login'
       },
+      {
+        route: 'signup',
+        name: 'signup',
+        href: '#/signup',
+        moduleId: PLATFORM.moduleName('viewmodels/signup/signup'),
+        nav: false,
+        title: 'Registrar-se'
+      },
     ]);
 
     config.mapUnknownRoutes(instruction => {
