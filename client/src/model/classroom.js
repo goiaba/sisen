@@ -2,13 +2,12 @@ import Program from 'model/program';
 
 export default class Classroom {
 
-  constructor(id, code, description, semester, year, program) {
+  constructor(id, code, description, semester, year) {
     this.id = id;
     this.code = code;
     this.description = description;
     this.semester = semester;
     this.year = year;
-    this.program = program;
   }
 
   static toObject(json) {
@@ -17,8 +16,7 @@ export default class Classroom {
       json.code,
       json.description,
       json.semester,
-      json.year,
-      Program.toObject(json.program)
+      json.year
     );
   }
 }
