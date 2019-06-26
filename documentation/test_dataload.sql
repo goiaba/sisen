@@ -72,3 +72,4 @@ insert into  survey_answer_questions (answer_id, question_id) select id, (select
 insert into  survey_answer_questions (answer_id, question_id) select id, (select id from survey_question where text = 'pergunta 2 EA') from survey_answer where value = 3;
 insert into  survey_answer_questions (answer_id, question_id) select id, (select id from survey_question where text = 'pergunta 3 EA') from survey_answer where value = 3;
 insert into  survey_answer_questions (answer_id, question_id) select id, (select id from survey_question where text = 'pergunta 4 EA') from survey_answer where value = 3;
+insert into  survey_professor_classes (class_id, professor_id) select id, (select id from survey_professor where user_id in (select id from auth_user where username = 'professor1')) from survey_class;

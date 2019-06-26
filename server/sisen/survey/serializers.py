@@ -104,7 +104,7 @@ class StudySerializer(serializers.ModelSerializer):
         """Remove 'answered' if 'student' not in context"""
         ret = super().to_representation(instance)
         if not self.context.get('student'):
-            ret.pop('answered')
+            ret.answered = None;
         return ret
 
 

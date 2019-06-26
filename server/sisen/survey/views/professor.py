@@ -43,3 +43,15 @@ def survey_synthetic_result(request, class_id, study_id, format=None):
         scores.append(business.student_scores(study, student))
     return Response(SyntheticReportSerializer(
         SyntheticReport(sclass, study, scores)).data)
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, IsProfessor, IsTeachingClass))
+def survey_analytical_result(request, class_id, study_id, format=None):
+    # @TODO implement it correctly
+    study = models.Study.objects.get(id = study_id)
+    sclass = models.Class.objects.get(id = class_id)
+    scores = []
+    for student in sclass.students.all():
+        scores.append(business.student_scores(study, student))
+    return Response(SyntheticReportSerializer(
+        SyntheticReport(sclass, study, scores)).data)

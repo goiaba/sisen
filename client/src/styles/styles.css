@@ -7,6 +7,7 @@ body {
   border: 1px solid rgb(128,128,128);
   border-radius: 6px;
   margin: 20vh auto;
+  min-width: 200px;
 }
 
 .login-form > * {
