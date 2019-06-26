@@ -8,16 +8,18 @@ body {
   border-radius: 6px;
   margin: 20vh auto;
   min-width: 200px;
+  text-align: center;
 }
 
 .login-form > * {
   display: block;
-  margin: 12px auto;
+  margin: 12px auto 0px auto;
 }
 
-.login-form > input, select {
+.login-form > input, .login-form > select {
   width:90%;
   box-sizing:border-box;
+  display: inline-block;
 }
 
 .login-form > .registerLink, .loginLink {
@@ -39,9 +41,7 @@ body {
 .validation-message-div {
   display: inline;
   font-size: x-small;
-  left: -6px;
-  top: -8px;
-  position: relative;
+  position: absolute;
   padding: 2px;
   background: #fff0f0;
   color: red;
@@ -72,8 +72,6 @@ section {
 .navbar-right {
   margin-right: 0!important;
 }
-
-@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .isa-info, .isa-success, .isa-warning, .isa-error {
   position: fixed;
@@ -110,5 +108,5 @@ section {
 }
 
 .form-buttons {
-  text-align: center; 
+  text-align: center;
 }
