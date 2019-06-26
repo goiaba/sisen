@@ -138,18 +138,16 @@ export default class AuthService {
 	}
 
 	setRoot() {
+    var navigateToHome = () => {
+      if (this.router.currentInstruction.config.route == '/login')
+        this.router.navigate('home');
+    };
 		if (this.session.role === 'Student') {
-			this.app.setRoot(PLATFORM.moduleName('shells/studentRoot')).then(() => {
-        this.router.navigate('home');
-      });
+			this.app.setRoot(PLATFORM.moduleName('shells/studentRoot')).then(navigateToHome);
 		} else if (this.session.role === 'Professor') {
-			this.app.setRoot(PLATFORM.moduleName('shells/professorRoot')).then(() => {
-        this.router.navigate('home');
-      });
+			this.app.setRoot(PLATFORM.moduleName('shells/professorRoot')).then(navigateToHome);
 		} else if (this.session.role === 'Admin') {
-			this.app.setRoot(PLATFORM.moduleName('shells/adminRoot')).then(() => {
-        this.router.navigate('home');
-      });
+			this.app.setRoot(PLATFORM.moduleName('shells/adminRoot')).then(navigateToHome);
 		} else {
 			console.error(`There is no available root for "${this.session.role}" role`);
 		}
