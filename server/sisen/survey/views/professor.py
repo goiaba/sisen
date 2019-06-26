@@ -17,7 +17,10 @@ def professor_home(request, format=None):
         total_students = len(sclass.students.all())
         for study in models.Study.objects.all():
             already_answered = len(
-                sclass.students.filter(student_answers__isnull=False).distinct())
+                models.StudentAnswer.objects \
+                    .values('student_id') \
+                    .filter(study=study, student__sclass=sclass) \
+                    .distinct())
             available_classes_dto = AvailableClasses(sclass, study,
                 total_students, already_answered, [])
             available_classes_dto.links.append(
