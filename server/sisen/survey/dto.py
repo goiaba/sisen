@@ -60,3 +60,23 @@ class SyntheticReport(object):
         self.sclass = sclass
         self.study = study
         self.students = students
+
+
+class ProfessorSyntheticReport(object):
+    def __init__(self, study, sclass):
+        self.study = study
+        self.sclass = sclass
+
+
+class StudyWithAverageStudyOptionByClass(object):
+    def __init__(self, study, options):
+        self.acronym = study.acronym
+        self.description = study.description
+        self.options = options
+
+
+class StudyOptionWithClassAverage(object):
+    def __init__(self, study_option, average):
+        self.code = study_option.code
+        self.description = study_option.description
+        self.average = average
