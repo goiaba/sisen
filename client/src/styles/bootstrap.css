@@ -1,1 +1,19 @@
-@import "~bootstrap/dist/css/bootstrap.css";
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+ /* small fixes for dataTables */
+ .dataTables_length label, .dataTables_filter label {
+    width: 100%;
+}
+
+.dataTables_length .form-control, .dataTables_filter .form-control {
+    width: initial;
+    display: inline-block;
+}
+
+.dataTables_filter label {
+    text-align: right;
+}
+
+.dataTables_filter input {
+    margin-left: 4px;
+}
