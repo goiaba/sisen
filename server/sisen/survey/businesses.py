@@ -20,25 +20,20 @@ def professor_analytical_report(study, sclass):
     student_with_option_score_dict = {}
     for student in sclass.students.all():
         student_with_option_score = student_scores(study, student)
-        max_score = max(
-            student_with_option_score.scores,
-            key=lambda score: score.value)
-        if student_with_option_score_dict.get(max_score.code):
-            student_with_option_score_dict.get(
-                max_score.code
-            ).append(student_with_option_score)
-        else:
-            student_with_option_score_dict[max_score.code] = [
-                student_with_option_score
-            ]
+        if student_with_option_score.scores:
+            _add_or_update_list(student_with_option_score_dict,
+                max(student_with_option_score.scores,
+                    key=lambda score: score.value).code,
+                student_with_option_score)
 
     study_option_dto_list = []
-    for code, students_scores in student_with_option_score_dict.items():
-        study_option = models.StudyOption.objects.get(code=code)
-        study_option_dto_list.append(dto.StudyOptionWithStudentScore(
-            study_option,
-            students_scores
-        ))
+    for so in models.StudyOption.objects.filter(study=study):
+        study_option_dto_list.append(
+            dto.StudyOptionWithStudentScore(
+                so,
+                student_with_option_score_dict.get(so.code, [])
+            )
+        )
     study_dto = dto.StudyWithStudentStudyOptionScore(study, study_option_dto_list)
     return dto.ProfessorAnalyticalReport(study_dto, sclass)
 
@@ -78,6 +73,11 @@ def professor_synthetic_report(study, sclass):
         )
     study_dto = dto.StudyWithAverageStudyOptionByClass(study, study_option_dto_list)
     return dto.ProfessorSyntheticReport(study_dto, sclass)
+
+def _add_or_update_list(d, k, v):
+    c = d.get(k)
+    if c: c.append(v)
+    else: d[k] = [v]
 
 def _calculate_student_score_by_study(study, student):
     # Creates a dict like { studyoption_id1: max_score1, ..., studyoption_idN: max_scoreN }
