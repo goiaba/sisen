@@ -21,17 +21,10 @@ def professor_analytical_report(study, sclass):
     for student in sclass.students.all():
         student_with_option_score = student_scores(study, student)
         if student_with_option_score.scores:
-            max_score = max(
-                student_with_option_score.scores,
-                key=lambda score: score.value)
-            if student_with_option_score_dict.get(max_score.code):
-                student_with_option_score_dict.get(
-                    max_score.code
-                ).append(student_with_option_score)
-            else:
-                student_with_option_score_dict[max_score.code] = [
-                    student_with_option_score
-                ]
+            _add_or_update_list(student_with_option_score_dict,
+                max(student_with_option_score.scores,
+                    key=lambda score: score.value).code,
+                student_with_option_score)
 
     study_option_dto_list = []
     for so in models.StudyOption.objects.filter(study=study):
@@ -43,6 +36,11 @@ def professor_analytical_report(study, sclass):
         )
     study_dto = dto.StudyWithStudentStudyOptionScore(study, study_option_dto_list)
     return dto.ProfessorAnalyticalReport(study_dto, sclass)
+
+def _add_or_update_list(d, k, v):
+    c = d.get(k)
+    if c: c.append(v)
+    else: d[k] = [v]
 
 def professor_synthetic_report(study, sclass):
     count_of_students_that_have_answered_study = models.StudentAnswer.objects \
