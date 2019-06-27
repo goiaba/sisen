@@ -20,17 +20,18 @@ def professor_analytical_report(study, sclass):
     student_with_option_score_dict = {}
     for student in sclass.students.all():
         student_with_option_score = student_scores(study, student)
-        max_score = max(
-            student_with_option_score.scores,
-            key=lambda score: score.value)
-        if student_with_option_score_dict.get(max_score.code):
-            student_with_option_score_dict.get(
-                max_score.code
-            ).append(student_with_option_score)
-        else:
-            student_with_option_score_dict[max_score.code] = [
-                student_with_option_score
-            ]
+        if student_with_option_score.scores:
+            max_score = max(
+                student_with_option_score.scores,
+                key=lambda score: score.value)
+            if student_with_option_score_dict.get(max_score.code):
+                student_with_option_score_dict.get(
+                    max_score.code
+                ).append(student_with_option_score)
+            else:
+                student_with_option_score_dict[max_score.code] = [
+                    student_with_option_score
+                ]
 
     study_option_dto_list = []
     for code, students_scores in student_with_option_score_dict.items():
