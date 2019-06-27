@@ -1,19 +1,16 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.min.css";
+@import "~datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css";
+@import "~datatables.net-rowgroup-dt/css/rowGroup.dataTables.min.css";
 
- /* small fixes for dataTables */
- .dataTables_length label, .dataTables_filter label {
-    width: 100%;
+tr.even {
+    background-color: #f5f5f5;
 }
 
-.dataTables_length .form-control, .dataTables_filter .form-control {
-    width: initial;
-    display: inline-block;
+body.dt-print-view {
+  overflow: auto;
 }
 
-.dataTables_filter label {
-    text-align: right;
-}
-
-.dataTables_filter input {
-    margin-left: 4px;
+.dataTable caption {
+  display: none;
 }
