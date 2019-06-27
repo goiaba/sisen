@@ -4,12 +4,7 @@ import AuthService from 'services/AuthService';
 import AsyncHttpClient from 'services/async-http-client';
 import AvailableClassroomStudy from 'model/available-classroom-study';
 import $ from 'jquery';
-import 'datatables.net';
-import 'datatables.net-bs4';
-import 'datatables.net-buttons';
-import 'datatables.net-buttons-bs4';
-import 'datatables.net-buttons/js/buttons.html5.min.js';
-import 'datatables.net-buttons/js/buttons.print.min.js';
+import 'resources/datatable';
 
 @inject(AuthService, AsyncHttpClient)
 export class Home {
@@ -30,13 +25,7 @@ export class Home {
             this.availableClassroomStudies = data.map((classStudy) => AvailableClassroomStudy.toObject(classStudy));
           })
           .then((data) => {
-            $('.table').DataTable({
-              dom: "<'row'<'col-6'B><'col-6'f>>" +
-                    "<'row'<'col-12'tr>>" +
-                    "<'row'<'col-4'l><'col-4'p><'col-4 text-right'i>>",
-              pageLength: 20,
-              buttons: ['copyHtml5', 'csvHtml5', 'print']
-            });
+            $('.table').DataTable();
           });
       });
   }
