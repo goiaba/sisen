@@ -34,12 +34,13 @@ def professor_analytical_report(study, sclass):
                 ]
 
     study_option_dto_list = []
-    for code, students_scores in student_with_option_score_dict.items():
-        study_option = models.StudyOption.objects.get(code=code)
-        study_option_dto_list.append(dto.StudyOptionWithStudentScore(
-            study_option,
-            students_scores
-        ))
+    for so in models.StudyOption.objects.filter(study=study):
+        study_option_dto_list.append(
+            dto.StudyOptionWithStudentScore(
+                so,
+                student_with_option_score_dict.get(so.code, [])
+            )
+        )
     study_dto = dto.StudyWithStudentStudyOptionScore(study, study_option_dto_list)
     return dto.ProfessorAnalyticalReport(study_dto, sclass)
 
