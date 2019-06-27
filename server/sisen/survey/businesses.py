@@ -37,11 +37,6 @@ def professor_analytical_report(study, sclass):
     study_dto = dto.StudyWithStudentStudyOptionScore(study, study_option_dto_list)
     return dto.ProfessorAnalyticalReport(study_dto, sclass)
 
-def _add_or_update_list(d, k, v):
-    c = d.get(k)
-    if c: c.append(v)
-    else: d[k] = [v]
-
 def professor_synthetic_report(study, sclass):
     count_of_students_that_have_answered_study = models.StudentAnswer.objects \
         .values(student_count=F('student__id')) \
@@ -78,6 +73,11 @@ def professor_synthetic_report(study, sclass):
         )
     study_dto = dto.StudyWithAverageStudyOptionByClass(study, study_option_dto_list)
     return dto.ProfessorSyntheticReport(study_dto, sclass)
+
+def _add_or_update_list(d, k, v):
+    c = d.get(k)
+    if c: c.append(v)
+    else: d[k] = [v]
 
 def _calculate_student_score_by_study(study, student):
     # Creates a dict like { studyoption_id1: max_score1, ..., studyoption_idN: max_scoreN }
