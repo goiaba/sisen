@@ -80,3 +80,23 @@ class StudyOptionWithClassAverage(object):
         self.code = study_option.code
         self.description = study_option.description
         self.average = average
+
+
+class ProfessorAnalyticalReport(object):
+    def __init__(self, study, sclass):
+        self.study = study
+        self.sclass = sclass
+
+
+class StudyWithStudentStudyOptionScore(object):
+    def __init__(self, study, options):
+        self.acronym = study.acronym
+        self.description = study.description
+        self.options = options
+
+
+class StudyOptionWithStudentScore(object):
+    def __init__(self, study_option, students):
+        self.code = study_option.code
+        self.description = study_option.description
+        self.students = students

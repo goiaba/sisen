@@ -190,18 +190,7 @@ class StudentWithOptionScoreSerializer(serializers.ModelSerializer):
         fields = ('email', 'first_name', 'last_name', 'scores')
 
 
-class SyntheticReportSerializer(serializers.Serializer):
-    sclass = ClassSerializer()
-    study = StudyWithOptionSerializer()
-    students = StudentWithOptionScoreSerializer(many=True)
-
 ################### Professor's Synthetic Report Serializers ###################
-
-class StudyOptionWithClassAverageScore(serializers.Serializer):
-    code = serializers.CharField(max_length=50)
-    description = serializers.CharField(max_length=100)
-    average = StudyOptionScoreSerializer()
-
 
 class StudyWithAverageStudyOptionByClassSerializer(serializers.Serializer):
     acronym = serializers.CharField(max_length=2)
@@ -211,4 +200,23 @@ class StudyWithAverageStudyOptionByClassSerializer(serializers.Serializer):
 
 class ProfessorSyntheticReportSerializer(serializers.Serializer):
     study = StudyWithAverageStudyOptionByClassSerializer()
+    sclass = ClassSerializer()
+
+
+################### Professor's Analytical Report Serializers ###################
+
+class StudyOptionWithStudentScoreSerializer(serializers.Serializer):
+    code = serializers.CharField(max_length=50)
+    description = serializers.CharField(max_length=100)
+    students = StudentWithOptionScoreSerializer(many=True)
+
+
+class StudyWithStudentStudyOptionScoreSerializer(serializers.Serializer):
+    acronym = serializers.CharField(max_length=2)
+    description = serializers.CharField(max_length=100)
+    options = StudyOptionWithStudentScoreSerializer(many=True)
+
+
+class ProfessorAnalyticalReportSerializer(serializers.Serializer):
+    study = StudyWithStudentStudyOptionScoreSerializer()
     sclass = ClassSerializer()

@@ -2,6 +2,83 @@ from django.db.models import Sum, F
 import sisen.survey.dto as dto
 import sisen.survey.models as models
 
+def process_answer(study, student):
+    submit_datetime = student.student_answer_logs.get(study=study).submit_datetime
+    return dto.StudyWithMessageAndStudentOptionScore(
+        submit_datetime,
+        study,
+        '<font color="red">TODO: This html should be got from a .properties FILE</font>',
+        _calculate_student_score_by_study(study, student),
+        [])
+
+def student_scores(study, student):
+    return dto.StudentWithOptionScore(
+        student.user,
+        _calculate_student_score_by_study(study, student))
+
+def professor_analytical_report(study, sclass):
+    student_with_option_score_dict = {}
+    for student in sclass.students.all():
+        student_with_option_score = student_scores(study, student)
+        max_score = max(
+            student_with_option_score.scores,
+            key=lambda score: score.value)
+        if student_with_option_score_dict.get(max_score.code):
+            student_with_option_score_dict.get(
+                max_score.code
+            ).append(student_with_option_score)
+        else:
+            student_with_option_score_dict[max_score.code] = [
+                student_with_option_score
+            ]
+
+    study_option_dto_list = []
+    for code, students_scores in student_with_option_score_dict.items():
+        study_option = models.StudyOption.objects.get(code=code)
+        study_option_dto_list.append(dto.StudyOptionWithStudentScore(
+            study_option,
+            students_scores
+        ))
+    study_dto = dto.StudyWithStudentStudyOptionScore(study, study_option_dto_list)
+    return dto.ProfessorAnalyticalReport(study_dto, sclass)
+
+def professor_synthetic_report(study, sclass):
+    count_of_students_that_have_answered_study = models.StudentAnswer.objects \
+        .values(student_count=F('student__id')) \
+        .filter(student__sclass=sclass, study=study) \
+        .distinct() \
+        .count()
+    sum_of_students_study_option_score = {
+        item['studyoption_id']: item['score'] for item in
+            models.StudentAnswer.objects.values(
+                studyoption_id=F('question__study_option__id'),
+            ).annotate(
+                score=Sum('answer__value')
+            ).filter(
+                student__sclass=sclass,
+                study=study
+            )
+    }
+    study_options_max_scores = _multiply_max_scores_by_students_count(
+        study,
+        count_of_students_that_have_answered_study
+    )
+    study_option_dto_list = []
+    for so in models.StudyOption.objects.filter(study=study):
+        study_option_dto_list.append(
+            dto.StudyOptionScore(
+                so.code,
+                so.description,
+                _average_score(
+                    so.id,
+                    sum_of_students_study_option_score,
+                    study_options_max_scores
+                )
+            )
+        )
+    study_dto = dto.StudyWithAverageStudyOptionByClass(study, study_option_dto_list)
+    return dto.ProfessorSyntheticReport(study_dto, sclass)
+
 def _calculate_student_score_by_study(study, student):
     # Creates a dict like { studyoption_id1: max_score1, ..., studyoption_idN: max_scoreN }
     max_score_by_option = _get_study_options_max_scores(study)
@@ -35,56 +112,6 @@ def _get_study_options_max_scores(study):
             study=study
         )
     }
-
-def process_answer(study, student):
-    submit_datetime = student.student_answer_logs.get(study=study).submit_datetime
-    return dto.StudyWithMessageAndStudentOptionScore(
-        submit_datetime,
-        study,
-        '<font color="red">TODO: This html should be got from a .properties FILE</font>',
-        _calculate_student_score_by_study(study, student),
-        [])
-
-def student_scores(study, student):
-    return dto.StudentWithOptionScore(
-        student.user,
-        _calculate_student_score_by_study(study, student))
-
-def professor_synthetic_report(study, sclass):
-    count_of_students_that_have_answered_study = models.StudentAnswer.objects \
-        .values(student_count=F('student__id')) \
-        .filter(student__sclass=sclass, study=study) \
-        .distinct() \
-        .count()
-    sum_of_students_study_option_score = { item['studyoption_id']: item['score'] for item in
-        models.StudentAnswer.objects.values(
-            studyoption_id=F('question__study_option__id'),
-        ).annotate(
-            score=Sum('answer__value')
-        ).filter(
-            student__sclass=sclass,
-            study=study
-        )
-    }
-    study_options_max_scores = _multiply_max_scores_by_students_count(
-        study,
-        count_of_students_that_have_answered_study
-    )
-    study_option_dto_list = []
-    for so in models.StudyOption.objects.filter(study=study):
-        study_option_dto_list.append(
-            dto.StudyOptionScore(
-                so.code,
-                so.description,
-                _average_score(
-                    so.id,
-                    sum_of_students_study_option_score,
-                    study_options_max_scores
-                )
-            )
-        )
-    study_dto = dto.StudyWithAverageStudyOptionByClass(study, study_option_dto_list)
-    return dto.ProfessorSyntheticReport(study_dto, sclass)
 
 def _multiply_max_scores_by_students_count(study, count):
     return { k: v * count for k, v in _get_study_options_max_scores(study).items() }

@@ -7,7 +7,9 @@ import sisen.survey.businesses as business
 from sisen.survey.exceptions import Conflict, NotFound
 import sisen.survey.models as models
 from sisen.survey.permissions import IsProfessor, IsTeachingClass
-from sisen.survey.serializers import AvailableClassesSerializer, ProfessorSyntheticReportSerializer
+from sisen.survey.serializers import AvailableClassesSerializer, \
+    ProfessorSyntheticReportSerializer, \
+    ProfessorAnalyticalReportSerializer
 from sisen.survey.views.main import get_object_or_not_found
 
 @api_view(['GET'])
@@ -48,4 +50,7 @@ def survey_synthetic_report(request, class_id, study_id, format=None):
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, IsProfessor, IsTeachingClass))
 def survey_analytical_report(request, class_id, study_id, format=None):
-    pass
+    study = get_object_or_not_found(models.Study, study_id, 'O estudo não existe (ID=%i)' % study_id)
+    sclass = get_object_or_not_found(models.Class, class_id, 'A turma não existe (ID=%i)' % class_id)
+    return Response(ProfessorAnalyticalReportSerializer(
+        business.professor_analytical_report(study, sclass)).data)
