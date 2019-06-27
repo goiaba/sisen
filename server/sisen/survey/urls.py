@@ -12,8 +12,8 @@ urlpatterns = [
     path(r'study/<int:study_id>/report', student.survey_report, name='survey_report'),
 
     path(r'professor-view', professor.professor_home, name='professor_home'),
-    path(r'class/<int:class_id>/study/<int:study_id>/synthetic-report', professor.survey_synthetic_result, name='survey_synthetic_report'),
-    path(r'class/<int:class_id>/study/<int:study_id>/analytical-report', professor.survey_analytical_result, name='survey_analytical_report'),
+    path(r'class/<int:class_id>/study/<int:study_id>/synthetic-report', professor.survey_synthetic_report, name='survey_synthetic_report'),
+    path(r'class/<int:class_id>/study/<int:study_id>/analytical-report', professor.survey_analytical_report, name='survey_analytical_report'),
 
     path(r'institution', institution.list, name='list_institution'),
     path(r'institution/<int:institution_id>', institution.detail, name='institution_detail'),

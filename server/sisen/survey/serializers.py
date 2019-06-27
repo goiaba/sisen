@@ -165,7 +165,8 @@ class AvailableClassesSerializer(serializers.Serializer):
     links = LinkSerializer(many=True)
 
 
-################### Synthetic Report Serializers ###################
+################### Student's Synthetic Report Serializers ###################
+
 class StudyOptionSerialiser(serializers.ModelSerializer):
     class Meta:
         model = models.StudyOption
@@ -189,7 +190,33 @@ class StudentWithOptionScoreSerializer(serializers.ModelSerializer):
         fields = ('email', 'first_name', 'last_name', 'scores')
 
 
-class SyntheticReportSerializer(serializers.Serializer):
+################### Professor's Synthetic Report Serializers ###################
+
+class StudyWithAverageStudyOptionByClassSerializer(serializers.Serializer):
+    acronym = serializers.CharField(max_length=2)
+    description = serializers.CharField(max_length=100)
+    options = StudyOptionScoreSerializer(many=True)
+
+
+class ProfessorSyntheticReportSerializer(serializers.Serializer):
+    study = StudyWithAverageStudyOptionByClassSerializer()
     sclass = ClassSerializer()
-    study = StudyWithOptionSerializer()
+
+
+################### Professor's Analytical Report Serializers ###################
+
+class StudyOptionWithStudentScoreSerializer(serializers.Serializer):
+    code = serializers.CharField(max_length=50)
+    description = serializers.CharField(max_length=100)
     students = StudentWithOptionScoreSerializer(many=True)
+
+
+class StudyWithStudentStudyOptionScoreSerializer(serializers.Serializer):
+    acronym = serializers.CharField(max_length=2)
+    description = serializers.CharField(max_length=100)
+    options = StudyOptionWithStudentScoreSerializer(many=True)
+
+
+class ProfessorAnalyticalReportSerializer(serializers.Serializer):
+    study = StudyWithStudentStudyOptionScoreSerializer()
+    sclass = ClassSerializer()

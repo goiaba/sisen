@@ -2,12 +2,15 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from sisen.survey.dto import Link, AvailableClasses, SyntheticReport
+from sisen.survey.dto import Link, AvailableClasses
 import sisen.survey.businesses as business
 from sisen.survey.exceptions import Conflict, NotFound
 import sisen.survey.models as models
 from sisen.survey.permissions import IsProfessor, IsTeachingClass
-from sisen.survey.serializers import AvailableClassesSerializer, SyntheticReportSerializer
+from sisen.survey.serializers import AvailableClassesSerializer, \
+    ProfessorSyntheticReportSerializer, \
+    ProfessorAnalyticalReportSerializer
+from sisen.survey.views.main import get_object_or_not_found
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, IsProfessor))
@@ -38,23 +41,16 @@ def professor_home(request, format=None):
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, IsProfessor, IsTeachingClass))
-def survey_synthetic_result(request, class_id, study_id, format=None):
-    study = models.Study.objects.get(id = study_id)
-    sclass = models.Class.objects.get(id = class_id)
-    scores = []
-    for student in sclass.students.all():
-        scores.append(business.student_scores(study, student))
-    return Response(SyntheticReportSerializer(
-        SyntheticReport(sclass, study, scores)).data)
+def survey_synthetic_report(request, class_id, study_id, format=None):
+    study = get_object_or_not_found(models.Study, study_id, 'O estudo não existe (ID=%i)' % study_id)
+    sclass = get_object_or_not_found(models.Class, class_id, 'A turma não existe (ID=%i)' % class_id)
+    return Response(ProfessorSyntheticReportSerializer(
+        business.professor_synthetic_report(study, sclass)).data)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, IsProfessor, IsTeachingClass))
-def survey_analytical_result(request, class_id, study_id, format=None):
-    # @TODO implement it correctly
-    study = models.Study.objects.get(id = study_id)
-    sclass = models.Class.objects.get(id = class_id)
-    scores = []
-    for student in sclass.students.all():
-        scores.append(business.student_scores(study, student))
-    return Response(SyntheticReportSerializer(
-        SyntheticReport(sclass, study, scores)).data)
+def survey_analytical_report(request, class_id, study_id, format=None):
+    study = get_object_or_not_found(models.Study, study_id, 'O estudo não existe (ID=%i)' % study_id)
+    sclass = get_object_or_not_found(models.Class, class_id, 'A turma não existe (ID=%i)' % class_id)
+    return Response(ProfessorAnalyticalReportSerializer(
+        business.professor_analytical_report(study, sclass)).data)
