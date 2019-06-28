@@ -21,9 +21,14 @@ export class App {
         const role = availableGroups[0]
         console.log(`"${role}" was the only available role and was automatically chosen.`);
         this.auth.setRole(role);
-      } else {
+      } else if (availableGroups.length > 1) {
         console.log('Will popup the role chooser modal.')
         this.showDialog();
+      } else {
+        this.auth.ahc.messageHandler
+          .renderMessage(
+            'Não existe papel associado ao usuário. A sessão será encerrada.', 'error')
+          .then(() => this.auth.logout());
       }
     } else {
       console.log(`Role "${this.auth.session.role}" already in use.`);
