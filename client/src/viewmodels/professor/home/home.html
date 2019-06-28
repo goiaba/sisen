@@ -10,20 +10,23 @@
           <th scope="col">Turma</th>
           <th scope="col">Estudo</th>
           <th scope="col">Qtd. Respostas</th>
-          <th scope="col">Relatório</th>
+          <th scope="col" class="text-center">Relatório</th>
         </tr>
       </thead>
       <tbody>
         <tr repeat.for="classroomStudy of availableClassroomStudies">
-          <th>${classroomStudy.classroom.description}</th>
+          <td>${classroomStudy.classroom.description}</td>
           <td>${classroomStudy.study.description}</td>
-          <td>${classroomStudy.answered}/${classroomStudy.students}</td>
-          <td>
-            <a class="btn btn-light btn-sm" href="#/report/class/${classroomStudy.classroom.id}/study/${classroomStudy.study.id}/synthetic">
+          <td data-sort="${classroomStudy.answered}">${classroomStudy.answered}/${classroomStudy.students}</td>
+          <td class="text-center">
+            <a show.bind="classroomStudy.answered" class="btn btn-light btn-sm" href="#/report/class/${classroomStudy.classroom.id}/study/${classroomStudy.study.id}/synthetic">
               sintético</a>
-            <a class="btn btn-light btn-sm" href="#/report/class/${classroomStudy.classroom.id}/study/${classroomStudy.study.id}/analytical">
+            <a show.bind="classroomStudy.answered" class="btn btn-light btn-sm" href="#/report/class/${classroomStudy.classroom.id}/study/${classroomStudy.study.id}/analytical">
               analítico
             </a>
+            <span show.bind="! classroomStudy.answered">
+              -
+            </span>
           </td>
         </tr>
       </tbody>

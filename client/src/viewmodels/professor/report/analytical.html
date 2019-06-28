@@ -1,0 +1,40 @@
+<template>
+  <require from="styles/bootstrap.css"></require>
+  <require from="resources/value-converters/percent-format"></require>
+  <require from="resources/nav-bar.html"></require>
+  <div class="ui container page-host">
+    <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
+    <h1 class="table-title">${study.description}</h1>
+    <h2 class="table-title">${classroom.code} - ${classroom.description} ${classroom.year} S${classroom.semester}</h2>
+    <h3 class="table-title">Relatório analítico</h3>
+    <table class="table table-stripped" width="100%">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" class="toggle">Habilidade</th>
+          <th scope="col">Estudante</th>
+          <th scope="col" repeat.for="option of study.options">
+            ${option.description}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <template repeat.for="option of study.options">
+          <tr repeat.for="student of option.students">
+            <td>${option.description}</td>
+            <td>
+              <a href="mailto:${student.email}">
+                ${student.first_name}
+                <span show.bind="student.first_name != student.last_name">
+                  ${student.last_name}
+                </span>
+              </a>
+            </td>
+            <td repeat.for="column of columnOrder" data-sort="${student.scores[column].value}">
+              ${student.scores[column].value | percentFormat}
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</template>

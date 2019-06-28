@@ -3,6 +3,7 @@ import 'datatables.net';
 import 'datatables.net-bs4';
 import 'datatables.net-buttons';
 import 'datatables.net-buttons-bs4';
+import 'datatables.net-rowgroup';
 import 'datatables.net-buttons/js/buttons.html5.min.js';
 import 'datatables.net-buttons/js/buttons.print.min.js';
 import 'datatables.net-buttons/js/buttons.colVis.min.js';
@@ -11,7 +12,7 @@ $.extend(true, $.fn.dataTable.defaults, {
   dom: "<'row'<'col-6'B><'col-6'f>>" +
         "<'row'<'col-12 overflow-auto'tr>>" +
         "<'row'<'col-4'l><'col-4'p><'col-4 text-right'i>>",
-  pageLength: 20,
+  pageLength: 25,
   scrollX: true,
   buttons: [{
     extend: 'copyHtml5',

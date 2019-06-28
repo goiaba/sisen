@@ -16,6 +16,21 @@ export class OpenRoot {
         moduleId: PLATFORM.moduleName('viewmodels/professor/home/home'),
         nav: true,
         title: 'Home'
+      },
+      {
+        route: 'report/class/:classId/study/:studyId/synthetic',
+        name: 'answer',
+        href: '#/report/class/${classId}/study/${studyId}/synthetic',
+        moduleId: PLATFORM.moduleName('viewmodels/professor/report/synthetic'),
+        nav: false,
+        title: 'Synthetic'
+      },{
+        route: 'report/class/:classId/study/:studyId/analytical',
+        name: 'answer',
+        href: '#/report/class/${classroomId}/study/${studyId}/analytical',
+        moduleId: PLATFORM.moduleName('viewmodels/professor/report/analytical'),
+        nav: false,
+        title: 'Analytical'
       }
     ]);
 

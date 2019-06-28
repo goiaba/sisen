@@ -11,7 +11,11 @@ export default {
 		answerUrl: '/survey/study/${studyId}/answer',
 		resultUrl: '/survey/study/${studyId}/report',
     processAnswerUrl: '/survey/study/${studyId}/process'
-	},
+  },
+  professor: {
+    syntheticReportUrl: '/survey/class/${classId}/study/${studyId}/synthetic-report',
+    analyticalReportUrl: '/survey/class/${classId}/study/${studyId}/analytical-report'
+  },
 	tokenName: 'sisenAuth',
 	headerAuthParam: 'Authorization'
 };
