@@ -25,7 +25,7 @@ def register_student(request, format=None):
     new_student_data = request.data
     class_id = new_student_data.get('class')
     sclass = get_object_or_not_found(models.Class, class_id,
-        'A turma enviada não existe (ID=%i)' % class_id)
+        'A turma enviada não existe (ID=%s)' % class_id)
     serializer = UserSerializer(data=new_student_data)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

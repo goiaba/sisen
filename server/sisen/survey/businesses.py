@@ -1,4 +1,4 @@
-from django.db.models import Sum, F
+from django.db.models import Sum, Max, Count, F, Subquery, OuterRef, FloatField
 import sisen.survey.dto as dto
 import sisen.survey.models as models
 
@@ -103,13 +103,14 @@ def _calculate_student_score_by_study(study, student):
     return scores
 
 def _get_study_options_max_scores(study):
+    qs = models.Question.objects.values('study_option__id').filter(id=OuterRef('id')).annotate(max_score=Max('answers__value'))
     return { item['studyoption_id']: item['max_score'] for item in
-        models.Question.objects.values(
+        models.Question.objects.filter(
+            study=study
+        ).values(
             studyoption_id=F('study_option__id')
         ).annotate(
-            max_score=Sum('answers__value')
-        ).filter(
-            study=study
+            max_score=Count('*', output_field=FloatField()) * Subquery(qs.values('max_score'), output_field=FloatField())
         )
     }
 
