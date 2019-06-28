@@ -1,6 +1,7 @@
 import { inject, PLATFORM } from 'aurelia-framework';
 import AuthService from 'services/AuthService';
-
+import $ from 'jquery';
+import 'bootstrap/dist/js/bootstrap.bundle';
 @inject(AuthService)
 export class Login {
 
@@ -13,12 +14,11 @@ export class Login {
     this.password = 'admin';
   }
 
-  login() {
-    if (this.email && this.password) {
+  login(form) {
+    if (form.checkValidity()) {
       this.authService.login(this.email, this.password);
     } else {
-      this.authService.ahc.messageHandler.renderMessage(
-        'E-mail e senha são campos obrigatórios', 'error');
+      form.classList.add('was-validated');
     }
   }
 

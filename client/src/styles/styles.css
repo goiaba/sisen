@@ -1,54 +1,41 @@
-body {
-  margin: 0;
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.min.css";
+@import "~datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css";
+@import "~datatables.net-rowgroup-dt/css/rowGroup.dataTables.min.css";
+
+tr.even {
+  background-color: #f5f5f5;
+}
+
+body.dt-print-view {
+  overflow: auto;
+}
+
+.dataTable caption {
+  display: none;
 }
 
 .login-form {
-  width: 15vw;
-  border: 1px solid rgb(128,128,128);
-  border-radius: 6px;
-  margin: 20vh auto;
-  min-width: 200px;
-  text-align: center;
+  margin-top:15vw;
 }
 
-.login-form > * {
-  display: block;
-  margin: 12px auto 0px auto;
-}
-
-.login-form > input, .login-form > select {
-  width:90%;
-  box-sizing:border-box;
-  display: inline-block;
-}
-
-.login-form > .registerLink, .loginLink {
-  text-align: center;
-}
-
-.login-form > .error {
-  color: red;
-  font-size: 14px;
-  font-weight: bold;
-  font-family: monospace;
-  padding: 0 12px;
-}
-
-.has-error {
-  background: #fff0f0;
-}
-
-.validation-message-div {
-  display: inline;
-  font-size: x-small;
-  position: absolute;
-  padding: 2px;
-  background: #fff0f0;
-  color: red;
-  font-family: 'Arial', sans-serif;
-  border-radius: 5px;
+.toast-alert {
+  max-width: 350px;
   overflow: hidden;
-  white-space: nowrap;
+  font-size: 0.875rem;
+}
+
+#toast-alerts-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+#answerForm label {
+  display: inherit;
+  margin-left: 1rem;
 }
 
 @media print
@@ -62,51 +49,4 @@ body {
     overflow-y: inherit;
     overflow-x: inherit;
   }
-}
-
-section {
-    margin: 0 20px;
-}
-
-/* fix bad bootstrap styling */
-.navbar-right {
-  margin-right: 0!important;
-}
-
-.isa-info, .isa-success, .isa-warning, .isa-error {
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  margin: 10px 0px;
-  padding:12px;
-}
-.isa-info {
-  color: #00529B;
-  background-color: #BDE5F8;
-}
-.isa-success {
-  color: #4F8A10;
-  background-color: #DFF2BF;
-}
-.isa-warning {
-  color: #9F6000;
-  background-color: #FEEFB3;
-}
-.isa-error {
-  color: #D8000C;
-  background-color: #FFD2D2;
-}
-.isa-info i, .isa-success i, .isa-warning i, .isa-error i {
-  margin:10px 15px;
-  font-size:2em;
-  vertical-align:middle;
-}
-
-#answerForm label {
-  display: inherit;
-  margin-left: 1rem;
-}
-
-.form-buttons {
-  text-align: center;
 }

@@ -1,69 +1,49 @@
+import $ from 'jquery';
+
 export default class MessageHandler {
   constructor() {
-    this.availableMessageTypes = ['info', 'error', 'warning', 'success']
-    this.iconMapByMessageType = {
-      'info': 'fa-info-circle',
-      'success': 'fa-check',
-      'warning': 'fa-warning',
-      'error': 'fa-times-circle'
+    this.containerId = 'toast-alerts-container';
+    this.classMapByMessageType = {
+      'info': 'alert-info',
+      'success': 'alert-success',
+      'warning': 'alert-warning',
+      'error': 'alert-danger'
     };
-    this.nextMessageId = 1;
-    this.renderedMessages = [];
   }
 
   renderMessage(messageText, messageType) {
+    //   <div aria-live="polite" aria-atomic="true" id="toast-alerts-container">
     const messageClass = this.getClassByType(messageType);
-    const messageId = `${messageClass}-${this.nextMessageId}`;
-    const message = document.createElement('div');
-    message.className = messageClass;
-    message.id = messageId;
-    message.innerHTML = messageText;
-    message.style = `top: ${this.nextMessagePosition()}`;
-    const icon = document.createElement('i');
-    icon.classList.add('fa');
-    icon.classList.add(this.getIconByType(messageType));
-    message.appendChild(icon);
-    document.body.appendChild(message);
-    this.renderedMessages.push(messageId);
-    const that = this;
+    const message = $('<div>');
+    message.addClass(messageClass);
+    message.data('delay', 5000);
+    message.data('autohide', true);
+    message.html(messageText);
+    this.getMessagesContainer().append(message);
+    message.toast('show').on('hidden.bs.toast', function() {
+      this.remove();
+    });
+    // Returns new promise just to resolve after 5 seconds, because element
+    // will be removed on the bootstrap hidden.bs.toast event defined
+    // above.
     return new Promise(function (resolve) {
       setTimeout(() => {
-        that.unrenderMessage(messageId);
         resolve();
-      }, 5000);
+      }, 2500);
     });
   }
 
-  unrenderMessage(id) {
-    const messageIndex = this.renderedMessages.indexOf(id);
-    if (messageIndex >= 0) {
-      const message = this.getMessageById(id);
-      message.parentNode.removeChild(message);
-      this.renderedMessages.splice(messageIndex, 1);
-    }
-  }
-
-  nextMessagePosition() {
-    let nextPosition = 0;
-    let gap = 5;
-    for (let id of this.renderedMessages) {
-      const height = this.getMessageById(id).clientHeight;
-       nextPosition += height + gap;
-    }
-    return  nextPosition + 'px';
-  }
-
-  getMessageById(id) {
-    return document.querySelector('#' + id);
-  }
-
   getClassByType(messageType) {
-    if (this.availableMessageTypes.indexOf(messageType) < 0)
-      return 'isa-info';
-    return `isa-${messageType}`;
+    return "alert toast-alert " + (this.classMapByMessageType[messageType] || this.classMapByMessageType.info);
   }
 
-  getIconByType(messageType) {
-    return this.iconMapByMessageType[messageType] || this.iconMapByMessageType.info;
+  getMessagesContainer() {
+    var container = $('#'+this.containerId);
+    if (!container.length) {
+      container = $('<div>');
+      container.attr("id", this.containerId);
+      $('body').append(container);
+    }
+    return $(container);
   }
 }

@@ -6,6 +6,7 @@ export function configure(aurelia) {
 	aurelia.use
     .standardConfiguration()
     .developmentLogging()
+    .globalResources('styles/styles.css')
 		.plugin(PLATFORM.moduleName('aurelia-dialog'))
     .plugin(PLATFORM.moduleName('aurelia-validation'));
 

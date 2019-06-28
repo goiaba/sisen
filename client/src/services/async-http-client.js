@@ -46,11 +46,9 @@ export default class AsyncHttpClient {
       if (responseJson.detail) {
         message = responseJson.detail;
       } else if (responseJson.non_field_errors) {
-        message = '<ul>';
         for (let field_error of responseJson.non_field_errors) {
-          message += `<li>${field_error}</li>`;
+          this.messageHandler.renderMessage(field_error, 'error');
         }
-        message += '</ul>';
       }
     } else if (error.message) {
       message = error.message;
@@ -61,7 +59,8 @@ export default class AsyncHttpClient {
     } else {
       message = 'Ocorreu um erro ao processar a requisição.';
     }
-    this.messageHandler.renderMessage(message, 'error');
+    if (message)
+      this.messageHandler.renderMessage(message, 'error');
   }
 
   parseUrl(url, parameters) {

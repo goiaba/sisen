@@ -1,11 +1,35 @@
 <template>
-  <require from="styles/bootstrap.css"></require>
-  <require from="styles/styles.css"></require>
-  <form class="login-form" submit.delegate="login()">
-  	<img src="../../../img/logo.png" />
-    <input type="text" placeholder="e-mail" value.bind="email" />
-    <input type="password" placeholder="password" value.bind="password" />
-    <button type="submit" class="btn btn-dark">Login</button>
-    <a class="registerLink" href="#/signup" click.delegate="toSignUp()">Registrar-se</a>
-  </form>
+  <div class="container login-form">
+    <div class="row">
+      <div class="col-sm-6 col-lg-4 offset-sm-3 offset-lg-4">
+        <div class="card">
+          <article class="card-body">
+            <a href="#/signup" click.delegate="toSignUp()" class="float-right btn btn-outline-dark">
+              Registrar-se
+            </a>
+            <h4 class="card-title mb-4 mt-1">Login</h4>
+            <form submit.delegate="login($event.target)" class="needs-validation" novalidate>
+              <div class="form-group">
+                <label for="input-email">E-mail</label>
+                <input id="input-email" class="form-control" placeholder="e-mail" type="email" value.bind="email" required>
+                <div class="invalid-feedback">
+                  E-mail é obrigatório e deve ser válido
+                </div>
+              </div> <!-- form-group// -->
+              <div class="form-group">
+                <label for="input-password">Senha</label>
+                <input id="input-password" class="form-control" placeholder="******" type="password" value.bind="password" required>
+                <div class="invalid-feedback">
+                  Senha é obrigatória
+                </div>
+              </div> <!-- form-group// -->
+              <div class="form-group">
+                <button type="submit" class="btn btn-dark btn-block tooltip-do" data-placement="top" title="Tooltip on top">Login</button>
+              </div> <!-- form-group// -->
+            </form>
+          </article>
+        </div> <!-- card.// -->
+      </div> <!-- col.// -->
+    </div> <!-- row.// -->
+  </div>
 </template>

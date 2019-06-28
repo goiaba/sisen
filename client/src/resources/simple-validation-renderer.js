@@ -17,21 +17,24 @@ export class SimpleValidationRenderer {
   }
 
   add(element, result) {
-    if (result.valid) return;
-    const message = document.createElement('div');
-    message.className = 'validation-message-div';
-    message.textContent = result.message;
-    message.id = `validation-message-${result.id}`;
-    element.classList.add('has-error');
-    element.parentNode.insertBefore(message, element.nextSibling);
+    if (result.valid) {
+      element.classList.add('is-valid');
+    } else {
+      const message = document.createElement('div');
+      message.className = 'invalid-feedback';
+      message.textContent = result.message;
+      message.id = `validation-message-${result.id}`;
+      element.classList.add('is-invalid');
+      element.parentNode.insertBefore(message, element.nextSibling);
+    }
   }
 
-   remove(element, result) {
-     if (result.valid) return;
+  remove(element, result) {
     const message = element.parentElement.querySelector(`#validation-message-${result.id}`);
     if (message) {
       element.parentElement.removeChild(message);
-      element.classList.remove('has-error');
     }
+    element.classList.remove('is-invalid');
+    element.classList.add('is-valid');
   }
 }
