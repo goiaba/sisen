@@ -9,6 +9,7 @@ import sisen.survey.models as models
 from sisen.settings import BASE_DIR
 from sisen.survey.views.student import register_student, process_answer
 
+
 class StudentAnswerLoad():
 
     def student_answers_load(self):
@@ -18,10 +19,18 @@ class StudentAnswerLoad():
             1: os.path.join(BASE_DIR, '../documentation/EA_answers.csv'),
             2: os.path.join(BASE_DIR, '../documentation/IM_answers.csv')
         }
+
         for study_id, file in files.items():
+            questions = { item['position']: item['id'] for item in
+                models.Question.objects.values(
+                    'id', 'position'
+                ).filter(study__id=study_id).all()
+            }
             result.update({ study_id: { 'processed': [], 'not_processed': [] } })
+            total_lines = len(open(file).readlines())
             with open(file) as csvfile:
-                for line in csv.reader(csvfile, quotechar='"'):
+                for curr, line in enumerate(csv.reader(csvfile, quotechar='"')):
+                    print('Processando resposta %i de %i' % (curr+1, total_lines))
                     if len(line) == 83: #number of expected items per line
                         if not User.objects.filter(email__icontains=line[1]):
                             request = factory.post(
@@ -32,11 +41,11 @@ class StudentAnswerLoad():
                         user = User.objects.get(email__icontains=line[1])
                         request = factory.post(
                             '/api/v1/survey/study/%s/process' % study_id,
-                            self._create_process_answer_request(line, study_id),
+                            self._create_process_answer_request(line, study_id, questions),
                             format='json')
                         force_authenticate(request, user=user)
                         response = process_answer(request, study_id)
-                        if response.status_code == 200:
+                        if response.status_code < 400:
                             result.get(study_id).get('processed').append(line[1])
                         else:
                             result.get(study_id).get('not_processed').append(
@@ -44,17 +53,15 @@ class StudentAnswerLoad():
                     else:
                         result.get(study_id).get('not_processed').append(
                             '%s: %s' % (line[1], 'Formato inválido da linha'))
-        print('Carga finalizada')
+        print('\nCarga finalizada')
         pprint.pprint(result)
 
-    def _create_process_answer_request(self, line, study_id):
+    def _create_process_answer_request(self, line, study_id, questions):
         answers = { 'answers': [] }
-        question = 1 if study_id == 1 else 81
-        for answer in line[3:]:
+        for question_pos, answer in enumerate(line[3:]):
             answers['answers'].append(
-                { 'question': question, 'answer': int(answer)+1 }
+                { 'question': questions[question_pos+1], 'answer': int(answer)+1 }
             )
-            question += 1
         return answers
 
     def _create_register_student_request(self, line):
