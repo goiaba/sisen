@@ -98,7 +98,7 @@ export class SignUp {
           this.authService.ahc.messageHandler
             .renderMessage(
               'Registro efetuado com sucesso. Redirecionando para a página de login.', 'success')
-            .then(() => this.login());
+            .then(() => this.toLogin());
         });
       }
     });
