@@ -19,6 +19,10 @@ body.dt-print-view {
   margin-top:15vw;
 }
 
+.signup-form {
+  margin-top:7vw;
+}
+
 .toast-alert {
   max-width: 350px;
   overflow: hidden;
