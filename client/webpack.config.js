@@ -143,7 +143,9 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
   plugins: [
     ...when(!karma, new DuplicatePackageCheckerPlugin()),
     new AureliaPlugin(),
-    new ProvidePlugin({}),
+    new ProvidePlugin({
+       $: "jquery"
+    }),
     new ModuleDependenciesPlugin({
       'aurelia-testing': ['./compile-spy', './view-spy']
     }),

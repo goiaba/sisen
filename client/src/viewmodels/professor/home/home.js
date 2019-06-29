@@ -3,7 +3,6 @@ import config from 'services/config';
 import AuthService from 'services/AuthService';
 import AsyncHttpClient from 'services/async-http-client';
 import AvailableClassroomStudy from 'model/available-classroom-study';
-import $ from 'jquery';
 import 'resources/datatable';
 
 @inject(AuthService, AsyncHttpClient)

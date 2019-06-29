@@ -7,7 +7,6 @@ import StudyReportSynthetic from 'model/study-report-synthetic';
 import Classroom from 'model/classroom';
 import { Router } from 'aurelia-router';
 import Chart from 'chart.js';
-import $ from 'jquery';
 import 'resources/datatable';
 
 @inject(AuthService, AsyncHttpClient, Router, CompositionTransaction)
@@ -60,7 +59,7 @@ export class Synthetic {
         this.compositionTransactionNotifier.done();
       });
   }
-  
+
   attached() {
     $('.table').DataTable();
   }

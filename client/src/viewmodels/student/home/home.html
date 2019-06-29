@@ -3,7 +3,7 @@
   <div class="ui container page-host">
     <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
     <h1>Estudos Disponíveis</h1>
-    <table id="studyTable" class="table table-stripped">
+    <table id="studyTable" class="table table-stripped" width="100%">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Estudo</th>
@@ -14,7 +14,9 @@
       <tbody>
         <tr repeat.for="study of availableStudies">
           <th>${study.study.description}</th>
-          <td><input type="checkbox" id="answered" checked.bind="study.study.answered" disabled></td>
+          <td data-sort="${study.study.answered}">
+            <input type="checkbox" id="answered" checked.bind="study.study.answered" disabled>
+          </td>
           <td>
             <a show.bind="addLink(study, 'answer')" href="#/answer/${study.study.id}">Responder</a>
             <a show.bind="addLink(study, 'result')" href="#/result/${study.study.id}">Visualizar</a>

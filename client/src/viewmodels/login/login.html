@@ -1,7 +1,7 @@
 <template>
   <div class="container login-form">
     <div class="row">
-      <div class="col-sm-6 col-lg-4 offset-sm-3 offset-lg-4">
+      <div class="col-sm-8 col-md-6 col-lg-5 mr-auto ml-auto">
         <div class="card">
           <article class="card-body">
             <a href="#/signup" click.delegate="toSignUp()" class="float-right btn btn-outline-dark">
@@ -11,7 +11,7 @@
             <form submit.delegate="login($event.target)" class="needs-validation" novalidate>
               <div class="form-group">
                 <label for="input-email">E-mail</label>
-                <input id="input-email" class="form-control" placeholder="e-mail" type="email" value.bind="email" required>
+                <input id="input-email" class="form-control" placeholder="e-mail" type="email" value.bind="email" required autofocus>
                 <div class="invalid-feedback">
                   E-mail é obrigatório e deve ser válido
                 </div>

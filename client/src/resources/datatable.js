@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import 'datatables.net-buttons';
@@ -9,9 +8,10 @@ import 'datatables.net-buttons/js/buttons.print.min.js';
 import 'datatables.net-buttons/js/buttons.colVis.min.js';
 
 $.extend(true, $.fn.dataTable.defaults, {
-  dom: "<'row'<'col-6'B><'col-6'f>>" +
+  dom: "<'row'<'col-md-6 col-sm-12'B><'col-md-6 col-sm-12'f>>" +
         "<'row'<'col-12 overflow-auto'tr>>" +
-        "<'row'<'col-4'l><'col-4'p><'col-4 text-right'i>>",
+        "<'row'<'col-md-4 col-6'l><'col-md-4 col-6'p>" +
+        "<'col-md-4 col-sm-12 text-right'i>>",
   pageLength: 25,
   scrollX: true,
   buttons: [{

@@ -4,22 +4,23 @@
   <require from="resources/nav-bar.html"></require>
   <div class="ui container page-host">
     <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
-    <h1>Resultados do estudo de ${result.study.description}</h1>
+    <h1>Resultados do estudo</h1>
+    <h2>${result.study.description}</h2>
     <p>Submissão do questionário: ${result.submit_datetime | dateFormat}</p>
-    <div innerhtml.bind="resultMessage"></div>
-    <table id="resultTable" class="table table-stripped">
+    <div innerhtml.bind="result.message"></div>
+    <table id="resultTable" class="table table-stripped" width="100%">
       <thead class="thead-dark">
-        <tr>
-          <th scope="col" repeat.for="option of result.study_option_scores">${option.description}</th>
-        </tr>
+        <th scope="col">Habilidade</th>
+        <th scope="col">Pontuação</th>
       </thead>
       <tbody>
-        <tr>
-          <td repeat.for="option of result.study_option_scores">${option.value | percentFormat}</td>
+        <tr repeat.for="option of result.study_option_scores">
+          <th scope="row">${option.description}</th>
+          <td data-sort="${option.value}">${option.value | percentFormat}</td>
         </tr>
       </tbody>
     </table>
-    <div class="form-buttons">
+    <div class="form-buttons mt-3">
       <button type="button" class="btn btn-dark" click.delegate="toHome()">Voltar</button>
     </div>
 </template>

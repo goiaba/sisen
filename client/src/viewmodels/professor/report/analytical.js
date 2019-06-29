@@ -6,7 +6,6 @@ import AsyncHttpClient from 'services/async-http-client';
 import StudyReportAnalytical from 'model/study-report-analytical';
 import Classroom from 'model/classroom';
 import { Router } from 'aurelia-router';
-import $ from 'jquery';
 import 'resources/datatable';
 
 @inject(AuthService, AsyncHttpClient, Router, CompositionTransaction)
