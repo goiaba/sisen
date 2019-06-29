@@ -2,7 +2,7 @@ import { inject } from 'aurelia-framework';
 import config from 'services/config';
 import AuthService from 'services/AuthService';
 import AsyncHttpClient from 'services/async-http-client';
-import 'datatables.net';
+import 'resources/datatable';
 
 @inject(AuthService, AsyncHttpClient)
 export class Result {
@@ -19,11 +19,13 @@ export class Result {
         .then((response) => response.content)
         .then((result) => {
           this.result = result;
-          this.resultMessage = result.message;
-        })
+         })
         .then(() => {
           if (!$.fn.dataTable.isDataTable('#resultTable')) {
-            $('#resultTable').dataTable({ paging: false, searching: false, info: false });
+            $('#resultTable').dataTable({
+              paging: false, searching: false, info: false,
+              order: [[1, 'desc']]
+            });
           }
         });
     }
