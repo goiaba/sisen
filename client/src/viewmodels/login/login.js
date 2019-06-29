@@ -1,7 +1,5 @@
 import { inject, PLATFORM } from 'aurelia-framework';
 import AuthService from 'services/AuthService';
-import $ from 'jquery';
-import 'bootstrap/dist/js/bootstrap.bundle';
 @inject(AuthService)
 export class Login {
 

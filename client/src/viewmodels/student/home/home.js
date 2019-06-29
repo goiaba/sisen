@@ -3,7 +3,6 @@ import config from 'services/config';
 import AuthService from 'services/AuthService';
 import AsyncHttpClient from 'services/async-http-client';
 import AvailableStudy from 'model/available-study';
-import $ from 'jquery';
 import 'datatables.net';
 
 @inject(AuthService, AsyncHttpClient)

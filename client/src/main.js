@@ -1,6 +1,7 @@
 import AuthService from 'services/AuthService';
 import { Router } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-framework';
+import 'bootstrap';
 
 export function configure(aurelia) {
 	aurelia.use
