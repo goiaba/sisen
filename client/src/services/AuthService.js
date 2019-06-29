@@ -16,6 +16,11 @@ export default class AuthService {
     this.ea = eventAggregator;
     this.router = router;
     this.loadActiveSessionIfValid();
+    let that = this;
+    this.ahc.http.configure(http => {
+      http.withInterceptor(
+        new HttpAuthenticationInterceptor(that));
+    });
   }
 
   login(username, password) {
@@ -26,7 +31,6 @@ export default class AuthService {
         this.session = session;
         this.session.token = new JwtToken(this.session.token);
         this.storeSession();
-        this.updateAuthInterceptor();
         this.configJwtTokenRefresh();
         this.app.setRoot(PLATFORM.moduleName('viewmodels/app/app'));
         resolve(session);
@@ -72,10 +76,6 @@ export default class AuthService {
     session.token = new JwtToken(session.token.value);
     if (session.token.isValid()) {
       this.session = session;
-      this.ahc.http.configure(http => {
-        http.withInterceptor(
-          new HttpAuthenticationInterceptor(this.session.token.value));
-      });
       this.configJwtTokenRefresh();
     } else {
       this.logout();
@@ -109,7 +109,6 @@ export default class AuthService {
             console.log('New token arrived at ' + new Date());
             this.session.token = new JwtToken(response.content.token);
             this.storeSession();
-            this.updateAuthInterceptor();
           });
       }
     });
@@ -118,7 +117,6 @@ export default class AuthService {
   sessionCleanUp() {
     this.session = null;
     clearInterval(this.jwtTokenValidtyInterval);
-    this.updateAuthInterceptor();
     localStorage.clear();
   }
 
@@ -126,12 +124,6 @@ export default class AuthService {
     localStorage[config.tokenName] = JSON.stringify(this.session);
   }
 
-  updateAuthInterceptor() {
-    this.ahc.http.configure(http => {
-      const token = this.session && this.session.token.getValue() || null;
-      http.withInterceptor(new HttpAuthenticationInterceptor(token));
-    });
-  }
 
   publishJwtTokenRefresh() {
     this.ea.publish(new RefreshJwtToken(true));
@@ -188,12 +180,15 @@ class JwtToken {
 }
 
 class HttpAuthenticationInterceptor {
-  constructor(token) {
-      this.token = token;
+  constructor(authService) {
+      this.authService = authService;
   }
 
   request(message) {
-    message.headers.add(config.headerAuthParam, `JWT ${this.token}`);
+    if (this.authService.session && this.authService.session.token &&
+      this.authService.session.token.value) {
+      message.headers.add(config.headerAuthParam, `JWT ${this.authService.session.token.value}`);
+    }
     return message;
   }
 }
