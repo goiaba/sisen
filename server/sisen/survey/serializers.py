@@ -58,6 +58,17 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'groups')
+        extra_kwargs = {
+            'email': { 'error_messages': {
+                'invalid': 'O e-mail digitado não é válido.'
+            }},
+            'first_name': { 'error_messages': {
+                'max_length': 'O nome não pode ultrapassar {max_length} caracteres.'
+            }},
+            'last_name': { 'error_messages': {
+                'max_length': 'O sobrenome não pode ultrapassar {max_length} caracteres.'
+            }}
+        }
 
 
 class StudentSerializer(serializers.ModelSerializer):

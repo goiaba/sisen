@@ -40,27 +40,27 @@ export default class AsyncHttpClient {
   }
 
   handleError(error) {
-    let message;
+    let messages = [];
     if (error.responseType === 'json') {
       const responseJson = JSON.parse(error.response);
       if (responseJson.detail) {
-        message = responseJson.detail;
+        messages.push(responseJson.detail);
       } else if (responseJson.non_field_errors) {
-        for (let field_error of responseJson.non_field_errors) {
-          this.messageHandler.renderMessage(field_error, 'error');
-        }
+        responseJson.non_field_errors.forEach((el) => messages.push(el));
+      } else {
+        Object.keys(responseJson).forEach((key) => messages.push(responseJson[key]));
       }
     } else if (error.message) {
-      message = error.message;
+      messages.push(error.message);
     } else if (error.statusCode === 404) {
-      message = 'O recurso requisitado não existe.';
+      messages.push('O recurso requisitado não existe.');
     } else if (error.statusText) {
-      message = error.statusText;
+      messages.push(error.statusText);
     } else {
-      message = 'Ocorreu um erro ao processar a requisição.';
+      messages.push('Ocorreu um erro ao processar a requisição.');
     }
-    if (message)
-      this.messageHandler.renderMessage(message, 'error');
+
+    messages.forEach((el) => this.messageHandler.renderMessage(el, 'error'));
   }
 
   parseUrl(url, parameters) {
@@ -74,7 +74,7 @@ export default class AsyncHttpClient {
 class HttpErrorInterceptor {
   responseError(error) {
     if (error.statusCode === 0) {
-      throw new Error("Não foi possível se conectar ao servidor");
+      throw new Error("Não foi possível conectar-se ao servidor.");
     }
     throw error;
   }
