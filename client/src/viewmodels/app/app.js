@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { DialogService } from 'aurelia-dialog';
-import { RoleChooserDialog } from 'viewmodels/role-chooser-dialog/role-chooser-dialog';
+import { RoleChooserDialog } from 'viewmodels/dialogs/role-chooser-dialog/role-chooser-dialog';
 import AuthService from 'services/AuthService';
 
 @inject(AuthService, DialogService)
