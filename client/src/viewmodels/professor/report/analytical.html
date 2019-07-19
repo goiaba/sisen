@@ -3,9 +3,8 @@
   <require from="resources/nav-bar.html"></require>
   <div class="ui container page-host">
     <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
-    <h1 class="table-title">${study.description}</h1>
-    <h2 class="table-title">${classroom.code} - ${classroom.description} ${classroom.year} S${classroom.semester}</h2>
-    <h3 class="table-title">Relatório analítico</h3>
+    <h2 class="table-title">Relatório analítico - ${study.description}</h2>
+    <h3 class="table-title">Turma ${classroom.description} (${classroom.semester}/${classroom.year})</h3>
     <table class="table table-stripped" width="100%">
       <thead class="thead-dark">
         <tr>
@@ -35,5 +34,6 @@
         </template>
       </tbody>
     </table>
+    <button type="button" class="btn btn-dark" click.delegate="toHome()">Voltar</button>
   </div>
 </template>

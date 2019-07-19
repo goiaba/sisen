@@ -44,4 +44,8 @@ export class Synthetic {
       }
     });
   }
+
+  toHome() {
+    this.authService.router.navigate('home');
+  }
 }
