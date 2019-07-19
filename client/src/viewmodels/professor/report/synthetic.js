@@ -63,4 +63,8 @@ export class Synthetic {
   attached() {
     $('.table').DataTable();
   }
+
+  toHome() {
+    this.authService.router.navigate('home');
+  }
 }

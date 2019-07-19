@@ -7,11 +7,6 @@ export class Login {
     this.authService = authService;
   }
 
-  activate() {
-    this.email = 'student1@gmail.com';
-    this.password = 'admin';
-  }
-
   login(form) {
     if (form.checkValidity()) {
       this.authService.login(this.email, this.password);
