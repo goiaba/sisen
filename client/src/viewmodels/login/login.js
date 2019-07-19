@@ -15,6 +15,12 @@ export class Login {
     }
   }
 
+  activate(params, routeConfig) {
+    if (routeConfig.settings.studentEmail) {
+      this.email = routeConfig.settings.studentEmail;
+    }
+  }
+
   toSignUp() {
     this.authService.router.navigate('signup');
   }

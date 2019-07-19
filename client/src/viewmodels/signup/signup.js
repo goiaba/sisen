@@ -5,15 +5,17 @@ import { observable } from 'aurelia-framework';
 import {SimpleValidationRenderer} from 'resources/simple-validation-renderer';
 import {ValidationRules, ValidationController} from 'aurelia-validation';
 import {validationMessages} from 'aurelia-validation';
+import { Router } from 'aurelia-router';
 
-@inject(AuthService, NewInstance.of(ValidationController))
+@inject(AuthService, Router, NewInstance.of(ValidationController))
 export class SignUp {
 
   @observable selectedInstitution = '';
   @observable selectedProgram = '';
 
-  constructor(authService, validationController) {
+  constructor(authService, router, validationController) {
     this.authService = authService;
+    this.router = router;
     this.validationController = validationController;
     this.validationController.addRenderer(new SimpleValidationRenderer());
     this.signUpObj = {};
@@ -94,7 +96,10 @@ export class SignUp {
     this.validationController.validate().then(result => {
       if(result.valid) {
         this.authService.ahc.post(config.student.signupUrl, this.signUpObj)
-        .then(() => {
+        .then((response) => response.content)
+        .then((result) => {
+          const loginRoute = this.router.routes.find((r) => r.name === 'login');
+          if (loginRoute) loginRoute.settings.studentEmail = result.email;
           this.authService.ahc.messageHandler
             .renderMessage(
               'Registro efetuado com sucesso. Redirecionando para a página de login.', 'success')
