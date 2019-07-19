@@ -10,7 +10,7 @@ from sisen.survey.permissions import IsStudent
 from sisen.survey.serializers import UserSerializer, StudentSerializer
 from sisen.survey.serializers import AvailableStudySerializer, SurveyAnsweringSerializer, StudentAnswerSerializer, StudyWithMessageAndStudentOptionScoreSerializer
 from sisen.survey.views.main import get_object_or_not_found
-from rest_framework import viewsets, status
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
@@ -39,7 +39,7 @@ def register_student(request, format=None):
     student_group.user_set.add(user)
     student = models.Student(user=user, sclass=sclass)
     student.save()
-    return Response(StudentSerializer(student).data)
+    return Response(StudentSerializer(student).data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, IsStudent))
