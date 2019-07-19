@@ -3,36 +3,6 @@ from rest_framework import serializers
 import sisen.survey.models as models
 
 
-class FieldNamesPrettifier(object):
-    to_rep_field_map = { 'sclass': 'class' }
-    to_int_field_map = { v: k for k, v in to_rep_field_map.items() }
-
-    def to_internal_data(self, data):
-        self._reverse(data)
-        return super(FieldNamesPrettifier, self).to_internal_data(data)
-
-    def to_representation(self, instance):
-        data = super(FieldNamesPrettifier, self).to_representation(instance)
-        self._prettify(data)
-        return data
-
-    def _prettify(self, field_map, data):
-        field_map = FieldNamesPrettifier.to_rep_field_map
-        for key in list(data.keys()):
-            if key in field_map.keys():
-                data[field_map.get(key)] = data.pop(key)
-            if '_' in key:
-                data[key.replace('_', '-')] = data.pop(key)
-
-    def _reverse(self, field_map, data):
-        field_map = FieldNamesPrettifier.to_int_field_map
-        for key in list(data.keys()):
-            if '-' in key:
-                data[key.replace('-', '_')] = data.pop(key)
-            if key in field_map.keys():
-                data[field_map.get(key)] = data.pop(key)
-
-
 class UserSerializer(serializers.ModelSerializer):
     groups = serializers.SlugRelatedField(
         many=True,
@@ -70,11 +40,6 @@ class UserSerializer(serializers.ModelSerializer):
             }}
         }
 
-
-class StudentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Student
-        fields = '__all__'
 
 class LinkSerializer(serializers.Serializer):
     rel = serializers.CharField()
@@ -175,6 +140,16 @@ class AvailableClassesSerializer(serializers.Serializer):
     total_answered = serializers.IntegerField(min_value=0)
     links = LinkSerializer(many=True)
 
+
+class StudentSerializer(serializers.ModelSerializer):
+    email = serializers.CharField(source='user.email', read_only=True)
+    first_name = serializers.CharField(source='user.first_name', read_only=True)
+    last_name = serializers.CharField(source='user.last_name', read_only=True)
+    sclass = ClassSerializer(read_only=True)
+
+    class Meta:
+        model = models.Student
+        fields = ('id', 'email', 'first_name', 'last_name', 'sclass')
 
 ################### Student's Synthetic Report Serializers ###################
 

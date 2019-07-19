@@ -131,7 +131,7 @@ export default class AuthService {
 
   setRoot() {
     var navigateToHome = () => {
-      if (this.router.currentInstruction.config.route == '/login')
+      if (!this.router.currentInstruction || this.router.currentInstruction.config.route == '/login')
         this.router.navigate('home');
     };
     if (this.session.role === 'Student') {
