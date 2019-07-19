@@ -16,7 +16,7 @@ export class Login {
   }
 
   activate(params, routeConfig) {
-    if (routeConfig.settings.studentEmail) {
+    if (routeConfig && routeConfig.settings && routeConfig.settings.studentEmail) {
       this.email = routeConfig.settings.studentEmail;
     }
   }
