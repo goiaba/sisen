@@ -14,7 +14,7 @@ export class OpenRoot {
         route: 'home',
         name: 'home',
         moduleId: PLATFORM.moduleName('viewmodels/professor/home/home'),
-        nav: true,
+        nav: false,
         title: 'Home'
       },
       {
