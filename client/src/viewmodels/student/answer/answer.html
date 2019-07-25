@@ -2,23 +2,48 @@
   <require from="resources/nav-bar.html"></require>
   <div class="ui container page-host">
     <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
-    <h1>Questionário de ${description}</h1>
-    <form id="answerForm" role="form" submit.delegate="submit()">
-      <div repeat.for="question of questions">
+    <div id="consent-term" class="justified-text collapse multi-collapse show">
+      <h1 style="text-align: center;">Termo de Consentimento Livre e Esclarecido</h1>
+      <h3 style="text-align: center;">Estudo: Um olhar sobre o aprendizado de Lógica de Programação à partir da análise Gardnesiana dos casos de sucesso</h3>
+      <br>
+      <p>Pesquisadora responsável: Deborah Godoy Martins Corrêa</p>
+      <p>Instituição/Departamento: Universidade Federal de São Paulo – ICT - SJC</p>
+      <p>Telefone para contato: (12) 3924-9538</p>
+      <p>Local da coleta de dados: online</p>
+      <p>Prezado(a) Aluno(a) do Bacharelado em Ciência e Tecnologia (BCT) do Instituto de Ciência e Tecnologia da UNIFESP.</p>
+      <p>Você está sendo convidado(a) a responder este questionário de forma totalmente voluntária. Antes de concordar em participar desta pesquisa e responder ao questionário, é muito importante que você compreenda as informações e instruções contidas neste documento. Os pesquisadores deverão responder todas as suas dúvidas antes que você se decidir a participar. Você tem o direito de desistir de participar da pesquisa a qualquer momento, sem nenhuma penalidade e sem perder os benefícios aos quais tenha direito. </p>
+      <p><b>Objetivo do estudo</b>: Investigar os estilos de aprendizagem e as diferentes habilidades e talentos dos estudantes que cursaram a disciplina Lógica da Programação.</p>
+      <p><b>Procedimentos</b>: Sua participação nesta pesquisa consistirá no preenchimento deste questionário, respondendo perguntas que abordam questões relativas ao seu estilo de aprendizagem.</p>
+      <p><b>Benefícios</b>: Esta pesquisa propiciará o aprimoramento do ensino aprendizagem da disciplina Lógica de Programação a partir do conhecimento dos estilos de aprendizagem dos alunos do Bacharelado em Ciência e Tecnologia. Caso tenha interesse, os resultados serão enviados posteriormente ao seu e-mail.</p>
+      <p><b>Riscos</b>: O preenchimento deste questionário poderá causar algum desconforto ou constrangimento ao participante.</p>
+      <p><b>Sigilo</b>: As informações fornecidas por você terão privacidade garantida pelos pesquisadores responsáveis. Os dados coletados terão finalidade científica e acadêmica, serão tabulados eletronicamente, de modo a assegurar a confidencialidade das respostas.</p>
+      <p>O tempo previsto para resposta é de aproximadamente 10 minutos e todas as questões são de preenchimento obrigatório, mas você pode desistir de participar a qualquer momento.</p>
+      <p>Ao responder o questionário, você manifesta concordância com o presente Termo de Consentimento Livre e Esclarecido. Caso tenha alguma dúvida, envie um e-mail para: deborah.correa@unifesp.br</p>
+      <p>Se você tiver alguma consideração ou dúvida sobre a ética da pesquisa, entre em contato com o Comitê de Ética em Pesquisa (CEP) da Unifesp – Rua Prof. Francisco de Castro, nº 55, CEP: 04020-050., tel: (011)-5571-1062; (011)-5539- 7162. E-mail: cep@unifesp.edu.br</p>
+      <p>Agradeço antecipadamente!</p>
+      <a class="btn btn-info" href="#" role="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="consent-term survey">Ocultar e responder ao questionário</a>
+    </div>
+    <br>
+    <div id="survey" class="collapse multi-collapse">
+      <h1>Questionário de ${description}</h1>
+      <form id="answerForm" role="form" submit.delegate="submit()">
+        <div repeat.for="question of questions">
+          <br>
+          <p>${question.position} - ${question.text}</p>
+          <label repeat.for="answer of sortAnswers(question.answers)">
+            <input type="radio"
+            name="q${question.id}"
+            model.bind="{'question': question.id, 'answer': answer.id}"
+            checked.bind="answers[question.id-1]">
+            ${answer.text}<br>
+          </label>
+        </div>
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-dark">Enviar</button>
+          <button type="button" class="btn btn-secondary" click.delegate="toHome()">Voltar</button>
+        </div>
         <br>
-        <p>${question.position} - ${question.text}</p>
-        <label repeat.for="answer of sortAnswers(question.answers)">
-          <input type="radio"
-                 name="q${question.id}"
-                 model.bind="{'question': question.id, 'answer': answer.id}"
-                 checked.bind="answers[question.id-1]">
-          ${answer.text}<br>
-        </label>
-      </div>
-      <div class="form-buttons">
-        <button type="submit" class="btn btn-dark">Enviar</button>
-        <button type="button" class="btn btn-secondary" click.delegate="toHome()">Voltar</button>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </template>
