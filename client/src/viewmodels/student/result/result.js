@@ -13,8 +13,10 @@ export class Result {
     this.compositionTransactionNotifier = compositionTransaction.enlist();
     this.ahc = asyncHttpClient;
     this.authService = authService;
+    this.result = {};
     this.chartType = 'bar';
     this.chartOptions = {
+      responsive: true,
       scales: {
         yAxes: [{
             ticks: {
