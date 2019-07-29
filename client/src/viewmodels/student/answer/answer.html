@@ -5,7 +5,6 @@
     <div id="consent-term" class="justified-text collapse multi-collapse show">
       <h1 style="text-align: center;">Termo de Consentimento Livre e Esclarecido</h1>
       <h3 style="text-align: center;">Estudo: Um olhar sobre o aprendizado de Lógica de Programação à partir da análise Gardnesiana dos casos de sucesso</h3>
-      <br>
       <p>Pesquisadora responsável: Deborah Godoy Martins Corrêa</p>
       <p>Instituição/Departamento: Universidade Federal de São Paulo – ICT - SJC</p>
       <p>Telefone para contato: (12) 3924-9538</p>
@@ -23,26 +22,23 @@
       <p>Agradeço antecipadamente!</p>
       <a class="btn btn-info" href="#" role="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="consent-term survey">Ocultar e responder ao questionário</a>
     </div>
-    <br>
-    <div id="survey" class="collapse multi-collapse">
+    <div id="survey" class="collapse multi-collapse mt-3">
       <h1>Questionário de ${description}</h1>
       <form id="answerForm" role="form" submit.delegate="submit()">
         <div repeat.for="question of questions">
-          <br>
           <p>${question.position} - ${question.text}</p>
           <label repeat.for="answer of sortAnswers(question.answers)">
             <input type="radio"
             name="q${question.id}"
             model.bind="{'question': question.id, 'answer': answer.id}"
             checked.bind="answers[question.id-1]">
-            ${answer.text}<br>
+            ${answer.text}
           </label>
         </div>
-        <div class="form-buttons">
+        <div class="form-buttons mb-3">
           <button type="submit" class="btn btn-dark">Enviar</button>
           <button type="button" class="btn btn-secondary" click.delegate="toHome()">Voltar</button>
         </div>
-        <br>
       </form>
     </div>
   </div>
