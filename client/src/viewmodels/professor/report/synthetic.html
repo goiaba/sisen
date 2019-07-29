@@ -21,7 +21,11 @@
         </tr>
       </tbody>
     </table>
-    <chart type.bind="chartType" native-options.bind="chartOptions" data.bind="chartData" style="display: block;" width="100%" height="400px"></chart>
-    <button type="button" class="btn btn-dark" click.delegate="toHome()">Voltar</button>
+    <div class="chart-wrapper">
+      <chart type.bind="chartType" native-options.bind="chartOptions" data.bind="chartData" style="display: block;"></chart>
+    </div>
+    <div class="form-buttons mb-3">
+      <button type="button" class="btn btn-dark" click.delegate="toHome()">Voltar</button>
+    </div>
   </div>
 </template>

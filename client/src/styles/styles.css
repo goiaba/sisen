@@ -60,3 +60,9 @@ body.dt-print-view {
   text-align: justify;
   text-justify: inter-word;
 }
+
+.chart-wrapper {
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+}
