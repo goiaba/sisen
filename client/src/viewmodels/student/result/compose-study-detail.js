@@ -6,26 +6,28 @@ export default class ComposeStudyDetail {
 
   activate(model) {
     this.study = model;
+    // Using slice() to create a copy of the original array before sorting it
+    this.scores = this.study.study_option_scores.slice().sort((a, b) => b.value - a.value);
+    this.mainStudyOptionsAsString = this.getStudyOptionsByMaxScoreAsString();
   }
 
   attached() {
-    this.mainStudyOptions = this.getStudyOptionByMaxScoreAsString();
   }
 
-  getStudyOptionByMaxScoreAsString() {
-    // Using slice() to create a copy of the original array before sorting it
-    const scores = this.study.study_option_scores.slice().sort((a, b) => b.value - a.value);
-    if (scores.length === 0) return 'Não existem opções disponíveis';
-    const count = (this.numberOfMainStudyOptionsToShow <= scores.length)
+  getImageSrc(filename) {
+    return `/assets/images/students/${this.study.study.acronym}/${filename}`;
+  }
+
+  getStudyOptionsByMaxScoreAsString() {
+    const reduceOptionsToString = (acc, el, idx, arr) => {
+      const marker = (idx === arr.length - 1) ? ' e ' : ', ';
+      return (idx !== 0)
+        ? (acc.description || acc) + marker + el.description
+        : (el.description || el)
+    };
+    const count = (this.numberOfMainStudyOptionsToShow <= this.scores.length)
       ? this.numberOfMainStudyOptionsToShow
-      : scores.length;
-    return (count === 1)
-      ? scores[count-1].description
-      : scores.slice(0, count).reduce(this.reduceOptionsToString);
-  }
-
-  reduceOptionsToString(acc, el, idx, arr) {
-    const marker = (idx === arr.length - 1) ? ' e ' : ', ';
-    return (acc.description || acc) + marker + el.description;
+      : this.scores.length;
+    return this.scores.slice(0, count).reduce(reduceOptionsToString, '');
   }
 }

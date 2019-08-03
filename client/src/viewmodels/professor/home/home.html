@@ -2,7 +2,142 @@
   <require from="resources/nav-bar.html"></require>
   <div class="ui container page-host">
     <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
-    <h1 class="table-title">Estudos Disponíveis</h1>
+    <div class="modal fade" id="ebookModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <img src="/assets/images/professors/ebook.recomendado.png" usemap="#imgmap"/>
+            <map name="imgmap">
+              <area shape="rect" coords="117,946,733,1047" href="https://www.researchgate.net/publication/311452891_Los_Estilos_de_Aprendizaje_Procedimientos_de_diagnostico_y_mejora" target="_blank">
+            </map>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="recomendationsModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <img class="mb-3" src.bind="imageFilename" alt="Recomendações práticas para sala de aula" style="width:100%;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="audioGeneralInfoModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src.bind="eMH.getExternalAudioLink('PROFESSORES')"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="videoGeneralInfoModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body" style="width:100%;display:block;">
+            <iframe width="100%" height="315" src.bind="eMH.getExternalVideoLink('PROFESSORES')" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h4 class="mt-3">Estudos Disponíveis</h4>
+    <div class="card mb-3">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Material de apoio
+          </button>
+        </h2>
+      </div>
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+        <div class="card-body pre-scrollable justified-text">
+          <p>Olá Docente,</p>
+          <p>Aqui você pode encontrar um conjunto de materiais complementares para conhecer um pouco mais sobre o perfil cognitivo da sua turma.</p>
+          <p>A Teoria das Inteligências Múltiplas de Gardner oferece uma base sólida para a escolha de materiais opcionais, e é importante lembrar que entre 15 e 25 anos, as inteligências são desenvolvidas a serviço do produtivo, e algum campo cognitivo se solidifica. Para Travassos (2001) este é o momento da verdade no desenvolvimento da matriz de talento.</p>
+          <p>Dá para perder esta oportunidade?</p>
+          <p>Você encontrará abaixo material sobre os estilos de aprendizagem e as inteligências múltiplas, e artigos e ferramentas recomendados para facilitar a sua escolha metodológica e personalizar o processo ensino-aprendizagem de Lógica de Programação.</p>
+          <ul>
+            <li>Reconhecendo Múltiplas Inteligências e os Estilos de Aprendizagem
+              <a href="/assets/documents/professors/reconhecendo.im.e.ea.pdf" target="_blank">
+                <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li>Inteligências Múltiplas e Estilos de Aprendizagem
+              <a href="" data-toggle="modal" data-target="#audioGeneralInfoModal">
+                <span class="oi oi-audio" title="Áudio" aria-hidden="true"></span>
+              </a>
+              <a href="" data-toggle="modal" data-target="#videoGeneralInfoModal">
+                <span class="oi oi-video" title="Vídeo" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li>Recomendações práticas para sala de aula relativas aos Estilos de Aprendizagem:
+              <ul>
+                <li>Ativo
+                  <a href="" click.delegate="setEAImageSrc('ATIVO')" data-toggle="modal" data-target="#recomendationsModal">
+                    <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+                  </a>
+                </li>
+                <li>Reflexivo
+                  <a href="" click.delegate="setEAImageSrc('REFLEXIVO')" data-toggle="modal" data-target="#recomendationsModal">
+                    <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+                  </a>
+
+                </li>
+                <li>Teórico
+                  <a href="" click.delegate="setEAImageSrc('TEORICO')" data-toggle="modal" data-target="#recomendationsModal">
+                    <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+                  </a>
+
+                </li>
+                <li>Pragmático
+                  <a href="" click.delegate="setEAImageSrc('PRAGMATICO')" data-toggle="modal" data-target="#recomendationsModal">
+                    <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>E-book recomendado
+              <a href="" data-toggle="modal" data-target="#ebookModal">
+                <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li>Indicação de livros
+              <a href="/assets/documents/professors/livros.recomendados.pdf" target="_blank">
+                <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li>Artigos relacionados:
+              <ul>
+                <li>Lógica de Programação
+                  <a href="/assets/documents/professors/artigos.relativos.a.logica.de.programacao.pdf" target="_blank">
+                    <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+                  </a>
+                <li>Estilos de Aprendizagem
+                  <a href="/assets/documents/professors/artigos.sobre.estilos.de.aprendizagem.pdf" target="_blank">
+                    <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+                  </a>
+                <li>Inteligências Múltiplas
+                  <a href="/assets/documents/professors/artigos.sobre.inteligencias.multiplas.pdf" target="_blank">
+                    <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>Ferramentas recomendadas
+              <a href="/assets/documents/professors/ferramentas.recomendadas.pdf" target="_blank">
+                <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li>Recomendações
+              <ul>
+                <compose view="viewmodels/shared/shared-extra-resources.html" model.bind="result"></compose>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <table class="table table-stripped" width="100%">
       <thead class="thead-dark">
         <tr>

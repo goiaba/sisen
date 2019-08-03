@@ -1,32 +1,17 @@
 <template>
-  <div class="accordion" id="accordionResultExplanationEA">
-    <div class="card">
-      <div class="card-header" id="headingOne">
-        <h2 class="mb-0">
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Seus estilos de aprendizagem
-          </button>
-        </h2>
-      </div>
-
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionResultExplanationEA">
-        <div class="card-body justified-text">
-          <p>Os modelos de estilos de aprendizagem identificam de que forma as informações são percebidas e processadas, ou seja, as preferências pedagógicas de cada estudante. Quando as metodologias adotadas em sala de aula não estão em concordância com essas preferências, podem ocorrer dificuldades ou falhas na aprendizagem. Seus resultados seguem abaixo.</p>
-          <p>Alonso e Gallego (2002) constataram no campo educacional há predominância de quatro estilos de aprendizagem nos estudantes: ativo, reflexivo, teórico e pragmático, e elaboraram uma relação de características que determinam o campo de habilidade de cada um desses estilos.</p>
-          <p>Seu principal estilo de aprendizado: <b>${mainStudyOptions}</b></p>
+  <div class="modal fade" id="infographicModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <img src.bind="getImageSrc('infographic.jpg')" alt="Infográfico" style='width:100%'>
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header" id="headingTwo">
-        <h2 class="mb-0">
-          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Saiba um pouco mais sobre os estilos de aprendizagem
-          </button>
-        </h2>
-      </div>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionResultExplanationEA">
-        <div class="card-body pre-scrollable justified-text">
+  </div>
+  <div class="modal fade" id="generalInfoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
           <div>
             <h4>Estilo Ativo</h4>
             <p>Totalmente envolvidos e sem preconceitos em novas experiências, têm a mente aberta, realizam novas tarefas com entusiasmo. Crescem enfrentando os desafios de novas experiências e ficam entediados com prazos longos. Se envolvem nos assuntos dos outros e centralizam todas as atividades ao seu redor.</p>
@@ -45,11 +30,41 @@
           </div>
           <div>
             <h4>Estilo Pragmático</h4>
-            <p>Descobrem o aspecto positivo de novas ideias e aproveitam a primeira oportunidade para experimentá-las. Agem com rapidez e segurança com as ideias e projetos que os atraem. São impacientes quando há pessoas que teorizam. Concisos quando há uma decisão a ser tomada ou um problema a ser resolvido.</p>
-            <p>Acreditam que sempre podem fazer melhor.</p>
+            <p>Descobrem o aspecto positivo de novas ideias e aproveitam a primeira oportunidade para experimentá-las. Agem com rapidez e segurança com as ideias e projetos que os atraem. São impacientes quando há pessoas que teorizam. Concisos quando há uma decisão a ser tomada ou um problema a ser resolvido. Acreditam que sempre podem fazer melhor.</p>
             <p>Características: Experimentador, Prático, Direto, Eficaz, Realista</p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <h4>Resultado do estudo de Estilos de Aprendizagem</h4>
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Material de apoio
+        </button>
+      </h2>
+    </div>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+      <div class="card-body justified-text pre-scrollable pb-0">
+        <p>Os modelos de estilos de aprendizagem identificam de que forma as informações são percebidas e processadas, ou seja, as preferências pedagógicas de cada estudante. Quando as metodologias adotadas em sala de aula não estão em concordância com essas preferências, podem ocorrer dificuldades ou falhas na aprendizagem. Seus resultados seguem abaixo.</p>
+        <p>Alonso e Gallego (2002) constataram no campo educacional há predominância de quatro estilos de aprendizagem nos estudantes: ativo, reflexivo, teórico e pragmático, e elaboraram uma relação de características que determinam o campo de habilidade de cada um desses estilos.</p>
+        <p>Seu principal estilo de aprendizado: <b>${mainStudyOptionsAsString}</b></p>
+        <p>Para saber mais sobre seu estilo de aprendizagem você pode escolher um ou mais dos seguintes recursos disponíveis:</p>
+        <ul>
+          <li>Infográfico - Como eu aprendo?
+            <a href="" data-toggle="modal" data-target="#infographicModal">
+              <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+            </a>
+          </li>
+          <li>Características gerais dos estilos de aprendizagem
+            <a href="" data-toggle="modal" data-target="#generalInfoModal">
+              <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+            </a>
+          </li>
+        </ul>
+        <compose view="./students-extra-resources.html" model.bind="result"></compose>
       </div>
     </div>
   </div>

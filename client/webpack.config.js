@@ -14,8 +14,9 @@ const when = (condition, config, negativeConfig) =>
   condition ? ensureArray(config) : ensureArray(negativeConfig);
 
 // primary config:
-const title = 'SISEN';
+const title = 'Sisen';
 const outDir = path.resolve(__dirname, project.platform.output);
+const staticOutDir = path.resolve(__dirname, project.platform.output, 'assets');
 const srcDir = path.resolve(__dirname, 'src');
 const nodeModulesDir = path.resolve(__dirname, 'node_modules');
 const baseUrl = '/';
@@ -162,7 +163,7 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
       chunkFilename: production ? 'css/[name].[contenthash].chunk.css' : 'css/[name].[hash].chunk.css'
     })),
     ...when(production || server, new CopyWebpackPlugin([
-      { from: 'static', to: outDir, ignore: ['.*'] }])), // ignore dot (hidden) files
+      { from: 'static', to: staticOutDir, ignore: ['.*'] }])), // ignore dot (hidden) files
     ...when(analyze, new BundleAnalyzerPlugin())
   ]
 });

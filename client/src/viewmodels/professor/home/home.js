@@ -3,15 +3,21 @@ import config from 'services/config';
 import AuthService from 'services/AuthService';
 import AsyncHttpClient from 'services/async-http-client';
 import AvailableClassroomStudy from 'model/available-classroom-study';
+import {ExternalMediaHandler} from 'resources/external-media-handler';
 import 'resources/datatable';
 
-@inject(AuthService, AsyncHttpClient)
+@inject(AuthService, AsyncHttpClient, ExternalMediaHandler)
 export class Home {
 
-  constructor(authService, asyncHttpClient) {
+  constructor(authService, asyncHttpClient, externalMediaHandler) {
     this.studies = [];
+    this.imageFilename = '';
     this.ahc = asyncHttpClient;
     this.authService = authService;
+    this.eMH = externalMediaHandler;
+  }
+
+  active() {
   }
 
   attached() {
@@ -29,4 +35,7 @@ export class Home {
       });
   }
 
+  setEAImageSrc(studyOptionCode) {
+    this.imageFilename = `/assets/images/professors/EA/${studyOptionCode}.png`;
+  }
 }
