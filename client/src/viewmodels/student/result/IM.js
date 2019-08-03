@@ -9,4 +9,8 @@ export class IMContent extends ComposeStudyDetail {
     super(numberOfMainStudyOptionsToShow);
     this.eMH = externalMediaHandler;
   }
+
+  attached() {
+    this.eMH.externalAudioIFrameSrcSetter('audioGeneralInfoModal', 'audio-iframe-');
+  }
 }
