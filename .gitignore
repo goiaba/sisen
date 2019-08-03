@@ -1,3 +1,4 @@
+client/static/
 node_modules/
 documentation/mine
 db.sqlite3

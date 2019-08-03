@@ -10,7 +10,6 @@ import 'resources/datatable';
 export class Home {
 
   constructor(authService, asyncHttpClient, externalMediaHandler) {
-    this.studies = [];
     this.imageFilename = '';
     this.ahc = asyncHttpClient;
     this.authService = authService;
@@ -21,6 +20,7 @@ export class Home {
   }
 
   attached() {
+    this.eMH.externalAudioIFrameSrcSetter('audioGeneralInfoModal', 'audio-iframe');
     this.ahc.get(config.entryPointUrl, { 'role': this.authService.session.role })
       .then((response) => response.content)
       .then((url) => {

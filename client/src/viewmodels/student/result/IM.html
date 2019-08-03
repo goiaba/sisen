@@ -5,7 +5,7 @@
         <div class="modal-body">
           <div repeat.for="i of numberOfMainStudyOptionsToShow">
             <p class="mb-0">${i+1} - Recomendações para a inteligência <b>${scores[i].description}</b></p>
-            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src.bind="eMH.getExternalAudioLink(scores[i].code)"></iframe>
+            <iframe id="audio-iframe-${i}" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="about:blank" data-mediaid.bind="scores[i].code"></iframe>
           </div>
         </div>
       </div>
@@ -17,7 +17,7 @@
         <div class="modal-body">
           <div repeat.for="i of numberOfMainStudyOptionsToShow" style="width:100%;display:block;">
             <p class="mb-0">${i+1} - Recomendações para a inteligência <b>${scores[i].description}</b></p>
-            <iframe width="100%" height="315" src.bind="eMH.getExternalVideoLink(scores[i].code)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="100%" height="200" src.bind="eMH.getExternalVideoLink(scores[i].code)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -119,7 +119,7 @@
       <div class="card-header" id="headingOne">
         <h2 class="mb-0">
           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Material de apoio
+            Recomendações e material de apoio
           </button>
         </h2>
       </div>
