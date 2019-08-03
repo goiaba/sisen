@@ -1,32 +1,41 @@
 <template>
-  <div class="accordion" id="accordionResultExplanationIM">
-    <div class="card">
-      <div class="card-header" id="headingOne">
-        <h2 class="mb-0">
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Suas inteligências múltiplas
-          </button>
-        </h2>
-      </div>
-
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionResultExplanationIM">
-        <div class="card-body justified-text">
-          <p>Gardner (1986) desenvolveu a teoria das Inteligências Múltiplas e sugere que somos excelentes com diferentes tipos de inteligência, que usadas simultaneamente se complementam e permitem o desenvolvimento de habilidades para resolver problemas.</p>
-          <p>Como cada pessoa apresenta um conjunto único de características, conhecer as suas preferências pode favorecer seu autoconhecimento e criar um ambiente mais propício à aprendizagem. Seus resultados seguem abaixo.</p>
-          <p>Suas três principais inteligências são: <b>${mainStudyOptions}</b></p>
+  <div class="modal fade" id="audioGeneralInfoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div repeat.for="i of numberOfMainStudyOptionsToShow">
+            <p class="mb-0">${i+1} - Recomendações para a inteligência <b>${scores[i].description}</b></p>
+            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src.bind="eMH.getExternalAudioLink(scores[i].code)"></iframe>
+          </div>
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header" id="headingTwo">
-        <h2 class="mb-0">
-          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Saiba um pouco mais sobre as inteligências múltiplas
-          </button>
-        </h2>
+  </div>
+  <div class="modal fade" id="videoGeneralInfoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div repeat.for="i of numberOfMainStudyOptionsToShow" style="width:100%;display:block;">
+            <p class="mb-0">${i+1} - Recomendações para a inteligência <b>${scores[i].description}</b></p>
+            <iframe width="100%" height="315" src.bind="eMH.getExternalVideoLink(scores[i].code)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
       </div>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionResultExplanationIM">
-        <div class="card-body pre-scrollable justified-text">
+    </div>
+  </div>
+  <div class="modal fade" id="infographicModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <img src.bind="getImageSrc('infographic.jpg')" alt="Infográfico" style='width:100%;'>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="generalInfoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
           <div>
             <h4>Inteligência Verbo-Linguística</h4>
             <p>Pessoas com inteligência linguística amam palavras, gostam de ler e escrever. Apreciam as complexidades da estrutura da frase, estrutura da palavra, significado e som. São hábeis em se comunicar através da palavra escrita e procuram aprimorar suas habilidades. Características:</p>
@@ -105,4 +114,41 @@
       </div>
     </div>
   </div>
+    <h4>Resultado do estudo de Inteligências Múltiplas</h4>
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Material de apoio
+          </button>
+        </h2>
+      </div>
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+        <div class="card-body justified-text pb-0">
+          <p>Gardner (1986) desenvolveu a teoria das Inteligências Múltiplas e sugere que somos excelentes com diferentes tipos de inteligência, que usadas simultaneamente se complementam e permitem o desenvolvimento de habilidades para resolver problemas.</p>
+          <p>Como cada pessoa apresenta um conjunto único de características, conhecer as suas preferências pode favorecer seu autoconhecimento e criar um ambiente mais propício à aprendizagem. Seus resultados seguem abaixo.</p>
+          <p>Suas três principais inteligências são: <b>${mainStudyOptionsAsString}</b></p>
+          <p>Para saber mais sobre suas principais inteligências você pode escolher um ou mais dos seguintes recursos disponíveis:</p>
+          <ul>
+            <li>Infográfico - Como eu aprendo?
+              <a href="" data-toggle="modal" data-target="#infographicModal">
+                <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li>Características gerais das inteligências múltiplas
+              <a href="" data-toggle="modal" data-target="#generalInfoModal">
+                <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+              </a>
+              <a href="" data-toggle="modal" data-target="#audioGeneralInfoModal">
+                <span class="oi oi-audio" title="Áudio" aria-hidden="true"></span>
+              </a>
+              <a href="" data-toggle="modal" data-target="#videoGeneralInfoModal">
+                <span class="oi oi-video" title="Vídeo" aria-hidden="true"></span>
+              </a>
+            </li>
+          </ul>
+          <compose view="./students-extra-resources.html" model.bind="result"></compose>
+        </div>
+      </div>
+    </div>
 </template>

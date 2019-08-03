@@ -61,7 +61,7 @@ export class Synthetic {
   }
 
   attached() {
-    $('.table').DataTable();
+    $('.table').DataTable({ order: [[1, 'desc']] });
   }
 
   toHome() {

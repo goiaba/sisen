@@ -7,8 +7,8 @@
   <div class="ui container page-host">
     <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
     <div class="mt-3">
-      <compose show.bind="result.study.acronym === 'IM'" view-model="./IM" model.bind="result"></compose>
-      <compose show.bind="result.study.acronym === 'EA'" view-model="./EA" model.bind="result"></compose>
+      <compose if.bind="result.study.acronym === 'IM'" view-model="./IM" model.bind="result"></compose>
+      <compose if.bind="result.study.acronym === 'EA'" view-model="./EA" model.bind="result"></compose>
     </div>
     <table id="resultTable" class="table table-stripped" width="100%">
       <thead class="thead-dark">

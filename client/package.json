@@ -24,6 +24,7 @@
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "numeral": "^2.0.6",
+    "open-iconic": "^1.1.1",
     "popper": "^1.0.1",
     "popper.js": "^1.15.0"
   },
