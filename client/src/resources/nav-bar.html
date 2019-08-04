@@ -1,4 +1,15 @@
 <template bindable="router, auth">
+  <div class="modal fade" id="bugReportModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body justified-text">
+          <h4 class="mb-3">Reportar falha ou sugerir melhoria</h4>
+          <p>Caso encontre qualquer tipo de falha no sistema, ou queira sugerir melhorias, entre em contato conosco através do email <a href="mailto:programeict2019@gmail.com?subject=[bug|melhoria] Sisen" target="_blank">programeict2019@gmail.com</a>.</p>
+          <p class="mb-0">Se tiver interesse em colaborar, visite o repositório do Sisen no <a href="https://github.com/goiaba/sisen" target="_blank">github</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -13,6 +24,11 @@
         <li class="nav-item">
           <a class="nav-link" href="#" click.delegate="auth.changeRole()" show.bind="auth.hasMultipleRoles()">
             Trocar Perfil
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="" data-toggle="modal" data-target="#bugReportModal">
+            <span class="oi oi-bug nav-item nav-link" title="Reportar falha ou sugerir melhoria" aria-hidden="true"></span>
           </a>
         </li>
         <li class="nav-item">
