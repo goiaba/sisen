@@ -38,10 +38,10 @@ export default {
         CINESTESICA_CORPORAL: 'aI-H75V47oU',
         INTERPESSOAL: 'mRERzlcH0qc',
         INTRAPESSOAL: 'DKImzAkJHNs',
-        LOGICA_MATEMATICA: 'Mv5PfswNa3Q',
+        LOGICA_MATEMATICA: 'xHt7__t19QU',
         NATURALISTA: 'BtBSd_XxyDU',
         RITMICA_MUSICAL: 'LDdo8lWQLwM',
-        VERBAL_LINGUISTICA: 'xHt7__t19QU',
+        VERBAL_LINGUISTICA: 'Mv5PfswNa3Q',
         VISUAL_ESPACIAL: 'UDMsQzurqE8'
       }
     }
