@@ -55,6 +55,14 @@ export default class AuthService {
     return true; // why not?
   }
 
+  getFirstName() {
+    return this.session.user.first_name;
+  }
+
+  getRole() {
+    return this.session.role;
+  }
+
   hasMultipleRoles() {
     return this.session.user.groups.length > 1;
   }

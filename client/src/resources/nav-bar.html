@@ -22,17 +22,16 @@
           <a class="${row.isActive ? 'active' : ''} nav-link" href.bind="row.href">${row.title}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" click.delegate="auth.changeRole()" show.bind="auth.hasMultipleRoles()">
-            Trocar Perfil
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="" data-toggle="modal" data-target="#bugReportModal">
             <span class="oi oi-bug nav-item nav-link" title="Reportar falha ou sugerir melhoria" aria-hidden="true"></span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-item nav-link" href="#/login" click.delegate="auth.logout()">Sair</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">${auth.getFirstName()} (${auth.getRole()})</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" click.delegate="auth.changeRole()" show.bind="auth.hasMultipleRoles()">Trocar Perfil</a>
+            <a class="dropdown-item" href="#/login" click.delegate="auth.logout()">Sair</a>
+          </div>
         </li>
       </ul>
     </div>
