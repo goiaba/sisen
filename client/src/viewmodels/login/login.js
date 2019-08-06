@@ -24,4 +24,9 @@ export class Login {
   toSignUp() {
     this.authService.router.navigate('signup');
   }
+
+  toPasswordReset() {
+    this.authService.router.navigate('password-reset');
+  }
+
 }

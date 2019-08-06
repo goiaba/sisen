@@ -2,6 +2,8 @@ export default {
 	baseUrl: 'http://localhost:8000/api/v1',
 	authTokenUrl: '/auth',
 	authTokenRefreshUrl: '/auth-refresh',
+  passwordResetRequestUrl: '/password-reset/',
+  passwordResetConfirmUrl: '/password-reset/confirm/',
 	entryPointUrl: '/survey/switcher/role/${role}',
   getInstitutionsUrl: '/survey/institution',
   getProgramsByInstitutionUrl: '/survey/institution/${institutionId}/program',

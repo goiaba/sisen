@@ -18,7 +18,9 @@ export function configure(aurelia) {
       } else {
         aurelia.setRoot(PLATFORM.moduleName('shells/openRoot')).then(() => {
           const router = aurelia.container.get(Router);
-          router.navigate('login');
+          if (!router.currentInstruction.config.name) {
+            router.navigate('login');
+          }
         });
       }
   	});

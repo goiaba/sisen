@@ -1,10 +1,13 @@
 Django==2.1.10
 django-cors-headers==3.0.2
+django-rest-passwordreset==1.0.0
 djangorestframework==3.9.2
 djangorestframework-jwt==1.11.0
 numpy==1.16.1
 pandas==0.24.1
 PyJWT==1.7.1
 python-dateutil==2.8.0
+python-http-client==3.1.0
 pytz==2018.9
+sendgrid==6.0.5
 six==1.12.0
