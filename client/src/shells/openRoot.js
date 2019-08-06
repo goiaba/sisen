@@ -26,6 +26,22 @@ export class StudentRoot {
         nav: false,
         title: 'Registrar-se'
       },
+      {
+        route: 'password-reset',
+        name: 'password-reset',
+        href: '#/password-reset',
+        moduleId: PLATFORM.moduleName('viewmodels/password-reset/password-reset'),
+        nav: false,
+        title: 'Recuperar Senha'
+      },
+      {
+        route: 'password-reset-confirmation',
+        name: 'password-reset-confirmation',
+        href: '#/password-reset-confirmation',
+        moduleId: PLATFORM.moduleName('viewmodels/password-reset/password-reset-confirmation'),
+        nav: false,
+        title: 'Alterar Senha'
+      }
     ]);
 
     config.mapUnknownRoutes(instruction => {

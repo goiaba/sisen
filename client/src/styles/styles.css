@@ -20,6 +20,22 @@ body.dt-print-view {
   margin-top:15vw;
 }
 
+.login-form #password-reset {
+  font-size: small;
+}
+
+.password-reset-form {
+  margin-top:15vw;
+}
+
+.password-reset-request-form {
+  margin-top:15vw;
+}
+
+.oi-icon-float-right {
+  line-height: 2;
+}
+
 .signup-form {
   margin-top:7vw;
 }
