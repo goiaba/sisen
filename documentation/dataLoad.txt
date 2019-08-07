@@ -5,7 +5,7 @@
       "initials": "Unifesp",
       "program": [
         {
-          "name": "Bacharelado em Ciência da Computação",
+          "name": "Bacharelado em Ciência e Tecnologia",
           "class": [
             { "code": "IA", "description": "Integral A", "semester": 1, "year": 2019 },
             { "code": "IB", "description": "Integral B", "semester": 1, "year": 2019 },

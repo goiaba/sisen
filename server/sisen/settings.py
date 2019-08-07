@@ -129,6 +129,10 @@ CLIENT_RESET_PASSWORD_CONFIRMATION_URL = 'http://localhost:8080/#/password-reset
 DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 2 #hours
 
 REST_FRAMEWORK = {
+    # Disables Browsable API in production
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DEFAULT_PERMISSION_CLASSES': (
