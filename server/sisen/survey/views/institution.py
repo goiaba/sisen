@@ -8,7 +8,8 @@ from sisen.survey.views.main import get_object_or_not_found
 @api_view(['GET'])
 @permission_classes([])
 def list(request, format=None):
-    return Response(InstitutionSerializer(models.Institution.objects.all(), many=True).data)
+    return Response(InstitutionSerializer(
+        models.Institution.objects.all().order_by('name'), many=True).data)
 
 @api_view(['GET'])
 @permission_classes([])

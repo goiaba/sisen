@@ -11,7 +11,8 @@ from sisen.survey.views.main import get_object_or_not_found
 def list(request, institution_id, format=None):
     institution = get_object_or_not_found(models.Institution, institution_id,
         'A instituição solicitada não existe (ID=%i)' % institution_id)
-    return Response(ProgramSerializer(institution.programs, many=True).data)
+    return Response(ProgramSerializer(
+        institution.programs.order_by('name'), many=True).data)
 
 @api_view(['GET'])
 @permission_classes([])
