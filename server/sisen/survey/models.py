@@ -69,7 +69,7 @@ class Program(models.Model):
 
 
 class Class(models.Model):
-    code = models.CharField(max_length=50, unique=True)
+    code = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
     semester = models.IntegerField()
     year = models.IntegerField()
@@ -77,6 +77,9 @@ class Class(models.Model):
 
     def __str__(self):
         return self.description
+
+    class Meta:
+       unique_together = ("program", "code")
 
 
 class Student(models.Model):
