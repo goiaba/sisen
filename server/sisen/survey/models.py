@@ -79,7 +79,7 @@ class Class(models.Model):
         return self.description
 
     class Meta:
-       unique_together = ("program", "code")
+       unique_together = ("program", "code", "year", "semester")
 
 
 class Student(models.Model):
