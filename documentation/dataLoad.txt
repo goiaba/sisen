@@ -14,7 +14,9 @@
             { "code": "IE", "description": "Integral E", "semester": 1, "year": 2019 },
             { "code": "NA", "description": "Noturno A", "semester": 1, "year": 2019 },
             { "code": "NB", "description": "Noturno B", "semester": 1, "year": 2019 },
-            { "code": "NC", "description": "Noturno C", "semester": 1, "year": 2019 }
+            { "code": "NC", "description": "Noturno C", "semester": 1, "year": 2019 },
+            { "code": "IAOC", "description": "Integral AOC", "semester": 2, "year": 2019 },
+            { "code": "NAOC", "description": "Noturno AOC", "semester": 2, "year": 2019 }
           ]
         }
       ]
