@@ -35,13 +35,12 @@ export class Synthetic {
 
   attached() {
     $('.table').DataTable({
-      columnDefs: [{
-        targets: 0, visible: false
-      }],
+      columnDefs: [
+        { targets: 0, visible: false },
+        { targets: 1, orderable: false }
+      ],
       order: [[0, 'asc']],
-      rowGroup: {
-          dataSrc: 0
-      }
+      rowGroup: { dataSrc: 0 }
     });
   }
 
