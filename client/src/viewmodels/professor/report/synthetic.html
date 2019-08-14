@@ -5,8 +5,36 @@
   <require from="aurelia-chart/attributes/chart-attribute"></require>
   <div class="ui container page-host">
     <nav-bar router.bind="router" auth.bind="authService"></nav-bar>
+    <div class="modal fade" id="characteristicsModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <img src.bind="imageFilename" alt="Características" style='width:100%'>
+          </div>
+        </div>
+      </div>
+    </div>
     <h2 class="table-title">Relatório sintético - ${study.description}</h2>
     <h3 class="table-title">Turma ${classroom.description} (${classroom.semester}/${classroom.year})</h3>
+    <div if.bind="study.acronym == 'EA'" class="justified-text">
+      <p>Os estilos de aprendizagem identificam de que forma as informações são percebidas e processadas, ou seja, as preferências pedagógicas de cada estudante.</p>
+      <p>Nos cursos de exatas verifica-se um predomínio mundial do estilo reflexivo, porém ao diversificar as estratégias é possível minimizar as dificuldades e as falhas na aprendizagem dos estudantes de todos os estilos.</p>
+      <p>Algumas alternativas que mais se identificam com os estilos de aprendizagem, e que podem contribuir para a docência.
+        <a href="" click.delegate="setImageSrc()" data-toggle="modal" data-target="#characteristicsModal">
+          <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+        </a>
+      </p>
+      <p>Mais informações estão disponíveis no link "Recomendações e material de apoio" da sua página principal.</p>
+    </div>
+    <div if.bind="study.acronym == 'IM'" class="justified-text">
+      <p>Os resultados não “medem inteligências”, mas refletem o que os estudantes pensam sobre si mesmo, e que poderão ser confirmados por você a partir da observação das atitudes e comportamentos que eles apresentam em sala de aula.</p>
+      <p>Quadro resumo das múltiplas inteligências.
+        <a href="" click.delegate="setImageSrc()" data-toggle="modal" data-target="#characteristicsModal">
+          <span class="oi oi-document" title="Documento" aria-hidden="true"></span>
+        </a>
+      </p>
+      <p>Mais informações estão disponíveis no link "Recomendações e material de apoio" da sua página principal.</p>
+    </div>
     <table class="table table-stripped" width="100%">
       <thead class="thead-dark">
         <tr>

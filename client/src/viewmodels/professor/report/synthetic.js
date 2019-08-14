@@ -64,6 +64,10 @@ export class Synthetic {
     $('.table').DataTable({ order: [[1, 'desc']] });
   }
 
+  setImageSrc() {
+    this.imageFilename = `/assets/images/professors/${this.study.acronym}/characteristics.png`;
+  }
+
   toHome() {
     this.authService.router.navigate('home');
   }
