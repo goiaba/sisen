@@ -14,7 +14,7 @@ def list(request, institution_id, program_id, format=None):
     try:
         program = institution.programs.get(pk=program_id)
         return Response(ClassSerializer(
-            program.classes.order_by('description'), many=True).data)
+            program.classes.order_by('-year', '-semester', 'description'), many=True).data)
     except models.Program.DoesNotExist:
         raise NotFound(
             ('O programa solicitado (ID=%i) não existe ou não está vinculado'
