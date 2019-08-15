@@ -52,9 +52,9 @@ export class Synthetic {
         this.study = StudyReportSynthetic.toObject(data.study);
         this.classroom = Classroom.toObject(data.sclass);
         // build chart data
-        this.chartData.labels = this.study.options.map((option) => {return option.description});
-        this.chartData.datasets[0].data = this.study.options.map((option) => {return option.value * 100});
-        this.chartData.datasets[0].label = this.study.description;
+        this.chartData.labels = this.study.options.map((option) => option.description);
+        this.chartData.datasets[0].data = this.study.options.map((option) => option.count);
+        this.chartData.datasets[0].label = 'Quantidade de alunos por habilidade';
         // done loading data, allow the attached() hook to fire
         this.compositionTransactionNotifier.done();
       });

@@ -17,14 +17,7 @@ def student_scores(study, student):
         _calculate_student_score_by_study(study, student))
 
 def professor_analytical_report(study, sclass):
-    student_with_option_score_dict = {}
-    for student in sclass.students.all():
-        student_with_option_score = student_scores(study, student)
-        if student_with_option_score.scores:
-            _add_or_update_list(student_with_option_score_dict,
-                max(student_with_option_score.scores,
-                    key=lambda score: score.value).code,
-                student_with_option_score)
+    student_with_option_score_dict = _get_student_by_option_max_score_dict(study, sclass)
 
     study_option_dto_list = []
     for so in models.StudyOption.objects.filter(study=study):
@@ -58,21 +51,35 @@ def professor_synthetic_report(study, sclass):
         study,
         count_of_students_that_have_answered_study
     )
+    student_with_option_score_dict = _get_student_by_option_max_score_dict(study, sclass)
     study_option_dto_list = []
     for so in models.StudyOption.objects.filter(study=study):
         study_option_dto_list.append(
-            dto.StudyOptionScore(
+            dto.StudyOptionScoreWithStudentCount(
+                so.id,
                 so.code,
                 so.description,
                 _average_score(
                     so.id,
                     sum_of_students_study_option_score,
                     study_options_max_scores
-                )
+                ),
+                len(student_with_option_score_dict.get(so.code, []))
             )
         )
     study_dto = dto.StudyWithAverageStudyOptionByClass(study, study_option_dto_list)
     return dto.ProfessorSyntheticReport(study_dto, sclass)
+
+def _get_student_by_option_max_score_dict(study, sclass):
+    student_with_option_score_dict = {}
+    for student in sclass.students.all():
+        student_with_option_score = student_scores(study, student)
+        if student_with_option_score.scores:
+            _add_or_update_list(student_with_option_score_dict,
+                max(student_with_option_score.scores,
+                    key=lambda score: score.value).code,
+                student_with_option_score)
+    return student_with_option_score_dict
 
 def _add_or_update_list(d, k, v):
     c = d.get(k)

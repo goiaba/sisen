@@ -30,6 +30,10 @@ class StudyOptionScore(object):
         self.description = description
         self.value = value
 
+class StudyOptionScoreWithStudentCount(StudyOptionScore):
+    def __init__(self, id, code, description, value, count):
+        super(StudyOptionScoreWithStudentCount, self).__init__(id, code, description, value)
+        self.count = count
 
 class StudyWithMessageAndStudentOptionScore(object):
     def __init__(self, submit_datetime, study, message, study_option_scores, links):
