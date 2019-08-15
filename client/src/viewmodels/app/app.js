@@ -37,7 +37,7 @@ export class App {
   }
 
   showDialog() {
-    this.dialogService.open({ viewModel: RoleChooserDialog, model: null, lock: true }).whenClosed(response => {
+    this.dialogService.open({ viewModel: RoleChooserDialog, model: null, keyboard: false }).whenClosed(response => {
         if (!response.wasCancelled) {
           const role = response.output;
           this.auth.setRole(role);

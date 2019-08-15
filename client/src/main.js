@@ -8,8 +8,11 @@ export function configure(aurelia) {
     .standardConfiguration()
     .developmentLogging()
     .globalResources('styles/styles.css')
-		.plugin(PLATFORM.moduleName('aurelia-dialog'))
-    .plugin(PLATFORM.moduleName('aurelia-validation'));
+		.plugin(PLATFORM.moduleName('aurelia-dialog'), config => {
+      config.useDefaults();
+      config.settings.lock = true;
+      config.settings.keyboard = true;
+    }).plugin(PLATFORM.moduleName('aurelia-validation'));
 
   aurelia.start().then(() => {
 	  	var auth = aurelia.container.get(AuthService);

@@ -28,7 +28,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">${auth.getFirstName()} (${auth.getRole()})</a>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="#" click.delegate="auth.changeRole()" show.bind="auth.hasMultipleRoles()">Trocar Perfil</a>
             <a class="dropdown-item" href="#/login" click.delegate="auth.logout()">Sair</a>
           </div>

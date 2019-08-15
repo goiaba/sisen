@@ -45,6 +45,9 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
     chunkFilename: production ? '[name].[chunkhash].chunk.js' : '[name].[hash].chunk.js'
   },
   optimization: {
+    //Dialog does not open when webpack bundle is built in production mode
+    //https://github.com/aurelia/dialog/issues/361
+    concatenateModules: false,
     runtimeChunk: true,  // separates the runtime chunk, required for long term cacheability
     // moduleIds is the replacement for HashedModuleIdsPlugin and NamedModulesPlugin deprecated in https://github.com/webpack/webpack/releases/tag/v4.16.0
     // changes module id's to use hashes be based on the relative path of the module, required for long term cacheability

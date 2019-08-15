@@ -4,7 +4,6 @@ import AuthService from 'services/AuthService';
 
 @inject(AuthService, DialogController)
 export class RoleChooserDialog {
-  heading = 'Selecione o papel a ser utilizado na sessão';
   selectedRole = '';
   availableRoles = [];
 
