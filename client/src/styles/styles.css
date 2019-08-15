@@ -87,3 +87,31 @@ body.dt-print-view {
 li {
   margin: 10px 0;
 }
+
+.answer {
+  background-color: #F7F8FA;
+}
+
+@-webkit-keyframes borderBlink {
+    from, to {
+        border: 1px solid transparent
+    }
+    50% {
+        border: 1px solid #F3C5C5;
+    }
+}
+
+@keyframes borderBlink {
+  from, to {
+    border: 1px solid transparent
+  }
+  50% {
+    border: 1px solid #F3C5C5;
+  }
+}
+
+.not-answered {
+  background-color: #FBF4F4;
+  -webkit-animation: borderBlink 5s step-end infinite;
+  animation: borderBlink 5s step-end infinite;
+}

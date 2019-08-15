@@ -20,15 +20,19 @@
       <p>Ao responder o questionário, você manifesta concordância com o presente Termo de Consentimento Livre e Esclarecido. Caso tenha alguma dúvida, envie um e-mail para: deborah.correa@unifesp.br</p>
       <p>Se você tiver alguma consideração ou dúvida sobre a ética da pesquisa, entre em contato com o Comitê de Ética em Pesquisa (CEP) da Unifesp – Rua Prof. Francisco de Castro, nº 55, CEP: 04020-050., tel: (011)-5571-1062; (011)-5539- 7162. E-mail: cep@unifesp.edu.br</p>
       <p>Agradeço antecipadamente!</p>
-      <a class="btn btn-info" href="#" role="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="consent-term survey">Ocultar e responder ao questionário</a>
+      <div class="mb-3">
+        <a class="btn btn-info" href="#" role="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="consent-term survey">Ocultar e responder ao questionário</a>
+      </div>
     </div>
     <div id="survey" class="collapse multi-collapse mt-3">
       <h1>Questionário de ${description}</h1>
-      <form id="answerForm" role="form" submit.delegate="submit()">
-        <div repeat.for="question of questions">
+      <form id="answerForm" role="form" submit.delegate="submit($event.target)" class="needs-validation" novalidate>
+        <div repeat.for="question of questions" class="rounded-lg answer pl-3 py-2 mb-2">
           <p>${question.position} - ${question.text}</p>
           <label repeat.for="answer of sortAnswers(question.answers)">
-            <input type="radio"
+            <input required type="radio"
+            onchange="this.parentNode.parentNode.classList.remove('not-answered');"
+            oninvalid="this.parentNode.parentNode.classList.add('not-answered');"
             name="q${question.id}"
             model.bind="{'question': question.id, 'answer': answer.id}"
             checked.bind="answers[question.id-1]">

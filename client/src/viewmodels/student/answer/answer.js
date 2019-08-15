@@ -29,19 +29,27 @@ export class Answer {
     return answers.sort((f, s) => s.value - f.value);
   }
 
-  submit() {
-    const payload = { 'answers': this.answers };
-    const studyId = { 'studyId': this.studyId };
-    this.ahc.post(config.student.processAnswerUrl, payload, studyId)
-      .then((response) => response.content)
-      .then((result) => {
-        const resultRoute = this.router.routes.find((r) => r.name === 'result');
-        if (resultRoute) resultRoute.settings.result = result;
-        this.authService.ahc.messageHandler
-          .renderMessage('Questionário enviado com sucesso.' +
-                         ' Redirecionando para a página de resultado.', 'success')
-          .then(() => this.router.navigateToRoute('result', { 'studyId': this.studyId }));
-      });
+  submit(form) {
+    if (form.checkValidity()) {
+      const payload = { 'answers': this.answers };
+      const studyId = { 'studyId': this.studyId };
+      this.ahc.post(config.student.processAnswerUrl, payload, studyId)
+        .then((response) => response.content)
+        .then((result) => {
+          const resultRoute = this.router.routes.find((r) => r.name === 'result');
+          if (resultRoute) resultRoute.settings.result = result;
+          this.authService.ahc.messageHandler
+            .renderMessage('Questionário enviado com sucesso.' +
+                           ' Redirecionando para a página de resultado.', 'success')
+            .then(() => this.router.navigateToRoute('result', { 'studyId': this.studyId }));
+        });
+    } else {
+      form.classList.add('was-validated');
+      this.authService.ahc.messageHandler.renderMessage(
+        'As questões em destaque não foram respondidas.' +
+        ' Por favor, responda-as e tente enviar o' +
+        ' questionário novamente.', 'warn');
+    }
   }
 
   toHome() {
