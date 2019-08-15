@@ -179,7 +179,6 @@ class StudentWithOptionScoreSerializer(serializers.ModelSerializer):
 ################### Professor's Synthetic Report Serializers ###################
 
 class StudyOptionScoreWithStudentCountSerializer(serializers.Serializer):
-    id = serializers.IntegerField(min_value=1)
     code = serializers.CharField(max_length=50)
     description = serializers.CharField(max_length=100)
     value = serializers.FloatField()

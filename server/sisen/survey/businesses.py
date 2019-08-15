@@ -56,7 +56,6 @@ def professor_synthetic_report(study, sclass):
     for so in models.StudyOption.objects.filter(study=study):
         study_option_dto_list.append(
             dto.StudyOptionScoreWithStudentCount(
-                so.id,
                 so.code,
                 so.description,
                 _average_score(
