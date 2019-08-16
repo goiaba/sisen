@@ -29,15 +29,16 @@
       <form id="answerForm" role="form" submit.delegate="submit($event.target)" class="needs-validation" novalidate>
         <div repeat.for="question of questions" class="rounded-lg answer pl-3 py-2 mb-2">
           <p>${question.position} - ${question.text}</p>
-          <label repeat.for="answer of sortAnswers(question.answers)">
-            <input required type="radio"
-            onchange="this.parentNode.parentNode.classList.remove('not-answered');"
-            oninvalid="this.parentNode.parentNode.classList.add('not-answered');"
-            name="q${question.id}"
-            model.bind="{'question': question.id, 'answer': answer.id}"
-            checked.bind="answers[question.id-1]">
-            ${answer.text}
-          </label>
+          <div class="form-check" repeat.for="answer of sortAnswers(question.answers)">
+            <input required
+              class="form-check-input"
+              type="radio"
+              id="q${question.id}"
+              name="q${question.id}"
+              model.bind="{'question': question.id, 'answer': answer.id}"
+              checked.bind="answers[question.id-1]">
+            <label class="form-check-label" for="q${question.id}">${answer.text}</label>
+          </div>
         </div>
         <div class="form-buttons mb-3">
           <button type="submit" class="btn btn-dark">Enviar</button>
