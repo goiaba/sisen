@@ -6,6 +6,7 @@ Sistema de suporte ao ensino
 ### Environment configuration
 ```
 python3 -m pip install virtualenvwrapper
+#Follow further configuration instructions [here](https://virtualenvwrapper.readthedocs.io/en/latest/install.html) before running the next command
 mkvirtualenv sisen-venv
 cd sisen/server
 pip install -r requirements.txt
