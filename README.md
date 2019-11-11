@@ -10,7 +10,6 @@ mkvirtualenv sisen-venv
 cd sisen/server
 pip install -r requirements.txt
 python manage.py migrate
-sqlite3 db.sqlite3 < ../documentation/test_dataload.sql
 ```
 
 ### Steps to run
