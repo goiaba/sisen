@@ -127,6 +127,7 @@ STATIC_URL = '/static/'
 
 CLIENT_RESET_PASSWORD_CONFIRMATION_URL = 'http://localhost:8080/#/password-reset-confirmation'
 DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 2 #hours
+DJANGO_REST_PASSWORDRESET_NO_INFORMATION_LEAKAGE = True
 
 REST_FRAMEWORK = {
     # Disables Browsable API in production
