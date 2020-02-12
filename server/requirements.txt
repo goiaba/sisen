@@ -1,6 +1,6 @@
 Django==2.2.10
 django-cors-headers==3.0.2
-django-rest-passwordreset==1.0.0
+django-rest-passwordreset==1.1.0
 djangorestframework==3.9.2
 djangorestframework-jwt==1.11.0
 numpy==1.16.1
