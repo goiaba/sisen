@@ -144,6 +144,8 @@
     <table class="table table-stripped" width="100%">
       <thead class="thead-dark">
         <tr>
+          <th scope="col">Ano</th>
+          <th scope="col">Semestre</th>
           <th scope="col">Turma</th>
           <th scope="col">Estudo</th>
           <th scope="col">Qtd. Respostas</th>
@@ -152,6 +154,8 @@
       </thead>
       <tbody>
         <tr repeat.for="classroomStudy of availableClassroomStudies">
+          <td>${classroomStudy.classroom.year}</td>
+          <td>${classroomStudy.classroom.semester}</td>
           <td>${classroomStudy.classroom.description}</td>
           <td>${classroomStudy.study.description}</td>
           <td data-sort="${classroomStudy.answered}">${classroomStudy.answered}/${classroomStudy.students}</td>
