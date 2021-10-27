@@ -274,7 +274,7 @@
   ],
   "admin": [
     {
-      "username": "admin1",
+      "username": "admin1@gmail.com",
       "email": "admin1@gmail.com",
       "password": "admin",
       "first_name": "AdminFN",
