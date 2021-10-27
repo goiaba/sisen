@@ -7,7 +7,7 @@ import json
 def get_data_from_file():
     import os
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    with open(os.path.realpath('%s/../../../../documentation/dataLoad.txt' % dir_path)) as json_file:
+    with open(os.path.realpath('%s/../../../../documentation/dataLoad.json' % dir_path)) as json_file:
         return json.load(json_file)
 
 def get_model(apps, model, app='survey'):
