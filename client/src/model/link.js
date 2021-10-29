@@ -17,6 +17,9 @@ export default class Link {
   }
 
   static toListObject(jsonList) {
+    if (!jsonList) {
+      return [];
+    }
     return jsonList.map((link) => Link.toObject(link));
   }
 }

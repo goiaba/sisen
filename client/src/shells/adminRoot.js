@@ -14,8 +14,15 @@ export class AdminRoot {
         route: 'home',
         name: 'home',
         moduleId: PLATFORM.moduleName('viewmodels/admin/home/home'),
-        nav: true,
+        nav: false,
         title: 'Home'
+      },
+      {
+        route: 'class-management',
+        name: 'class-management',
+        moduleId: PLATFORM.moduleName('viewmodels/admin/class-management/class-management'),
+        nav:false,
+        title: 'Gerência de turmas'
       }
     ]);
 

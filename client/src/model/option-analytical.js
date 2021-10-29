@@ -16,6 +16,9 @@ export default class OptionAnalytical {
   }
 
   static toListObject(jsonList) {
+    if (!jsonList) {
+      return [];
+    }
     return jsonList.map((option) => OptionAnalytical.toObject(option));
   }
 }

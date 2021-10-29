@@ -1,10 +1,8 @@
 import os
 import csv
-import sys
 import pprint
 from rest_framework.test import APIRequestFactory, force_authenticate
 from django.contrib.auth.models import User
-from django.test import TestCase
 import sisen.survey.models as models
 from sisen.settings import BASE_DIR
 from sisen.survey.views.student import register_student, process_answer

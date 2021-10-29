@@ -1,0 +1,49 @@
+<template>
+  <ux-dialog>
+    <ux-dialog-header>${heading}</ux-dialog-header>
+    <ux-dialog-body>
+      <form id="classEditForm">
+        <div class="form-group">
+          <label for="selectInstitution">Instituição</label>
+          <select id="selectInstitution" value.bind="selectedInstitution" class="form-control" required attach-focus>
+            <option model.bind="null">Instituição</option>
+            <option repeat.for="institution of institutions"
+                    model.bind="institution">${institution.name}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="selectProgram">Programa</label>
+          <select id="selectProgram" value.bind="selectedProgram" class="form-control" required >
+            <option model.bind="null">Programa</option>
+            <option repeat.for="program of programs"
+                    model.bind="program">${program.name}</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-4">
+            <label for="inputCode">Código</label>
+            <input id="inputCode" type="text" class="form-control" value.bind="classroom.code" required />
+          </div>
+          <div class="form-group col-sm-8">
+            <label for="inputDescription">Descrição</label>
+            <input id="inputDescription" type="text" class="form-control" placeholder="Descrição" value.bind="classroom.description" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-3">
+            <label for="inputSemester">Semestre</label>
+            <input id="inputSemester" type="number" class="form-control" placeholder="Semestre" value.bind="classroom.semester" min="1" max="2" required />
+          </div>
+          <div class="form-group col-sm-9">
+            <label for="inputYear">Ano</label>
+            <input id="inputYear" type="number" class="form-control" placeholder="Ano" value.bind="classroom.year" min="2018" max="2050" required />
+          </div>
+        </div>
+      </form>
+    </ux-dialog-body>
+    <ux-dialog-footer>
+      <button click.delegate="dialogController.ok(classroom)">Gravar</button>
+      <button click.delegate="dialogController.cancel()">Cancelar</button>
+    </ux-dialog-footer>
+  </ux-dialog>
+</template>

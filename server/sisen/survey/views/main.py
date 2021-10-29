@@ -4,7 +4,6 @@ from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django_rest_passwordreset.models import ResetPasswordToken
 from django_rest_passwordreset.signals import reset_password_token_created
-from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
@@ -12,7 +11,6 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-import sisen.survey.models as models
 from sisen.survey.permissions import IsStudent, IsProfessor, IsAdmin
 from sisen.survey.exceptions import NotFound
 

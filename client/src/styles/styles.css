@@ -3,6 +3,7 @@
 @import "~datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css";
 @import "~datatables.net-rowgroup-dt/css/rowGroup.dataTables.min.css";
 @import "~open-iconic/font/css/open-iconic-bootstrap.min.css";
+@import "~bootstrap-select/dist/css/bootstrap-select.min.css";
 
 tr.even {
   background-color: #f5f5f5;

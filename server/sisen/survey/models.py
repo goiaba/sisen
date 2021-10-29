@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.core import validators
 
 
 class Study(models.Model):
@@ -27,7 +26,9 @@ class StudyOption(models.Model):
 class Question(models.Model):
     study = models.ForeignKey(Study, on_delete=models.PROTECT, related_name='questions')
     study_option = models.ForeignKey(StudyOption, on_delete=models.PROTECT, related_name='questions')
-    position = models.IntegerField()
+    position = models.PositiveSmallIntegerField(validators=[
+        validators.MinValueValidator(1, 'A posição da questão precisa ser maior ou igual a %(limit_value)')
+    ])
     text = models.CharField(max_length=2000)
 
     def __str__(self):
@@ -65,21 +66,27 @@ class Program(models.Model):
         return self.name
 
     class Meta:
-       unique_together = ("name", "institution")
+        unique_together = ("name", "institution")
 
 
 class Class(models.Model):
     code = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
-    semester = models.IntegerField()
-    year = models.IntegerField()
+    semester = models.PositiveSmallIntegerField(validators=[
+        validators.MinValueValidator(1, 'Semestre %(limit_value) é o menor valor possível'),
+        validators.MaxValueValidator(2, 'Semestre %(limit_value) é o maior valor possível')
+    ])
+    year = models.PositiveSmallIntegerField(validators=[
+        validators.MinValueValidator(2018, '%(limit_value) é o menor ano passado suportado'),
+        validators.MaxValueValidator(2050, '%(limit_value) é o maior ano futuro suportado')
+    ])
     program = models.ForeignKey(Program, on_delete=models.PROTECT, related_name='classes')
 
     def __str__(self):
         return self.description
 
     class Meta:
-       unique_together = ("program", "code", "year", "semester")
+        unique_together = ("program", "code", "year", "semester")
 
 
 class Student(models.Model):
@@ -93,6 +100,7 @@ class Student(models.Model):
 class Professor(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT)
     classes = models.ManyToManyField(Class, related_name='professors')
+    programs = models.ManyToManyField(Program, related_name='professors')
 
     def __str__(self):
         return "%s: %s %s, %s" % (self.user.email, self.user.first_name, self.user.last_name, self.classes)

@@ -57,6 +57,7 @@ def professor_synthetic_report(study, sclass):
     for so in models.StudyOption.objects.filter(study=study):
         study_option_dto_list.append(
             dto.StudyOptionScoreWithStudentCount(
+                so.id,
                 so.code,
                 so.description,
                 _average_score(
@@ -106,7 +107,7 @@ def _calculate_student_score_by_study(study, student):
         description = item.get('description')
         score = item.get('score')
         percentual_score = score/max_score_by_option.get(id)
-        scores.append(dto.StudyOptionScore(code, description, percentual_score))
+        scores.append(dto.StudyOptionScore(id, code, description, percentual_score))
     return scores
 
 def _get_study_options_max_scores(study):
@@ -117,8 +118,8 @@ def _get_study_options_max_scores(study):
     ).annotate(
         max_score=Max('answers__value', output_field=FloatField())
     )
-    # iterates over sq items and generates a dict of the form {studyoption_id: max_score, ...}. Starts with an empty
-    # dict as accumulator and, for each item in sq, updates max_score in this accumulator summing the current item
+    # iterates over 'q' items and generates a dict of the form {studyoption_id: max_score, ...}. Starts with an empty
+    # dict as accumulator and, for each item in 'q', updates max_score in this accumulator summing the current item
     # value to the already calculated one.
     return reduce(lambda a, e:
                   {**a, **{e.get('studyoption_id'): a.get(e.get('studyoption_id'), 0) + e.get('max_score')}},

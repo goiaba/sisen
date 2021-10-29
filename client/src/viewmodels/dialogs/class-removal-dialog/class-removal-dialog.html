@@ -1,0 +1,14 @@
+<template>
+  <ux-dialog>
+    <ux-dialog-body>
+      <p>Realmente deseja remover as turmas abaixo:</p>
+      <ul>
+        <li repeat.for="class of classesToRemove">${ class.description } (${class.program.name } - ${ class.program.institution.initials })</li>
+      </ul>
+    </ux-dialog-body>
+    <ux-dialog-footer>
+      <button click.delegate="dialogController.ok()">Sim</button>
+      <button click.delegate="dialogController.cancel()" attach-focus>Não</button>
+    </ux-dialog-footer>
+  </ux-dialog>
+</template>

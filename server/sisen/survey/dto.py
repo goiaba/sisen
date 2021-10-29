@@ -25,14 +25,15 @@ class SurveyAnswering(object):
 
 
 class StudyOptionScore(object):
-    def __init__(self, code, description, value):
+    def __init__(self, id, code, description, value):
+        self.id = id
         self.code = code
         self.description = description
         self.value = value
 
 class StudyOptionScoreWithStudentCount(StudyOptionScore):
-    def __init__(self, code, description, value, count):
-        super(StudyOptionScoreWithStudentCount, self).__init__(code, description, value)
+    def __init__(self, id, code, description, value, count):
+        super(StudyOptionScoreWithStudentCount, self).__init__(id, code, description, value)
         self.count = count
 
 class StudyWithMessageAndStudentOptionScore(object):
@@ -94,6 +95,7 @@ class ProfessorAnalyticalReport(object):
 
 class StudyWithStudentStudyOptionScore(object):
     def __init__(self, study, options):
+        self.id = study.id
         self.acronym = study.acronym
         self.description = study.description
         self.options = options
@@ -101,6 +103,7 @@ class StudyWithStudentStudyOptionScore(object):
 
 class StudyOptionWithStudentScore(object):
     def __init__(self, study_option, students):
+        self.id = study_option.id
         self.code = study_option.code
         self.description = study_option.description
         self.students = students

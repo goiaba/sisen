@@ -1,16 +1,78 @@
-from rest_framework.decorators import api_view, permission_classes
+from django.db import transaction
+from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from sisen.survey.dto import Link, AvailableClasses
-import sisen.survey.businesses as business
-from sisen.survey.exceptions import Conflict, NotFound
-import sisen.survey.models as models
-from sisen.survey.permissions import IsProfessor, IsTeachingClass
-from sisen.survey.serializers import AvailableClassesSerializer, \
-    ProfessorSyntheticReportSerializer, \
-    ProfessorAnalyticalReportSerializer
+from sisen.survey.exceptions import NotFound
+from sisen.survey.permissions import IsAdmin
+from sisen.survey.permissions import IsProfessor
+from sisen.survey.permissions import IsTeachingClass
+from sisen.survey.serializers import ProfessorSerializer
+from sisen.survey.serializers import AvailableClassesSerializer
 from sisen.survey.views.main import get_object_or_not_found
+import sisen.survey.businesses as business
+import sisen.survey.models as models
+
+
+class ProfessorViewSet(viewsets.ViewSet):
+
+    def find_all(self, request, format=None):
+        return Response(ProfessorSerializer(
+            models.Professor.objects.all().order_by('user__first_name', 'user__last_name'),
+            many=True).data)
+
+    def find_by_institution_program(self, request, institution_id, program_id, format=None):
+        institution, program = self.get_institution_program_or_not_found(
+            institution_id, program_id)
+        return Response(ProfessorSerializer(
+            program.professors.order_by('user__first_name', 'user__last_name'),
+            many=True).data)
+
+    def find_by_institution_program_professor(self, request, institution_id, program_id, professor_id, format=None):
+        institution, program = self.get_institution_program_or_not_found(
+            institution_id, program_id)
+        try:
+            return Response(ProfessorSerializer(
+                program.professors.get(pk=professor_id)).data)
+        except models.Professor.DoesNotExist:
+            raise NotFound(
+                ('O professor solicitado (ID=%i) não existe ou não está vinculado'
+                 'ao programa') % program_id)
+
+    @transaction.atomic
+    def create(self, request, institution_id, program_id, format=None):
+        institution, program = self.get_institution_program_or_not_found(
+            institution_id, program_id)
+        new_professor_data = request.data
+        # new_professor_data.update({ 'institution': institution_id })
+        serializer = ProfessorSerializer(data=new_professor_data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get_institution_program_or_not_found(self, institution_id, program_id):
+        institution = get_object_or_not_found(models.Institution, institution_id,
+            'A instituição solicitada não existe (ID=%s)' % institution_id)
+        try:
+            program = institution.programs.get(pk=program_id)
+            return institution, program
+        except models.Program.DoesNotExist:
+            raise NotFound(
+                ('O programa solicitado (ID=%i) não existe ou não está vinculado'
+                 'à instituição') % program_id)
+
+    def get_permissions(self):
+        if self.action in ['find_all', 'find_by_institution_program_professor']:
+            permission_classes = []
+        else:
+            permission_classes = [IsAuthenticated, IsAdmin]
+        return [permission() for permission in permission_classes]
+
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, IsProfessor))

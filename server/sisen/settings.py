@@ -81,11 +81,17 @@ WSGI_APPLICATION = 'sisen.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': os.getenv('SISEN_DB_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.getenv('SISEN_DB_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER': os.getenv('SISEN_DB_USER', ''),
+        'PASSWORD': os.getenv('SISEN_DB_PASSWORD', ''),
+        'HOST': os.getenv('SISEN_DB_HOST', ''),
+        'PORT': os.getenv('SISEN_DB_PORT', ''),
     }
 }
 
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

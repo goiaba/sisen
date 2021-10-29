@@ -18,6 +18,14 @@ export default {
     syntheticReportUrl: '/survey/class/${classId}/study/${studyId}/synthetic-report',
     analyticalReportUrl: '/survey/class/${classId}/study/${studyId}/analytical-report'
   },
+  admin: {
+		createClassUrl: '/survey/institution/${institutionId}/program/${programId}/class',
+    getClassesUrl: '/survey/class',
+    updateClassUrl: '/survey/class/${classId}',
+    deleteClassUrl: '/survey/class/${classIds}',
+		updateClassProfessorAssignmentUrl: '/survey/class/${classId}/professor',
+		getProfessorsByInstitutionAndProgramUrl: '/survey/institution/${institutionId}/program/${programId}/professor'
+  },
 	tokenName: 'sisenAuth',
 	headerAuthParam: 'Authorization',
   externalMediaHandler: {

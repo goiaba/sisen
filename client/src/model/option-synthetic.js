@@ -17,6 +17,9 @@ export default class OptionSynthetic {
   }
 
   static toListObject(jsonList) {
+    if (!jsonList) {
+      return [];
+    }
     return jsonList.map((option) => OptionSynthetic.toObject(option));
   }
 }

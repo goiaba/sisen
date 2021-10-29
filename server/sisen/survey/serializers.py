@@ -71,6 +71,7 @@ class StudySerializer(serializers.ModelSerializer):
 
     def get_answered(self, obj):
         student = self.context.get('student')
+        # TODO: Use StudentAnswerLog table instead.
         return models.StudentAnswer.objects.filter(
             student=student,
             study=obj
@@ -80,7 +81,7 @@ class StudySerializer(serializers.ModelSerializer):
         """Remove 'answered' if 'student' not in context"""
         ret = super().to_representation(instance)
         if not self.context.get('student'):
-            ret.answered = None;
+            ret.answered = None
         return ret
 
 
@@ -102,6 +103,7 @@ class StudentAnswerSerializer(serializers.ModelSerializer):
 
 
 class StudyOptionScoreSerializer(serializers.Serializer):
+    id = serializers.IntegerField(min_value=1)
     code = serializers.CharField(max_length=50)
     description = serializers.CharField(max_length=100)
     value = serializers.FloatField()
@@ -122,15 +124,47 @@ class InstitutionSerializer(serializers.ModelSerializer):
 
 
 class ProgramSerializer(serializers.ModelSerializer):
+    institution_id = serializers.PrimaryKeyRelatedField(
+        source='institution',
+        queryset=models.Institution.objects.all(),
+        write_only=True
+    )
+    institution = InstitutionSerializer(read_only=True)
+
     class Meta:
         model = models.Program
-        exclude = ('institution',)
+        fields = '__all__'
 
 
 class ClassSerializer(serializers.ModelSerializer):
+    program_id = serializers.PrimaryKeyRelatedField(
+        source='program',
+        queryset=models.Program.objects.all(),
+        write_only=True
+    )
+    program = ProgramSerializer(read_only=True)
+
     class Meta:
         model = models.Class
-        exclude = ('program',)
+        fields = '__all__'
+
+
+class ProfessorSerializer(serializers.ModelSerializer):
+    email = serializers.CharField(source='user.email', read_only=True)
+    first_name = serializers.CharField(source='user.first_name', read_only=True)
+    last_name = serializers.CharField(source='user.last_name', read_only=True)
+    user_id = serializers.PrimaryKeyRelatedField(
+        source='user',
+        queryset=models.User.objects.all()
+    )
+
+    class Meta:
+        model = models.Professor
+        fields = ('id', 'user_id', 'email', 'first_name', 'last_name')
+
+
+class ClassWithProfessorsSerializer(ClassSerializer):
+    professors = ProfessorSerializer(many=True, required=False)
 
 
 class AvailableClassesSerializer(serializers.Serializer):
@@ -151,7 +185,8 @@ class StudentSerializer(serializers.ModelSerializer):
         model = models.Student
         fields = ('id', 'email', 'first_name', 'last_name', 'sclass')
 
-################### Student's Synthetic Report Serializers ###################
+# ################## Student's Synthetic Report Serializers ###################
+
 
 class StudyOptionSerialiser(serializers.ModelSerializer):
     class Meta:
@@ -176,7 +211,8 @@ class StudentWithOptionScoreSerializer(serializers.ModelSerializer):
         fields = ('email', 'first_name', 'last_name', 'scores')
 
 
-################### Professor's Synthetic Report Serializers ###################
+# ################## Professor's Synthetic Report Serializers ###################
+
 
 class StudyOptionScoreWithStudentCountSerializer(serializers.Serializer):
     code = serializers.CharField(max_length=50)
@@ -195,8 +231,8 @@ class ProfessorSyntheticReportSerializer(serializers.Serializer):
     study = StudyWithAverageStudyOptionByClassSerializer()
     sclass = ClassSerializer()
 
+# ################## Professor's Analytical Report Serializers ###################
 
-################### Professor's Analytical Report Serializers ###################
 
 class StudyOptionWithStudentScoreSerializer(serializers.Serializer):
     code = serializers.CharField(max_length=50)

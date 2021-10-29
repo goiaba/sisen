@@ -15,6 +15,9 @@ export default class Score {
   }
 
   static toListObject(jsonList) {
+    if (!jsonList) {
+      return [];
+    }
     return jsonList.map((value) => Score.toObject(value));
   }
 }

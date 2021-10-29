@@ -21,6 +21,9 @@ export default class StudentAnalytical {
   }
 
   static toListObject(jsonList) {
+    if (!jsonList) {
+      return [];
+    }
     return jsonList.map((score) => StudentAnalytical.toObject(score));
   }
 }

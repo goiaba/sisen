@@ -1,9 +1,8 @@
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.contrib.auth.models import User, Group
 import sisen.survey.models as models
-from sisen.survey.dto import Link, AvailableStudy, SurveyAnswering, StudyWithMessageAndStudentOptionScore
+from sisen.survey.dto import Link, AvailableStudy, SurveyAnswering
 import sisen.survey.businesses as business
 from sisen.survey.exceptions import Conflict, NotFound
 from sisen.survey.permissions import IsStudent
@@ -12,7 +11,6 @@ from sisen.survey.serializers import AvailableStudySerializer, SurveyAnsweringSe
 from sisen.survey.views.main import get_object_or_not_found
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.reverse import reverse
 from rest_framework.response import Response

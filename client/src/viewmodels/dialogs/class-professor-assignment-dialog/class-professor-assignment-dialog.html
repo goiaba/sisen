@@ -1,0 +1,22 @@
+<template>
+  <ux-dialog>
+    <ux-dialog-body>
+      <p>Atribuição de Professores</p>
+      <select multiple class="selectpicker form-control dropup" value.bind="classroom.professors" data-dropup-auto="false" data-live-search="true" data-actions-box="true" multiple title="Selecione o(s) professor(es)..." data-style="btn-primary">
+        <option repeat.for="professor of availableProfessors"
+                model.bind="professor">
+          ${professor.first_name}
+        </option>
+        <option repeat.for="professor of classroom.professors"
+                model.bind="professor"
+                selected="selected">
+          ${professor.first_name}
+        </option>
+			</select>
+    </ux-dialog-body>
+    <ux-dialog-footer>
+      <button click.delegate="dialogController.ok(classroom)">Gravar</button>
+      <button click.delegate="dialogController.cancel()" attach-focus>Cancelar</button>
+    </ux-dialog-footer>
+  </ux-dialog>
+</template>
