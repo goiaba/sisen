@@ -1,4 +1,5 @@
-from django.db.models import Sum, Max, Count, F, Subquery, OuterRef, FloatField
+from django.db.models import Sum, Max, F, FloatField
+from functools import reduce
 import sisen.survey.dto as dto
 import sisen.survey.models as models
 
@@ -109,16 +110,19 @@ def _calculate_student_score_by_study(study, student):
     return scores
 
 def _get_study_options_max_scores(study):
-    qs = models.Question.objects.values('study_option__id').filter(id=OuterRef('id')).annotate(max_score=Max('answers__value'))
-    return { item['studyoption_id']: item['max_score'] for item in
-        models.Question.objects.filter(
-            study=study
-        ).values(
-            studyoption_id=F('study_option__id')
-        ).annotate(
-            max_score=Count('*', output_field=FloatField()) * Subquery(qs.values('max_score'), output_field=FloatField())
-        )
-    }
+    q = models.Question.objects.filter(
+        study=study
+    ).values(
+        'id', studyoption_id=F('study_option__id')
+    ).annotate(
+        max_score=Max('answers__value', output_field=FloatField())
+    )
+    # iterates over sq items and generates a dict of the form {studyoption_id: max_score, ...}. Starts with an empty
+    # dict as accumulator and, for each item in sq, updates max_score in this accumulator summing the current item
+    # value to the already calculated one.
+    return reduce(lambda a, e:
+                  {**a, **{e.get('studyoption_id'): a.get(e.get('studyoption_id'), 0) + e.get('max_score')}},
+                  q, {})
 
 def _multiply_max_scores_by_students_count(study, count):
     return { k: v * count for k, v in _get_study_options_max_scores(study).items() }
