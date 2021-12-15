@@ -3,6 +3,8 @@ client/static/
 node_modules/
 documentation/mine
 db.sqlite3
+**/.idea/
+**/envvars.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

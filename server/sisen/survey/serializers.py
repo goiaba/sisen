@@ -25,19 +25,23 @@ class UserSerializer(serializers.ModelSerializer):
             pass
         return super().to_internal_value(data)
 
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username=validated_data.get('email'),
+            email=validated_data.get('email'),
+            password=validated_data.get('password'),
+            first_name=validated_data.get('first_name'),
+            last_name=validated_data.get('last_name'))
+        return user
+
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'groups')
+        fields = ('email', 'first_name', 'last_name', 'groups', 'password')
         extra_kwargs = {
-            'email': { 'error_messages': {
-                'invalid': 'O e-mail digitado não é válido.'
-            }},
-            'first_name': { 'error_messages': {
-                'max_length': 'O nome não pode ultrapassar {max_length} caracteres.'
-            }},
-            'last_name': { 'error_messages': {
-                'max_length': 'O sobrenome não pode ultrapassar {max_length} caracteres.'
-            }}
+            'email': {'error_messages': {'invalid': 'O e-mail digitado não é válido.'}},
+            'first_name': {'error_messages': {'max_length': 'Nome não pode ultrapassar {max_length} caracteres.'}},
+            'last_name': {'error_messages': {'max_length': 'Sobrenome não pode ultrapassar {max_length} caracteres.'}},
+            'password': {'write_only': True}
         }
 
 
