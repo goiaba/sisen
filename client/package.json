@@ -22,7 +22,7 @@
     "datatables.net-rowgroup": "^1.1.0",
     "datatables.net-rowgroup-dt": "^1.1.0",
     "jquery": "^3.5.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "numeral": "^2.0.6",
     "open-iconic": "^1.1.1",
     "popper": "^1.0.1",
