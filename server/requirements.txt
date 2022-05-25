@@ -5,7 +5,7 @@ djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 numpy==1.16.1
 pandas==0.24.1
-PyJWT==1.7.1
+PyJWT==2.4.0
 python-dateutil==2.8.0
 python-http-client==3.1.0
 pytz==2018.9
