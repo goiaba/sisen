@@ -3,7 +3,7 @@ django-cors-headers==3.0.2
 django-rest-passwordreset==1.1.0
 djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
-numpy==1.16.1
+numpy==1.22.0
 pandas==0.24.1
 PyJWT==1.7.1
 python-dateutil==2.8.0
